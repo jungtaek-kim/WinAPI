@@ -135,12 +135,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCore.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WinAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCore.cpp" />
     <ClCompile Include="WinAPI.cpp" />
   </ItemGroup>
   <ItemGroup>

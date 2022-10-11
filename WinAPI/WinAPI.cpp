@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "WinAPI.h"
+#include "CCore.h"
 
 #define MAX_LOADSTRING 100
 
@@ -44,8 +45,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: 여기에 코드를 입력합니다.
-
 	// 리소스 뷰의 String table 정보
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -80,6 +79,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// 메세지 큐에서 메세지가 없다면 대기하지 않고 false 반환, 메세지가 있다면 true 반환
 	// 메세지가 없는 대부분의 상황에서 게임 상황을 처리
 	// 메세지 큐에 msg.message == WM_QUIT 인 경우 게임 메세지 루프를 break하여 프로그램 종료
+	CCore gameCore;
+	gameCore.Init();
+
 	MSG msg;
 	while (TRUE)
 	{
@@ -97,9 +99,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			// 게임 처리
+			gameCore.Update();
+			gameCore.Render();
 		}
 
 	}
+	gameCore.Release();
 
     return (int) msg.wParam;
 }
