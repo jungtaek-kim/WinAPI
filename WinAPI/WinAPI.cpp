@@ -8,6 +8,7 @@
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
+HWND hWnd;										// 윈도우의 핸들
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
@@ -32,6 +33,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+	// 한국 지역 설정
+	setlocale(LC_ALL, "Korean");
+	// 메모리 누수 체크
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetBreakAlloc(219);
+
 	// 사용하지 않은 매개변수 정의
 	// 불필요한 매개변수이지만 구버전 윈도우를 지원하기 위해 그대로 둠
     UNREFERENCED_PARAMETER(hPrevInstance);
@@ -58,14 +65,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// 메세지 큐에서 메세지가 확인될 때까지 대기
 	// 메세지 큐에 msg.mssage == WM_QUIT 인 경우 false를 반환
 	MSG msg;
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))	// 단축키 처리
-        {
-            TranslateMessage(&msg);	// 키보드 입력메세지 처리를 담당
-            DispatchMessage(&msg);	// WndProc에서 전달된 메세지를 실제 윈도우에 전달
-        }
-    }
+	while (GetMessage(&msg, nullptr, 0, 0))
+	{
+		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))	// 단축키 처리
+		{
+			TranslateMessage(&msg);	// 키보드 입력메세지 처리를 담당
+			DispatchMessage(&msg);	// WndProc에서 전달된 메세지를 실제 윈도우에 전달
+		}
+	}
 
     return (int) msg.wParam;
 }
@@ -92,8 +99,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINAPI));	// 프로그램 아이콘
 	wcex.hIconSm		= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL));	// 프로그램 작은사이즈 아이콘
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);	// 커서 지정
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);	// 윈도우 작업영역에 칠한 배경 브러시
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_WINAPI);	// 윈도우에서 사용할 메뉴 지정. nullptr로 없앰
+    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW);	// 윈도우 작업영역에 칠한 배경 브러시
+    wcex.lpszMenuName   = nullptr;	// 윈도우에서 사용할 메뉴 지정. nullptr로 없앰
     wcex.lpszClassName  = szWindowClass;	// 윈도우 클래스의 이름
 
     return RegisterClassExW(&wcex);
@@ -113,14 +120,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(
+   hWnd = CreateWindowW(
 	   szWindowClass,		// 윈도우 클래스 이름
 	   szTitle,				// 윈도우 타이틀 이름
-	   WS_OVERLAPPEDWINDOW,	// 윈도우 스타일
-	   CW_USEDEFAULT,		// 윈도우 화면 X
-	   0,					// 윈도우 화면 Y
-	   CW_USEDEFAULT,		// 윈도우 가로 크기
-	   0,					// 윈도우 세로 크기
+	   WINSTYLE,			// 윈도우 스타일
+	   WINSTARTX,			// 윈도우 화면 X
+	   WINSTARTY,			// 윈도우 화면 Y
+	   WINSIZEX,			// 윈도우 가로 크기
+	   WINSIZEY,			// 윈도우 세로 크기
 	   nullptr,				// 부모 윈도우
 	   nullptr,				// 메뉴 핸들
 	   hInstance,			// 인스턴스 지정
@@ -132,13 +139,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   // 실제 윈도우 크기를 구하기 위해 AdjustWindowRect 사용
+   RECT rc = { 0, 0, WINSIZEX, WINSIZEY };
+
+   // 실제 창이 크기에 맞게 나온다.
+   AdjustWindowRect(&rc, WINSTYLE, false);
+   // 위 RECT정보로 윈도우 사이즈를 설정
+   SetWindowPos(hWnd, NULL, WINSTARTX, WINSTARTY, (rc.right - rc.left), (rc.bottom - rc.top), SWP_NOZORDER | SWP_NOMOVE);
+
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
    return TRUE;
 }
-
-POINT g_rectPos = { -100, -100 };
 
 //
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
@@ -188,38 +201,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            
-			Ellipse(hdc, g_rectPos.x - 50, g_rectPos.y - 50,
-				g_rectPos.x + 50, g_rectPos.y + 50);
 
             EndPaint(hWnd, &ps);
         }
         break;
-
-	case WM_LBUTTONDOWN:
-		g_rectPos.x = LOWORD(lParam);
-		g_rectPos.y = HIWORD(lParam);
-		InvalidateRect(hWnd, NULL, true);
-		break;
-
-	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case VK_LEFT:
-			g_rectPos.x -= 10;
-			break;
-		case VK_RIGHT:
-			g_rectPos.x += 10;
-			break;
-		case VK_UP:
-			g_rectPos.y -= 10;
-			break;
-		case VK_DOWN:
-			g_rectPos.y += 10;
-			break;
-		}
-		InvalidateRect(hWnd, NULL, false);
-		break;
 
 	// 윈도우가 종료될 때 실행됨
 	// -> 메세지 큐에 WM_QUIT 입력
