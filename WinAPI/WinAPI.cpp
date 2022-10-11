@@ -202,6 +202,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		InvalidateRect(hWnd, NULL, true);
 		break;
 
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_LEFT:
+			g_rectPos.x -= 10;
+			break;
+		case VK_RIGHT:
+			g_rectPos.x += 10;
+			break;
+		case VK_UP:
+			g_rectPos.y -= 10;
+			break;
+		case VK_DOWN:
+			g_rectPos.y += 10;
+			break;
+		}
+		InvalidateRect(hWnd, NULL, false);
+		break;
+
 	// 윈도우가 종료될 때 실행됨
 	// -> 메세지 큐에 WM_QUIT 입력
     case WM_DESTROY:
