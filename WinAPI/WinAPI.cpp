@@ -138,6 +138,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
+POINT g_rectPos = { -100, -100 };
+
 //
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
@@ -186,10 +188,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            
+			Ellipse(hdc, g_rectPos.x - 50, g_rectPos.y - 50,
+				g_rectPos.x + 50, g_rectPos.y + 50);
+
             EndPaint(hWnd, &ps);
         }
         break;
+
+	case WM_LBUTTONDOWN:
+		g_rectPos.x = LOWORD(lParam);
+		g_rectPos.y = HIWORD(lParam);
+		InvalidateRect(hWnd, NULL, true);
+		break;
+
 	// 윈도우가 종료될 때 실행됨
 	// -> 메세지 큐에 WM_QUIT 입력
     case WM_DESTROY:
