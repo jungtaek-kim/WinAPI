@@ -19,6 +19,9 @@
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{29c74b2a-972d-412d-bc4a-2465f384b5f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{da4b95dc-36c6-40ee-9860-2ec5e325d45e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -35,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="CCore.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleTon.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

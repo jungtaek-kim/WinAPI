@@ -79,8 +79,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// 메세지 큐에서 메세지가 없다면 대기하지 않고 false 반환, 메세지가 있다면 true 반환
 	// 메세지가 없는 대부분의 상황에서 게임 상황을 처리
 	// 메세지 큐에 msg.message == WM_QUIT 인 경우 게임 메세지 루프를 break하여 프로그램 종료
-	CCore gameCore;
-	gameCore.Init();
+	CORE->Init();
 
 	MSG msg;
 	while (TRUE)
@@ -99,12 +98,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			// 게임 처리
-			gameCore.Update();
-			gameCore.Render();
+			CORE->Update();
+			CORE->Render();
 		}
 
 	}
-	gameCore.Release();
+	CORE->Release();
 
     return (int) msg.wParam;
 }

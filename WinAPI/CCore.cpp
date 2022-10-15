@@ -2,6 +2,14 @@
 #include "CCore.h"
 #include "WinAPI.h"
 
+CCore::CCore()
+{
+}
+
+CCore::~CCore()
+{
+}
+
 void CCore::Init()
 {
 	
