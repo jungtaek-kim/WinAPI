@@ -52,6 +52,10 @@ void CCore::Render()
 	RENDER->BeginDraw();
 
 	//// 게임 표현 내용
+	RENDER->SetPen(PenType::Dot, RGB(255, 0, 0));
+	RENDER->SetBrush(BrushType::Null);
+	RENDER->SetText(TextType::Center);
+
 	RENDER->Rect(m_pointX - 50, m_pointY - 50, m_pointX + 50, m_pointY + 50);
 	RENDER->Circle(200, 200, 100);
 	RENDER->Line(300, 300, 400, 400);
@@ -62,6 +66,7 @@ void CCore::Render()
 			RENDER->Pixel(i, j, RGB(255, 0, 255));
 		}
 	}
+	RENDER->Text(200, 200, L"원의 중심을 기준으로");
 
 	//// 우상단에 현재 게임FPS 출력 (60프레임 이상을 목표로 최적화 해야함)
 	wstring frame = to_wstring(FPS);
