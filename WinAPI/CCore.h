@@ -7,7 +7,8 @@ private:
 	virtual ~CCore();
 
 	HDC m_hdc;
-	POINT m_point;
+	float m_pointX;
+	float m_pointY;
 
 public:
 	void Init();		// 게임시작시 초기화 작업
