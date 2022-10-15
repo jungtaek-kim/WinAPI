@@ -6,6 +6,9 @@ private:
 	CCore();
 	virtual ~CCore();
 
+	HDC m_hdc;
+	POINT m_point;
+
 public:
 	void Init();		// 게임시작시 초기화 작업
 	void Update();		// 프레임마다 게임로직 진행
