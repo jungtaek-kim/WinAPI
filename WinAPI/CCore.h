@@ -6,7 +6,6 @@ private:
 	CCore();
 	virtual ~CCore();
 
-	HDC m_hdc;
 	float m_pointX;
 	float m_pointY;
 
