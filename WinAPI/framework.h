@@ -17,6 +17,7 @@
 // C++ 표준 라이브러리
 #include <clocale>
 #include <chrono>
+#include <string>
 
 using namespace std;
 

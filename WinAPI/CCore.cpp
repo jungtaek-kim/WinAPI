@@ -50,6 +50,10 @@ void CCore::Update()
 
 void CCore::Render()
 {
+	// 전체를 다시 흰색으로 그려 잔상을 삭제
+	Rectangle(m_hdc, -1, -1, WINSIZEX + 1, WINSIZEY + 1);
+
+	// 게임 표현 내용
 	Rectangle(
 		m_hdc,
 		m_pointX - 50,
@@ -57,6 +61,10 @@ void CCore::Render()
 		m_pointX + 50,
 		m_pointY + 50
 	);
+
+	// 우상단에 현재 게임FPS 출력 (60프레임 이상을 목표로 최적화 해야함)
+	wstring frame = to_wstring(FPS);
+	TextOutW(m_hdc, WINSIZEX - 50, 10, frame.c_str(), frame.size());
 }
 
 void CCore::Release()
