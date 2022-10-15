@@ -4,11 +4,14 @@
 
 #include "CTimeManager.h"
 #include "CRenderManager.h"
+#include "CInputManager.h"
 
 CCore::CCore()
 {
 	m_pointX = 100;
 	m_pointY = 100;
+	m_pointMouseX = 0;
+	m_pointMouseY = 0;
 }
 
 CCore::~CCore()
@@ -20,31 +23,36 @@ void CCore::Init()
 {
 	TIME->Init();
 	RENDER->Init();
+	INPUT->Init();
 }
 
 void CCore::Update()
 {
 	TIME->Update();
+	INPUT->Update();
 
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	if (BUTTONSTAY(VK_LEFT))
 	{
 		m_pointX -= 100 * DT;
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	if (BUTTONSTAY(VK_RIGHT))
 	{
 		m_pointX += 100 * DT;
 	}
 
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
+	if (BUTTONSTAY(VK_UP))
 	{
 		m_pointY -= 100 * DT;
 	}
 
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	if (BUTTONSTAY(VK_DOWN))
 	{
 		m_pointY += 100 * DT;
 	}
+
+	m_pointMouseX = (float)MOUSEPOS.x;
+	m_pointMouseY = (float)MOUSEPOS.y;
 }
 
 void CCore::Render()
@@ -54,19 +62,9 @@ void CCore::Render()
 	//// 게임 표현 내용
 	RENDER->SetPen(PenType::Dot, RGB(255, 0, 0));
 	RENDER->SetBrush(BrushType::Null);
-	RENDER->SetText(TextType::Center);
 
 	RENDER->Rect(m_pointX - 50, m_pointY - 50, m_pointX + 50, m_pointY + 50);
-	RENDER->Circle(200, 200, 100);
-	RENDER->Line(300, 300, 400, 400);
-	for (float i = 50; i < 80; i++)
-	{
-		for (float j = 50; j < 80; j++)
-		{
-			RENDER->Pixel(i, j, RGB(255, 0, 255));
-		}
-	}
-	RENDER->Text(200, 200, L"원의 중심을 기준으로");
+	RENDER->Circle(m_pointMouseX, m_pointMouseY, 50);
 
 	//// 우상단에 현재 게임FPS 출력 (60프레임 이상을 목표로 최적화 해야함)
 	wstring frame = to_wstring(FPS);
@@ -79,4 +77,5 @@ void CCore::Release()
 {
 	TIME->Release();
 	RENDER->Release();
+	INPUT->Release();
 }

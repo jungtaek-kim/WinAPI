@@ -9,6 +9,9 @@ private:
 	float m_pointX;
 	float m_pointY;
 
+	float m_pointMouseX;
+	float m_pointMouseY;
+
 public:
 	void Init();		// 게임시작시 초기화 작업
 	void Update();		// 프레임마다 게임로직 진행
