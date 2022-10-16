@@ -3,6 +3,8 @@
 
 #include "WinAPI.h"
 #include "CRenderManager.h"
+#include "CInputManager.h"
+#include "CSceneManager.h"
 
 CSceneTitle::CSceneTitle()
 {
@@ -22,6 +24,10 @@ void CSceneTitle::Enter()
 
 void CSceneTitle::Update()
 {
+	if (BUTTONDOWN(VK_SPACE))
+	{
+		SCENE->ChangeScene(GroupScene::Stage01);
+	}
 }
 
 void CSceneTitle::Render()

@@ -5,6 +5,7 @@
 #include "CInputManager.h"
 #include "CTimeManager.h"
 #include "CRenderManager.h"
+#include "CSceneManager.h"
 
 CSceneStage01::CSceneStage01()
 {
@@ -46,6 +47,11 @@ void CSceneStage01::Update()
 	if (BUTTONSTAY(VK_DOWN))
 	{
 		m_pointY += 100 * DT;
+	}
+
+	if (BUTTONDOWN(VK_ESCAPE))
+	{
+		SCENE->ChangeScene(GroupScene::Title);
 	}
 }
 

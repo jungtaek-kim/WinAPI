@@ -1,15 +1,15 @@
 #pragma once
 
-class CCore;
+class CSceneManager;
 
 class CScene
 {
-	friend CCore;
+	friend CSceneManager;
 public:
 	CScene();
 	virtual ~CScene();
 
-public:
+private:
 	// 순수가상함수:
 	// 함수를 추상화하여 구체화하지 않을 경우 인스턴스 생성을 막음
 	// 씬을 상속받아 순수가상함수들을 구체화시켜 씬을 완성시킴

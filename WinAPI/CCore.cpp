@@ -5,15 +5,11 @@
 #include "CTimeManager.h"
 #include "CRenderManager.h"
 #include "CInputManager.h"
-
-#include "CSceneTitle.h"
-#include "CSceneStage01.h"
+#include "CSceneManager.h"
 
 CCore::CCore()
 {
-	pCurScene		= nullptr;
-	pSceneTitle		= nullptr;
-	pSceneStage01	= nullptr;
+
 }
 
 CCore::~CCore()
@@ -26,34 +22,14 @@ void CCore::Init()
 	TIME->Init();
 	RENDER->Init();
 	INPUT->Init();
-
-	pSceneTitle = new CSceneTitle;
-	pSceneTitle->Init();
-	pSceneStage01 = new CSceneStage01;
-	pSceneStage01->Init();
-
-	pCurScene = pSceneTitle;
-	pCurScene->Enter();
+	SCENE->Init();
 }
 
 void CCore::Update()
 {
 	TIME->Update();
 	INPUT->Update();
-	pCurScene->Update();
-
-	if (BUTTONDOWN(VK_SPACE))
-	{
-		pCurScene->Exit();
-		pCurScene = pSceneStage01;
-		pCurScene->Enter();
-	}
-	else if (BUTTONDOWN(VK_ESCAPE))
-	{
-		pCurScene->Exit();
-		pCurScene = pSceneTitle;
-		pCurScene->Enter();
-	}
+	SCENE->Update();
 }
 
 void CCore::Render()
@@ -61,7 +37,7 @@ void CCore::Render()
 	RENDER->BeginDraw();
 
 	//// 게임 표현 내용
-	pCurScene->Render();
+	SCENE->Render();
 
 	//// 우상단에 현재 게임FPS 출력 (60프레임 이상을 목표로 최적화 해야함)
 	wstring frame = to_wstring(FPS);
@@ -75,9 +51,5 @@ void CCore::Release()
 	TIME->Release();
 	RENDER->Release();
 	INPUT->Release();
-
-	pCurScene->Exit();
-
-	pSceneTitle->Release();
-	pSceneStage01->Release();
+	SCENE->Release();
 }
