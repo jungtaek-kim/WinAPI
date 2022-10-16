@@ -6,12 +6,14 @@
 #include "CRenderManager.h"
 #include "CInputManager.h"
 
+#include "CSceneTitle.h"
+#include "CSceneStage01.h"
+
 CCore::CCore()
 {
-	m_pointX = 100;
-	m_pointY = 100;
-	m_pointMouseX = 0;
-	m_pointMouseY = 0;
+	pCurScene		= nullptr;
+	pSceneTitle		= nullptr;
+	pSceneStage01	= nullptr;
 }
 
 CCore::~CCore()
@@ -24,35 +26,34 @@ void CCore::Init()
 	TIME->Init();
 	RENDER->Init();
 	INPUT->Init();
+
+	pSceneTitle = new CSceneTitle;
+	pSceneTitle->Init();
+	pSceneStage01 = new CSceneStage01;
+	pSceneStage01->Init();
+
+	pCurScene = pSceneTitle;
+	pCurScene->Enter();
 }
 
 void CCore::Update()
 {
 	TIME->Update();
 	INPUT->Update();
+	pCurScene->Update();
 
-	if (BUTTONSTAY(VK_LEFT))
+	if (BUTTONDOWN(VK_SPACE))
 	{
-		m_pointX -= 100 * DT;
+		pCurScene->Exit();
+		pCurScene = pSceneStage01;
+		pCurScene->Enter();
 	}
-
-	if (BUTTONSTAY(VK_RIGHT))
+	else if (BUTTONDOWN(VK_ESCAPE))
 	{
-		m_pointX += 100 * DT;
+		pCurScene->Exit();
+		pCurScene = pSceneTitle;
+		pCurScene->Enter();
 	}
-
-	if (BUTTONSTAY(VK_UP))
-	{
-		m_pointY -= 100 * DT;
-	}
-
-	if (BUTTONSTAY(VK_DOWN))
-	{
-		m_pointY += 100 * DT;
-	}
-
-	m_pointMouseX = (float)MOUSEPOS.x;
-	m_pointMouseY = (float)MOUSEPOS.y;
 }
 
 void CCore::Render()
@@ -60,11 +61,7 @@ void CCore::Render()
 	RENDER->BeginDraw();
 
 	//// 게임 표현 내용
-	RENDER->SetPen(PenType::Dot, RGB(255, 0, 0));
-	RENDER->SetBrush(BrushType::Null);
-
-	RENDER->Rect(m_pointX - 50, m_pointY - 50, m_pointX + 50, m_pointY + 50);
-	RENDER->Circle(m_pointMouseX, m_pointMouseY, 50);
+	pCurScene->Render();
 
 	//// 우상단에 현재 게임FPS 출력 (60프레임 이상을 목표로 최적화 해야함)
 	wstring frame = to_wstring(FPS);
@@ -78,4 +75,9 @@ void CCore::Release()
 	TIME->Release();
 	RENDER->Release();
 	INPUT->Release();
+
+	pCurScene->Exit();
+
+	pSceneTitle->Release();
+	pSceneStage01->Release();
 }

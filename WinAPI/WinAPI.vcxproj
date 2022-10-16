@@ -138,6 +138,9 @@
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CInputManager.h" />
     <ClInclude Include="CRenderManager.h" />
+    <ClInclude Include="CScene.h" />
+    <ClInclude Include="CSceneStage01.h" />
+    <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
@@ -149,6 +152,9 @@
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CInputManager.cpp" />
     <ClCompile Include="CRenderManager.cpp" />
+    <ClCompile Include="CScene.cpp" />
+    <ClCompile Include="CSceneStage01.cpp" />
+    <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="WinAPI.cpp" />
   </ItemGroup>

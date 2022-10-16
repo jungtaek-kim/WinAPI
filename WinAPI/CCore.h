@@ -1,4 +1,7 @@
 #pragma once
+
+class CScene;
+
 class CCore : public SingleTon<CCore>
 {
 	friend SingleTon<CCore>;
@@ -6,11 +9,9 @@ private:
 	CCore();
 	virtual ~CCore();
 
-	float m_pointX;
-	float m_pointY;
-
-	float m_pointMouseX;
-	float m_pointMouseY;
+	CScene* pCurScene;
+	CScene* pSceneTitle;
+	CScene* pSceneStage01;
 
 public:
 	void Init();		// 게임시작시 초기화 작업

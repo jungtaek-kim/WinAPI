@@ -25,6 +25,12 @@
     <Filter Include="Engine\Manager">
       <UniqueIdentifier>{9c71cd82-7843-43fd-98f8-a0e9ad498e63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Asset">
+      <UniqueIdentifier>{a195b62d-287a-46f5-8490-be2bcbde2c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{2551544d-2c0b-4899-99f9-a72abda2a9d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -54,6 +60,15 @@
     <ClInclude Include="CInputManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Engine\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTitle.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneStage01.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -70,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="CInputManager.cpp">
       <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>Engine\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTitle.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneStage01.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
