@@ -5,6 +5,10 @@
 #include "CInputManager.h"
 #include "CTimeManager.h"
 #include "CRenderManager.h"
+#include "CSceneManager.h"
+#include "CScene.h"
+
+#include "CMissile.h"
 
 CPlayer::CPlayer()
 {
@@ -41,6 +45,11 @@ void CPlayer::Update()
 	{
 		m_vecPos.y += m_fSpeed * DT;
 	}
+
+	if (BUTTONDOWN(VK_SPACE))
+	{
+		CreateMissile();
+	}
 }
 
 void CPlayer::Render()
@@ -54,4 +63,11 @@ void CPlayer::Render()
 
 void CPlayer::Release()
 {
+}
+
+void CPlayer::CreateMissile()
+{
+	CMissile* pMissile = new CMissile();
+	pMissile->SetPos(m_vecPos);
+	ADDOBJECT(pMissile);
 }
