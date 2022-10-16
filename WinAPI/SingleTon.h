@@ -36,28 +36,12 @@ protected:
 	static T* instance;
 
 	SingleTon() {};
-	virtual ~SingleTon() { ReleaseInstance(); };
+	virtual ~SingleTon() {};
 
 public:
 	static T* GetInstance()
 	{
-		// 싱글톤 인스턴스가 없으면 새로 만들어 전달.
-		if (nullptr == instance)
-			instance = new T;
-
-		return instance;
-	}
-
-	void ReleaseInstance()
-	{
-		// 싱글톤 인스턴스가 있으면 해제
-		if (nullptr != instance)
-			delete instance;
-
-		instance = nullptr;
+		static T instance;
+		return &instance;
 	}
 };
-
-// 싱글톤 인스턴스 선언
-template <typename T>
-T* SingleTon<T>::instance = nullptr;
