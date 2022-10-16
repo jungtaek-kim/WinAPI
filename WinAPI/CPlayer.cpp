@@ -67,6 +67,8 @@ void CPlayer::Release()
 
 void CPlayer::CreateMissile()
 {
+	Logger::Debug(L"미사일 생성");
+
 	CMissile* pMissile = new CMissile();
 	pMissile->SetPos(m_vecPos);
 	ADDOBJECT(pMissile);
