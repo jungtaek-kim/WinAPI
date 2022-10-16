@@ -7,10 +7,11 @@
 #include "CRenderManager.h"
 #include "CSceneManager.h"
 
+#include "CPlayer.h"
+
 CSceneStage01::CSceneStage01()
 {
-	m_pointX = 0;
-	m_pointY = 0;
+	player = nullptr;
 }
 
 CSceneStage01::~CSceneStage01()
@@ -19,8 +20,8 @@ CSceneStage01::~CSceneStage01()
 
 void CSceneStage01::Init()
 {
-	m_pointX = WINSIZEX * 0.5f;
-	m_pointY = WINSIZEY * 0.5f;
+	player = new CPlayer();
+	player->SetPos(WINSIZEX * 0.5f, WINSIZEY * 0.5f);
 }
 
 void CSceneStage01::Enter()
@@ -29,25 +30,7 @@ void CSceneStage01::Enter()
 
 void CSceneStage01::Update()
 {
-	if (BUTTONSTAY(VK_LEFT))
-	{
-		m_pointX -= 100 * DT;
-	}
-
-	if (BUTTONSTAY(VK_RIGHT))
-	{
-		m_pointX += 100 * DT;
-	}
-
-	if (BUTTONSTAY(VK_UP))
-	{
-		m_pointY -= 100 * DT;
-	}
-
-	if (BUTTONSTAY(VK_DOWN))
-	{
-		m_pointY += 100 * DT;
-	}
+	player->Update();
 
 	if (BUTTONDOWN(VK_ESCAPE))
 	{
@@ -57,7 +40,7 @@ void CSceneStage01::Update()
 
 void CSceneStage01::Render()
 {
-	RENDER->Rect(m_pointX - 50, m_pointY - 50, m_pointX + 50, m_pointY + 50);
+	player->Render();
 }
 
 void CSceneStage01::Exit()
@@ -66,4 +49,6 @@ void CSceneStage01::Exit()
 
 void CSceneStage01::Release()
 {
+	player->Release();
+	delete player;
 }

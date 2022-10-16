@@ -1,11 +1,12 @@
 #pragma once
 #include "CScene.h"
 
+class CPlayer;
+
 class CSceneStage01 : public CScene
 {
 private:
-	float m_pointX;
-	float m_pointY;
+	CPlayer* player;
 
 public:
 	CSceneStage01();
