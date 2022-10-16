@@ -1,13 +1,8 @@
 #pragma once
 #include "CScene.h"
 
-class CPlayer;
-
 class CSceneStage01 : public CScene
 {
-private:
-	CPlayer* player;
-
 public:
 	CSceneStage01();
 	virtual ~CSceneStage01();

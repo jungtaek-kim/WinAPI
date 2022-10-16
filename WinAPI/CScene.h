@@ -1,15 +1,28 @@
 #pragma once
 
 class CSceneManager;
+class CGameObject;
 
 class CScene
 {
 	friend CSceneManager;
+private:
+	list<CGameObject*> m_listObj;
+
 public:
 	CScene();
 	virtual ~CScene();
 
 private:
+	// 씬 부모 전용 함수들 :
+	// 씬에 있는 모든 게임오브젝트들을 갱신
+	void SceneInit();
+	void SceneEnter();
+	void SceneUpdate();
+	void SceneRender();
+	void SceneExit();
+	void SceneRelease();
+
 	// 순수가상함수:
 	// 함수를 추상화하여 구체화하지 않을 경우 인스턴스 생성을 막음
 	// 씬을 상속받아 순수가상함수들을 구체화시켜 씬을 완성시킴
@@ -19,4 +32,9 @@ private:
 	virtual void Render() = 0;		// 게임표현 갱신
 	virtual void Exit() = 0;		// 탈출
 	virtual void Release() = 0;		// 마무리
+
+public:
+	void AddGameObject(CGameObject* pGameObj);
+	// 주의! 삭제는 쉬운과정이 아니므로 EventManager 단계에서 진행
+	// void DeleteGameObject(CGameObject* pGameObj);
 };

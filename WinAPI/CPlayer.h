@@ -10,6 +10,7 @@ public:
 	CPlayer();
 	virtual ~CPlayer();
 
+private:
 	void Init() override;
 	void Update() override;
 	void Render() override;

@@ -29,22 +29,22 @@ void CSceneManager::Init()
 		iter != m_mapScene.end();
 		iter++)
 	{
-		iter->second->Init();
+		iter->second->SceneInit();
 	}
 
 	// 가장 처음으로 진행해야할 게임씬 시작
 	m_pCurScene = pSceneTitle;
-	m_pCurScene->Enter();
+	m_pCurScene->SceneEnter();
 }
 
 void CSceneManager::Update()
 {
-	m_pCurScene->Update();
+	m_pCurScene->SceneUpdate();
 }
 
 void CSceneManager::Render()
 {
-	m_pCurScene->Render();
+	m_pCurScene->SceneRender();
 }
 
 void CSceneManager::Release()
@@ -55,7 +55,7 @@ void CSceneManager::Release()
 		iter != m_mapScene.end();
 		iter++)
 	{
-		iter->second->Release();
+		iter->second->SceneRelease();
 		delete iter->second;
 	}
 	// 모든 동적할당된 씬을 제거한뒤 자료구조를 clear
@@ -65,9 +65,9 @@ void CSceneManager::Release()
 void CSceneManager::ChangeScene(GroupScene scene)
 {
 	// 이전씬을 Exit, 다음씬을 Enter
-	m_pCurScene->Exit();
+	m_pCurScene->SceneExit();
 	m_pCurScene = m_mapScene[scene];
-	m_pCurScene->Enter();
+	m_pCurScene->SceneEnter();
 }
 
 CScene* CSceneManager::GetCurScene()
