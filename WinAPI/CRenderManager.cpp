@@ -157,6 +157,10 @@ void CRenderManager::SetPen(PenType type, COLORREF color, int width)
 	if (penType == type && penWidth == width && penColor == color)
 		return;
 
+	penType = type;
+	penWidth = width;
+	penColor = color;
+
 	// 이전 펜을 제거
 	DeleteObject(hCurPen);
 
@@ -187,6 +191,9 @@ void CRenderManager::SetBrush(BrushType type, COLORREF color)
 	if (brushType == type && brushColor == color)
 		return;
 
+	brushType = type;
+	brushColor = color;
+
 	// 이전 브러시를 제거
 	DeleteObject(hCurBrush);
 
@@ -211,6 +218,8 @@ void CRenderManager::SetText(TextType type)
 {
 	if (textType == type)
 		return;
+
+	textType = type;
 
 	switch (type)
 	{
