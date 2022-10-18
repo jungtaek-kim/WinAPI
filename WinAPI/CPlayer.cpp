@@ -5,8 +5,7 @@
 #include "CInputManager.h"
 #include "CTimeManager.h"
 #include "CRenderManager.h"
-#include "CSceneManager.h"
-#include "CScene.h"
+#include "CEventManager.h"
 
 #include "CMissile.h"
 

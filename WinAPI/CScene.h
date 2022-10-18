@@ -1,11 +1,13 @@
 #pragma once
 
 class CSceneManager;
+class CEventManager;
 class CGameObject;
 
 class CScene
 {
 	friend CSceneManager;
+	friend CEventManager;
 private:
 	list<CGameObject*> m_listObj;
 
@@ -33,7 +35,7 @@ private:
 	virtual void Exit() = 0;		// 탈출
 	virtual void Release() = 0;		// 마무리
 
-public:
+protected:
 	void AddGameObject(CGameObject* pGameObj);
 	// 주의! 삭제는 쉬운과정이 아니므로 EventManager 단계에서 진행
 	// void DeleteGameObject(CGameObject* pGameObj);
