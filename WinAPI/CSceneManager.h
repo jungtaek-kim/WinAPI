@@ -2,12 +2,14 @@
 #include "WinAPI.h"
 
 class CCore;
+class CEventManager;
 class CScene;
 
 class CSceneManager : public SingleTon<CSceneManager>
 {
 	friend class SingleTon<CSceneManager>;
 	friend class CCore;
+	friend class CEventManager;
 private:
 	CSceneManager();
 	virtual ~CSceneManager();
@@ -20,7 +22,6 @@ private:
 	void Render();
 	void Release();
 
-public:
 	CScene* GetCurScene();					// 현재 게임씬 반환
 	void ChangeScene(GroupScene scene);		// 게임씬 변경
 };

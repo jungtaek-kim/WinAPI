@@ -4,7 +4,7 @@
 #include "WinAPI.h"
 #include "CRenderManager.h"
 #include "CInputManager.h"
-#include "CSceneManager.h"
+#include "CEventManager.h"
 
 CSceneTitle::CSceneTitle()
 {
@@ -26,7 +26,7 @@ void CSceneTitle::Update()
 {
 	if (BUTTONDOWN(VK_SPACE))
 	{
-		SCENE->ChangeScene(GroupScene::Stage01);
+		CHANGESCENE(GroupScene::Stage01);
 	}
 }
 
