@@ -51,12 +51,9 @@ void CEventManager::ProgressAddObject()
 {
 	// 프레임의 초기에 추가될 게임오브젝트를 추가
 
-	list<CGameObject*>::iterator iter;
-	for (iter = m_listAddObject.begin();
-		iter != m_listAddObject.end();
-		iter++)
+	for (CGameObject* pGameObject : m_listAddObject)
 	{
-		SCENE->GetCurScene()->AddGameObject(*iter);
+		SCENE->GetCurScene()->AddGameObject(pGameObject);
 	}
 	m_listAddObject.clear();
 }
@@ -65,12 +62,9 @@ void CEventManager::ProgressDeleteObject()
 {
 	// 삭제 예정인 게임오브젝트에 삭제예정 표시를 진행
 
-	list<CGameObject*>::iterator iter;
-	for (iter = m_listDeleteObject.begin();
-		iter != m_listDeleteObject.end();
-		iter++)
+	for (CGameObject* pGameObject : m_listDeleteObject)
 	{
-		(*iter)->SetReserveDelete();
+		pGameObject->SetReserveDelete();
 	}
 	m_listDeleteObject.clear();
 }

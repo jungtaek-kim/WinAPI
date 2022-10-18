@@ -24,12 +24,9 @@ void CSceneManager::Init()
 	m_mapScene.insert(make_pair(GroupScene::Stage01, pSceneStage01));
 
 	// 게임씬 자료구조를 순회하며 씬을 초기화
-	map<GroupScene, CScene*>::iterator iter;
-	for (iter = m_mapScene.begin();
-		iter != m_mapScene.end();
-		iter++)
+	for (pair<GroupScene, CScene*> scene : m_mapScene)
 	{
-		iter->second->SceneInit();
+		scene.second->SceneInit();
 	}
 
 	// 가장 처음으로 진행해야할 게임씬 시작
@@ -50,14 +47,12 @@ void CSceneManager::Render()
 void CSceneManager::Release()
 {
 	// 게임씬 자료구조를 순회하며 동적할당된 씬을 제거
-	map<GroupScene, CScene*>::iterator iter;
-	for (iter = m_mapScene.begin();
-		iter != m_mapScene.end();
-		iter++)
+	for (pair<GroupScene, CScene*> scene : m_mapScene)
 	{
-		iter->second->SceneRelease();
-		delete iter->second;
+		scene.second->SceneRelease();
+		delete scene.second;
 	}
+	
 	// 모든 동적할당된 씬을 제거한뒤 자료구조를 clear
 	m_mapScene.clear();
 }
