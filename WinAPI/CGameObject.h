@@ -1,5 +1,6 @@
 #pragma once
 
+class CEventManager;
 class CScene;
 
 // 게임오브젝트 : 
@@ -8,10 +9,17 @@ class CScene;
 // 다른 게임오브젝트와 독립적으로 설계할 수 있음
 class CGameObject
 {
+	friend CEventManager;
 	friend CScene;
 protected:
 	Vector m_vecPos;	// 게임오브젝트의 위치
 	Vector m_vecScale;	// 게임오브젝트의 크기
+
+	bool m_bReservedDelete;		// 게임오브젝트가 삭제예정인지 여부
+	void SetReserveDelete();	// 게임오브젝트 삭제 예약
+	bool m_bSafeToDelete;		// 게임오브젝트가 삭제해도 문제없는지 여부
+	bool GetSafeToDelete();		// 게임오브젝트 삭제 가능 상태 확인
+	void SetSafeToDelete();		// 게임오브젝트 삭제 가능 상태 표시
 
 public:
 	CGameObject();
@@ -23,6 +31,8 @@ public:
 	Vector GetScale();
 	void SetScale(Vector scale);
 	void SetScale(float x, float y);
+
+	bool GetReserveDelete();		// 게임오브젝트가 삭제예정인지 확인
 
 private:
 	virtual void Init() = 0;		// 초기화

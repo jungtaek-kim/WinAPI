@@ -37,6 +37,9 @@ private:
 
 protected:
 	void AddGameObject(CGameObject* pGameObj);
-	// 주의! 삭제는 쉬운과정이 아니므로 EventManager 단계에서 진행
+	// 삭제과정은 게임오브젝트 자료구조에서 삭제될 게임오브젝트를 찾아서 제거하는 방법을 채택하지 않음
+	// 1. 게임오브젝트를 탐색하여 삭제하는 것이 비효율적
+	// 2. 삭제예정인 게임오브젝트를 참조하고 있는 게임오브젝트들에게 유예시간을 줘야함
+	// -> Update 진행중 삭제예정인 오브젝트를 한프레임만 보관하고 다음프레임이 시작될 때 삭제함
 	// void DeleteGameObject(CGameObject* pGameObj);
 };

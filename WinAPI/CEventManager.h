@@ -12,6 +12,7 @@ private:
 	virtual ~CEventManager();
 
 	list<CGameObject*> m_listAddObject;			// AddObject 이벤트 보관
+	list<CGameObject*> m_listDeleteObject;		// DeleteObject 이벤트 보관
 
 	void Init();
 	void Update();
@@ -19,10 +20,13 @@ private:
 
 public:
 	void EventAddObject(CGameObject* pObj);		// 다음프레임에 추가될 오브젝트 이벤트 추가
+	void EventDeleteObject(CGameObject* pObj);	// 삭제 예정인 오브젝트 이벤트 추가
 
 private:
 	void ProgressAddObject();					// 프레임 초기에 추가될 오브젝트를 추가
+	void ProgressDeleteObject();				// 삭제 예정인 오브젝트를 표시, 이후 씬에서 표시된 오브젝트를 제거
 };
 
 #define EVENT				CEventManager::GetInstance()
 #define ADDOBJECT(pObj)		CEventManager::GetInstance()->EventAddObject(pObj)
+#define DELETEOBJECT(pObj)	CEventManager::GetInstance()->EventDeleteObject(pObj)

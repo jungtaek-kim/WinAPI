@@ -39,11 +39,27 @@ void CScene::SceneUpdate()
 		iter != m_listObj.end();
 		iter++)
 	{
-		(*iter)->Update();
+		if ((*iter)->GetReserveDelete())	// 게임오브젝트가 삭제 예정인경우
+			(*iter)->SetSafeToDelete();		// 삭제해도 괜찮은 상태로 전환
+		else
+			(*iter)->Update();
 	}
 
 	// 상속한 자식 로직갱신
 	Update();
+
+	// 씬 내에 삭제해도 안전한 게임오브젝트를 삭제
+	iter = m_listObj.begin();
+	while (iter != m_listObj.end())
+	{
+		if ((*iter)->GetSafeToDelete())
+		{
+			delete (*iter);
+			iter = m_listObj.erase(iter);
+		}
+		else
+			iter++;
+	}
 }
 
 void CScene::SceneRender()

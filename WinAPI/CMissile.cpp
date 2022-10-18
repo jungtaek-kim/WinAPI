@@ -3,6 +3,7 @@
 
 #include "CRenderManager.h"
 #include "CTimeManager.h"
+#include "CEventManager.h"
 
 CMissile::CMissile()
 {
@@ -20,6 +21,10 @@ void CMissile::Init()
 void CMissile::Update()
 {
 	m_vecPos.x += 300 * DT;
+
+	// 임시로 삭제 구현
+	if (m_vecPos.x > 1000)
+		DELETEOBJECT(this);
 }
 
 void CMissile::Render()
