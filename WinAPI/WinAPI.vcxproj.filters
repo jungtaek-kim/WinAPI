@@ -90,6 +90,9 @@
     <ClInclude Include="Logger.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="CEventManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="CMissile.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
