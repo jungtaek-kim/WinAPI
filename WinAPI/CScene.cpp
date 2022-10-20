@@ -47,6 +47,7 @@ void CScene::SceneUpdate()
 		{
 			if (target->GetSafeToDelete())
 			{
+				target->Release();
 				delete target;
 				return true;
 			}
@@ -80,6 +81,7 @@ void CScene::SceneRelease()
 		pGameObject->Release();
 		delete pGameObject;
 	}
+	m_listObj.clear();
 
 	// 상속한 자식 마무리
 	Release();
