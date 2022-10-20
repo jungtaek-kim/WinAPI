@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "CGameObject.h"
 
+#include "CComponent.h"
+
 CGameObject::CGameObject()
 {
 	m_vecPos = Vector(0, 0);
@@ -48,6 +50,20 @@ void CGameObject::SetScale(float x, float y)
 bool CGameObject::GetReserveDelete()
 {
     return m_bReservedDelete;
+}
+
+void CGameObject::AddComponent(CComponent* component)
+{
+	m_listComponent.push_back(component);
+	component->Init();
+	component->SetOwner(this);
+}
+
+void CGameObject::RemoveComponent(CComponent* component)
+{
+	component->Release();
+	m_listComponent.remove(component);
+	delete component;
 }
 
 void CGameObject::SetReserveDelete()
