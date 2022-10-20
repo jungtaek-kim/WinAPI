@@ -3,6 +3,7 @@
 class CEventManager;
 class CScene;
 class CComponent;
+class CCollider;
 
 // 게임오브젝트 : 
 // 씬 내에 존재하는 물체, ex) 캐릭터, 미사일, 몬스터, 아이템, 등
@@ -43,6 +44,15 @@ private:
 
 	void AddComponent(CComponent* component);		// 컴포넌트 추가
 	void RemoveComponent(CComponent* component);	// 컴포넌트 삭제
+
+	// 충돌 컴포넌트
+private:
+	CCollider* m_pCollider;
+
+protected:
+	CCollider* GetCollider();
+	void AddCollider(Vector scale, Vector offsetPos);
+	void RemoveCollider();
 
 private:
 	// 게임오브젝트 부모 전용 함수들 :

@@ -16,6 +16,7 @@ CMissile::~CMissile()
 
 void CMissile::Init()
 {
+	AddCollider(Vector(10, 10), Vector(0, 0));
 }
 
 void CMissile::Update()

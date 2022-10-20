@@ -41,8 +41,8 @@ public:
 	void Circle(float x, float y, float radius);					// 원 그리기
 	void Text(float x, float y, wstring str);						// 텍스트 그리기
 
-	void SetPen(PenType type, COLORREF color = RGB(0, 0, 0), int width = 1);	// 펜 설정
-	void SetBrush(BrushType type, COLORREF color = RGB(255, 255, 255));			// 브러시 설정
+	void SetPen(PenType type = PenType::Solid, COLORREF color = RGB(0, 0, 0), int width = 1);	// 펜 설정
+	void SetBrush(BrushType type = BrushType::Solid, COLORREF color = RGB(255, 255, 255));			// 브러시 설정
 	void SetText(TextType type);
 };
 

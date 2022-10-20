@@ -99,6 +99,9 @@
     <ClInclude Include="CComponent.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
+    <ClInclude Include="CCollider.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -141,6 +144,9 @@
       <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CComponent.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
   </ItemGroup>

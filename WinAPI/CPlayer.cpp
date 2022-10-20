@@ -21,6 +21,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Init()
 {
+	AddCollider(Vector(90, 90), Vector(0, 0));
 }
 
 void CPlayer::Update()

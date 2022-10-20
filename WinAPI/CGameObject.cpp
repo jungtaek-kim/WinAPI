@@ -2,6 +2,7 @@
 #include "CGameObject.h"
 
 #include "CComponent.h"
+#include "CCollider.h"
 
 CGameObject::CGameObject()
 {
@@ -9,6 +10,8 @@ CGameObject::CGameObject()
 	m_vecScale = Vector(0, 0);
 	m_bReservedDelete = false;
 	m_bSafeToDelete = false;
+
+	m_pCollider = nullptr;
 }
 
 CGameObject::~CGameObject()
@@ -64,6 +67,31 @@ void CGameObject::RemoveComponent(CComponent* component)
 	component->Release();
 	m_listComponent.remove(component);
 	delete component;
+}
+
+CCollider* CGameObject::GetCollider()
+{
+	return m_pCollider;
+}
+
+void CGameObject::AddCollider(Vector scale, Vector offsetPos)
+{
+	if (nullptr != m_pCollider)
+		return;
+
+	m_pCollider = new CCollider();
+	m_pCollider->SetScale(scale);
+	m_pCollider->SetOffsetPos(offsetPos);
+	AddComponent(m_pCollider);
+}
+
+void CGameObject::RemoveCollider()
+{
+	if (nullptr == m_pCollider)
+		return;
+
+	RemoveComponent(m_pCollider);
+	m_pCollider = nullptr;
 }
 
 void CGameObject::SetReserveDelete()
