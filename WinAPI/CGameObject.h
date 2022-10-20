@@ -59,6 +59,7 @@ private:
 	// 게임오브젝트에 있는 모든 컴포넌트들을 갱신
 	void GameObjectInit();
 	void GameObjectUpdate();
+	void GameObjectPhysicsUpdate();
 	void GameObjectRender();
 	void GameObjectRelease();
 

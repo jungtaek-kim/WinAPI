@@ -51,6 +51,10 @@ void CCollider::Init()
 
 void CCollider::Update()
 {
+}
+
+void CCollider::PhysicsUpdate()
+{
 	m_vecPos = m_vecOffsetPos + GetOwner()->GetPos();
 }
 

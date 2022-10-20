@@ -56,6 +56,15 @@ void CScene::SceneUpdate()
 		});
 }
 
+void CScene::ScenePhysicsUpdate()
+{
+	// 씬 내에 모든 게임오브젝트 물리처리 진행
+	for (CGameObject* pGameObject : m_listObj)
+	{
+		pGameObject->GameObjectPhysicsUpdate();
+	}
+}
+
 void CScene::SceneRender()
 {
 	// 씬 내에 모든 게임오브젝트 표현갱신

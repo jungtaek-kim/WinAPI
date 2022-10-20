@@ -26,6 +26,7 @@ public:
 private:
 	virtual void Init() = 0;
 	virtual void Update() = 0;
+	virtual void PhysicsUpdate(){};		// 물리처리가 필요한 컴포넌트만 재정의하여 사용
 	virtual void Render() = 0;
 	virtual void Release() = 0;
 };

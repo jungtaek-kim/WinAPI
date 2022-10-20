@@ -133,6 +133,15 @@ void CGameObject::GameObjectUpdate()
 	}
 }
 
+void CGameObject::GameObjectPhysicsUpdate()
+{
+	// 게임오브젝트 내에 모든 컴포넌트 물리처리갱신
+	for (CComponent* pComponent : m_listComponent)
+	{
+		pComponent->PhysicsUpdate();
+	}
+}
+
 void CGameObject::GameObjectRender()
 {
 	// 상속한 자식 표현갱신

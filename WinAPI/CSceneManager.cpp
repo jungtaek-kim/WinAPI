@@ -37,6 +37,7 @@ void CSceneManager::Init()
 void CSceneManager::Update()
 {
 	m_pCurScene->SceneUpdate();
+	m_pCurScene->ScenePhysicsUpdate();
 }
 
 void CSceneManager::Render()

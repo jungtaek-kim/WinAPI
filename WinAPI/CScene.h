@@ -21,6 +21,7 @@ private:
 	void SceneInit();
 	void SceneEnter();
 	void SceneUpdate();
+	void ScenePhysicsUpdate();
 	void SceneRender();
 	void SceneExit();
 	void SceneRelease();

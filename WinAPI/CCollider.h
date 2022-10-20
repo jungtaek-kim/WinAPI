@@ -29,6 +29,7 @@ public:
 private:
 	void Init() override;
 	void Update() override;
+	void PhysicsUpdate() override;	// 面倒眉狼 拱府贸府
 	void Render() override;
 	void Release() override;
 
