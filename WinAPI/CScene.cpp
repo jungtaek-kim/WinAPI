@@ -16,7 +16,7 @@ void CScene::SceneInit()
 	// 씬 내에 모든 게임오브젝트 초기화
 	for (CGameObject* pGameObject : m_listObj)
 	{
-		pGameObject->Init();
+		pGameObject->GameObjectInit();
 	}
 
 	// 상속한 자식 초기화
@@ -36,7 +36,7 @@ void CScene::SceneUpdate()
 		if (pGameObject->GetReserveDelete())
 			pGameObject->SetSafeToDelete();
 		else
-			pGameObject->Update();
+			pGameObject->GameObjectUpdate();
 	}
 
 	// 상속한 자식 로직갱신
@@ -47,7 +47,7 @@ void CScene::SceneUpdate()
 		{
 			if (target->GetSafeToDelete())
 			{
-				target->Release();
+				target->GameObjectRelease();
 				delete target;
 				return true;
 			}
@@ -61,7 +61,7 @@ void CScene::SceneRender()
 	// 씬 내에 모든 게임오브젝트 표현갱신
 	for (CGameObject* pGameObject : m_listObj)
 	{
-		pGameObject->Render();
+		pGameObject->GameObjectRender();
 	}
 
 	// 상속한 자식 표현갱신
@@ -78,7 +78,7 @@ void CScene::SceneRelease()
 	// 씬 내에 모든 게임오브젝트 마무리
 	for (CGameObject* pGameObject : m_listObj)
 	{
-		pGameObject->Release();
+		pGameObject->GameObjectRelease();
 		delete pGameObject;
 	}
 	m_listObj.clear();
@@ -91,5 +91,5 @@ void CScene::AddGameObject(CGameObject* pGameObj)
 {
 	// 새로운 게임오브젝트 추가 및 초기화
 	m_listObj.push_back(pGameObj);
-	pGameObj->Init();
+	pGameObj->GameObjectInit();
 }

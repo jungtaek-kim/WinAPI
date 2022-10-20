@@ -45,6 +45,16 @@ private:
 	void RemoveComponent(CComponent* component);	// 컴포넌트 삭제
 
 private:
+	// 게임오브젝트 부모 전용 함수들 :
+	// 게임오브젝트에 있는 모든 컴포넌트들을 갱신
+	void GameObjectInit();
+	void GameObjectUpdate();
+	void GameObjectRender();
+	void GameObjectRelease();
+
+	// 순수가상함수:
+	// 함수를 추상화하여 구체화하지 않을 경우 인스턴스 생성을 막음
+	// 게임오브젝트를 상속받아 순수가상함수들을 구체화시켜 게임오브젝트를 완성시킴
 	virtual void Init() = 0;		// 초기화
 	virtual void Update() = 0;		// 게임오브젝트의 행동정의
 	virtual void Render() = 0;		// 게임오브젝트의 표현정의

@@ -80,3 +80,53 @@ void CGameObject::SetSafeToDelete()
 {
 	m_bSafeToDelete = true;
 }
+
+void CGameObject::GameObjectInit()
+{
+	// 게임오브젝트 내에 모든 컴포넌트 초기화
+	for (CComponent* pComponent : m_listComponent)
+	{
+		pComponent->Init();
+	}
+
+	// 상속한 자식 초기화
+	Init();
+}
+
+void CGameObject::GameObjectUpdate()
+{
+	// 상속한 자식 로직갱신
+	Update();
+
+	// 게임오브젝트 내에 모든 컴포넌트 로직갱신
+	for (CComponent* pComponent : m_listComponent)
+	{
+		pComponent->Update();
+	}
+}
+
+void CGameObject::GameObjectRender()
+{
+	// 상속한 자식 표현갱신
+	Render();
+
+	// 게임오브젝트 내에 모든 컴포넌트 표현갱신
+	for (CComponent* pComponent : m_listComponent)
+	{
+		pComponent->Render();
+	}
+}
+
+void CGameObject::GameObjectRelease()
+{
+	// 게임오브젝트 내에 모든 컴포넌트 마무리
+	for (CComponent* pComponent : m_listComponent)
+	{
+		pComponent->Release();
+		delete pComponent;
+	}
+	m_listComponent.clear();
+
+	// 상속한 자식 마무리
+	Release();
+}
