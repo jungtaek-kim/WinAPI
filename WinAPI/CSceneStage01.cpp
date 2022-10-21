@@ -8,6 +8,7 @@
 #include "CEventManager.h"
 
 #include "CPlayer.h"
+#include "CMonster.h"
 
 CSceneStage01::CSceneStage01()
 {
@@ -22,6 +23,10 @@ void CSceneStage01::Init()
 	CPlayer* pPlayer = new CPlayer();
 	pPlayer->SetPos(200, WINSIZEY * 0.5f);
 	AddGameObject(pPlayer);
+
+	CMonster* pMonster = new CMonster();
+	pMonster->SetPos(1000, WINSIZEY * 0.5f);
+	AddGameObject(pMonster);
 }
 
 void CSceneStage01::Enter()

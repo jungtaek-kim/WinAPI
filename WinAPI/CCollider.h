@@ -1,10 +1,12 @@
 #pragma once
 #include "CComponent.h"
 
+class CCollisionManager;
 class CGameObject;
 
 class CCollider : public CComponent
 {
+	friend CCollisionManager;
 	friend CGameObject;
 
 public:

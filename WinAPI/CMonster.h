@@ -1,16 +1,15 @@
 #pragma once
 #include "CGameObject.h"
-class CMissile : public CGameObject
+class CMonster : public CGameObject
 {
 public:
-	CMissile();
-	virtual ~CMissile();
+	CMonster();
+	virtual ~CMonster();
 
 private:
 	void Init() override;
 	void Update() override;
 	void Render() override;
 	void Release() override;
-
-	void OnCollision(CCollider* pOtherCollider) override;
 };
+

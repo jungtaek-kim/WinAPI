@@ -20,6 +20,9 @@ private:
 	void Release();
 
 private:
+	void CollisionUpdate(Layer leftLayer, Layer rightLayer);
+	bool IsCollision(CCollider* pLeftCollider, CCollider* pRightCollider);
+
 	void CheckLayer(Layer left, Layer right);
 	void UnCheckLayer(Layer left, Layer right);
 	void ResetCheck();

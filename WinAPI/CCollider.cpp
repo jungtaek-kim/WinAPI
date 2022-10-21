@@ -79,5 +79,5 @@ void CCollider::Release()
 
 void CCollider::OnCollision(CCollider* pOtherCollider)
 {
-	Logger::Debug(L"Ãæµ¹ÇÔ!");
+	GetOwner()->OnCollision(pOtherCollider);
 }

@@ -3,12 +3,14 @@
 
 class CSceneManager;
 class CEventManager;
+class CCollisionManager;
 class CGameObject;
 
 class CScene
 {
 	friend CSceneManager;
 	friend CEventManager;
+	friend CCollisionManager;
 private:
 	list<CGameObject*> m_listObj[(int)Layer::Size];
 

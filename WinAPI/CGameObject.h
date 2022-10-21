@@ -2,6 +2,7 @@
 #include "WinAPI.h"
 
 class CEventManager;
+class CCollisionManager;
 class CScene;
 class CComponent;
 class CCollider;
@@ -13,7 +14,9 @@ class CCollider;
 class CGameObject
 {
 	friend CEventManager;
+	friend CCollisionManager;
 	friend CScene;
+	friend CCollider;
 public:
 	CGameObject();
 	virtual ~CGameObject();
@@ -57,6 +60,8 @@ protected:
 	CCollider* GetCollider();
 	void AddCollider(Vector scale, Vector offsetPos);
 	void RemoveCollider();
+
+	virtual void OnCollision(CCollider* pOtherCollider) {};	// 충돌체크를 확인하는 오브젝트는 재정의하여 사용
 
 private:
 	// 게임오브젝트 부모 전용 함수들 :

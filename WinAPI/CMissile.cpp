@@ -24,8 +24,8 @@ void CMissile::Update()
 {
 	m_vecPos.x += 300 * DT;
 
-	// 임시로 삭제 구현
-	if (m_vecPos.x > 1000)
+	// 화면밖으로 나갈경우 삭제
+	if (m_vecPos.x > WINSIZEX)
 		DELETEOBJECT(this);
 }
 
@@ -39,4 +39,10 @@ void CMissile::Render()
 
 void CMissile::Release()
 {
+}
+
+void CMissile::OnCollision(CCollider* pOtherCollider)
+{
+	Logger::Debug(L"미사일이 충돌체와 부딪혀 사라집니다.");
+	DELETEOBJECT(this);
 }
