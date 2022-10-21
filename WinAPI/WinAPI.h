@@ -30,3 +30,17 @@ enum class GroupScene
 
 	Size,
 };
+
+//========================================
+//##				·¹ÀÌ¾î				##
+//========================================
+
+enum class Layer
+{
+	Default,
+	Player,
+	Missile,
+	Monster,
+
+	Size,
+};
