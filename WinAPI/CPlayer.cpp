@@ -13,6 +13,7 @@ CPlayer::CPlayer()
 {
 	m_vecPos = Vector(0, 0);
 	m_vecScale = Vector(100, 100);
+	m_layer = Layer::Player;
 }
 
 CPlayer::~CPlayer()

@@ -1,4 +1,5 @@
 #pragma once
+#include "WinAPI.h"
 
 class CEventManager;
 class CScene;
@@ -20,6 +21,7 @@ public:
 protected:
 	Vector m_vecPos;	// 게임오브젝트의 위치
 	Vector m_vecScale;	// 게임오브젝트의 크기
+	Layer m_layer;		// 게임오브젝트의 레이어
 
 public:
 	Vector GetPos();
@@ -28,6 +30,8 @@ public:
 	Vector GetScale();
 	void SetScale(Vector scale);
 	void SetScale(float x, float y);
+	Layer GetLayer();
+	void SetLayer(Layer layer);
 
 private:
 	bool m_bReservedDelete;		// 게임오브젝트가 삭제예정인지 여부

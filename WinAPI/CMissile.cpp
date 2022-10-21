@@ -8,6 +8,7 @@
 CMissile::CMissile()
 {
 	m_vecScale = Vector(10, 10);
+	m_layer = Layer::Missile;
 }
 
 CMissile::~CMissile()

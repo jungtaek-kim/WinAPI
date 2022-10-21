@@ -1,4 +1,5 @@
 #pragma once
+#include "WinAPI.h"
 
 class CSceneManager;
 class CEventManager;
@@ -9,7 +10,7 @@ class CScene
 	friend CSceneManager;
 	friend CEventManager;
 private:
-	list<CGameObject*> m_listObj;
+	list<CGameObject*> m_listObj[(int)Layer::Size];
 
 public:
 	CScene();

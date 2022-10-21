@@ -8,6 +8,7 @@ CGameObject::CGameObject()
 {
 	m_vecPos = Vector(0, 0);
 	m_vecScale = Vector(0, 0);
+	m_layer = Layer::Default;
 	m_bReservedDelete = false;
 	m_bSafeToDelete = false;
 
@@ -48,6 +49,16 @@ void CGameObject::SetScale(float x, float y)
 {
 	m_vecScale.x = x;
 	m_vecScale.y = y;
+}
+
+Layer CGameObject::GetLayer()
+{
+	return m_layer;
+}
+
+void CGameObject::SetLayer(Layer layer)
+{
+	m_layer = layer;
 }
 
 bool CGameObject::GetReserveDelete()
