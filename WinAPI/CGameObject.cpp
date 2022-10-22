@@ -61,6 +61,16 @@ void CGameObject::SetLayer(Layer layer)
 	m_layer = layer;
 }
 
+wstring CGameObject::GetName()
+{
+	return m_strName;
+}
+
+void CGameObject::SetName(wstring name)
+{
+	m_strName = name;
+}
+
 bool CGameObject::GetReserveDelete()
 {
     return m_bReservedDelete;

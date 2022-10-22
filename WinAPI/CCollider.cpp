@@ -20,6 +20,11 @@ CCollider::~CCollider()
 {
 }
 
+wstring CCollider::GetObjName()
+{
+	return GetOwner()->GetName();
+}
+
 UINT CCollider::GetID()
 {
     return m_uiID;

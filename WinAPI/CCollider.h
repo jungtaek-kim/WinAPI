@@ -28,6 +28,7 @@ private:
 	void SetScale(Vector scale);
 
 public:
+	wstring GetObjName();
 	UINT GetID();
 	Vector GetPos();
 	Vector GetOffsetPos();
