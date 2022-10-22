@@ -77,15 +77,12 @@ void CPlayer::CreateMissile()
 
 void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 {
-	Logger::Debug(L"플레이어가 충돌진입");
 }
 
 void CPlayer::OnCollisionStay(CCollider* pOtherCollider)
 {
-	Logger::Debug(L"플레이어가 충돌중");
 }
 
 void CPlayer::OnCollisionExit(CCollider* pOtherCollider)
 {
-	Logger::Debug(L"플레이어가 충돌탈출");
 }

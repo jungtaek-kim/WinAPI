@@ -9,6 +9,7 @@ UINT CCollider::s_uiID = 0;
 CCollider::CCollider()
 {
 	m_uiID = s_uiID++;
+	m_uiCollisionCount = 0;
 
 	m_vecPos = Vector(0, 0);
 	m_vecOffsetPos = Vector(0, 0);
@@ -69,7 +70,10 @@ void CCollider::PhysicsUpdate()
 
 void CCollider::Render()
 {
-	RENDER->SetPen(PenType::Solid, RGB(0, 255, 0));
+	if (m_uiCollisionCount > 0)
+		RENDER->SetPen(PenType::Solid, RGB(255, 0, 0));
+	else
+		RENDER->SetPen(PenType::Solid, RGB(0, 255, 0));
 	RENDER->SetBrush(BrushType::Null);
 
 	RENDER->Rect(
@@ -88,6 +92,7 @@ void CCollider::Release()
 
 void CCollider::OnCollisionEnter(CCollider* pOtherCollider)
 {
+	m_uiCollisionCount++;
 	GetOwner()->OnCollisionEnter(pOtherCollider);
 }
 
@@ -98,5 +103,6 @@ void CCollider::OnCollisionStay(CCollider* pOtherCollider)
 
 void CCollider::OnCollisionExit(CCollider* pOtherCollider)
 {
+	m_uiCollisionCount--;
 	GetOwner()->OnCollisionExit(pOtherCollider);
 }
