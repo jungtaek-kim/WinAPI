@@ -23,6 +23,9 @@ private:
 private:
 	void CollisionUpdate(Layer leftLayer, Layer rightLayer);
 	bool IsCollision(CCollider* pLeftCollider, CCollider* pRightCollider);
+	bool RectCollision(Vector leftPos, Vector leftScale, Vector rightPos, Vector rightScale);
+	bool CircleCollision(Vector leftPos, float leftScale, Vector rightPos, float rightScale);
+	bool RectCircleCollision(Vector rectPos, Vector rectScale, Vector circlePos, float circleScale);
 
 	void CheckLayer(Layer left, Layer right);
 	void UnCheckLayer(Layer left, Layer right);
