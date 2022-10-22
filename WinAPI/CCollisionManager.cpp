@@ -77,16 +77,34 @@ void CCollisionManager::CollisionUpdate(Layer leftLayer, Layer rightLayer)
 				// Prev O, Cur O
 				if (m_umapPrevCollision[id])
 				{
-					pLeftCollider->OnCollisionStay(pRightCollider);
-					pRightCollider->OnCollisionStay(pLeftCollider);
-					m_umapPrevCollision[id] = true;
+					// 충돌체 중 하나라도 삭제예정인 경우 충돌 해제
+					if (pLeftObj->GetReserveDelete() || pRightObj->GetReserveDelete())
+					{
+						pLeftCollider->OnCollisionExit(pRightCollider);
+						pRightCollider->OnCollisionExit(pLeftCollider);
+						m_umapPrevCollision[id] = false;
+					}
+					else
+					{
+						pLeftCollider->OnCollisionStay(pRightCollider);
+						pRightCollider->OnCollisionStay(pLeftCollider);
+						m_umapPrevCollision[id] = true;
+					}
 				}
 				// Prev X, Cur O
 				else
 				{
-					pLeftCollider->OnCollisionEnter(pRightCollider);
-					pRightCollider->OnCollisionEnter(pLeftCollider);
-					m_umapPrevCollision[id] = true;
+					// 충돌체 중 하나라도 삭제예정인 경우 충돌시키지 않음
+					if (pLeftObj->GetReserveDelete() || pRightObj->GetReserveDelete())
+					{
+						// 아무것도 하지 않음
+					}
+					else
+					{
+						pLeftCollider->OnCollisionEnter(pRightCollider);
+						pRightCollider->OnCollisionEnter(pLeftCollider);
+						m_umapPrevCollision[id] = true;
+					}
 				}
 			}
 			else
