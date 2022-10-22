@@ -18,6 +18,7 @@ CCollisionManager::~CCollisionManager()
 void CCollisionManager::Init()
 {
 	CheckLayer(Layer::Monster, Layer::Missile);
+	CheckLayer(Layer::Monster, Layer::Player);
 }
 
 void CCollisionManager::Update()
@@ -61,13 +62,47 @@ void CCollisionManager::CollisionUpdate(Layer leftLayer, Layer rightLayer)
 			if (pLeftObj == pRightObj)
 				continue;
 
+			// 충돌체와 충돌체의 ID 확인
 			CCollider* pLeftCollider = pLeftObj->GetCollider();
 			CCollider* pRightCollider = pRightObj->GetCollider();
+			UINT64 id = CollisionID(pLeftCollider->GetID(), pRightCollider->GetID());
+
+			// 충돌 정보가 없었던 경우, 충돌하지 않은 상태로 보관
+			if (m_umapPrevCollision.find(id) == m_umapPrevCollision.end())
+				m_umapPrevCollision.insert(make_pair(id, false));
+			
 			// 충돌처리 확인
 			if (IsCollision(pLeftCollider, pRightCollider))
 			{
-				pLeftCollider->OnCollision(pRightCollider);
-				pRightCollider->OnCollision(pLeftCollider);
+				// Prev O, Cur O
+				if (m_umapPrevCollision[id])
+				{
+					pLeftCollider->OnCollisionStay(pRightCollider);
+					pRightCollider->OnCollisionStay(pLeftCollider);
+					m_umapPrevCollision[id] = true;
+				}
+				// Prev X, Cur O
+				else
+				{
+					pLeftCollider->OnCollisionEnter(pRightCollider);
+					pRightCollider->OnCollisionEnter(pLeftCollider);
+					m_umapPrevCollision[id] = true;
+				}
+			}
+			else
+			{
+				// Prev O, Cur X
+				if (m_umapPrevCollision[id])
+				{
+					pLeftCollider->OnCollisionExit(pRightCollider);
+					pRightCollider->OnCollisionExit(pLeftCollider);
+					m_umapPrevCollision[id] = false;
+				}
+				// Prev X, Cur X
+				else
+				{
+					m_umapPrevCollision[id] = false;
+				}
 			}
 		}
 	}
@@ -113,4 +148,21 @@ void CCollisionManager::ResetCheck()
 		check = false;
 	}
 	*/
+}
+
+UINT64 CCollisionManager::CollisionID(UINT leftID, UINT rightID)
+{
+	UINT64 result = 0;
+	if (leftID < rightID)
+	{
+		result |= (UINT64)leftID << 32;
+		result |= rightID;
+		return result;
+	}
+	else
+	{
+		result |= (UINT64)rightID << 32;
+		result |= leftID;
+		return result;
+	}
 }

@@ -12,5 +12,5 @@ private:
 	void Render() override;
 	void Release() override;
 
-	void OnCollision(CCollider* pOtherCollider) override;
+	void OnCollisionEnter(CCollider* pOtherCollider) override;
 };

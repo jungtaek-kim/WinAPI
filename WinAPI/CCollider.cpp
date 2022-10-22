@@ -4,8 +4,12 @@
 #include "CRenderManager.h"
 #include "CGameObject.h"
 
+UINT CCollider::s_uiID = 0;
+
 CCollider::CCollider()
 {
+	m_uiID = s_uiID++;
+
 	m_vecPos = Vector(0, 0);
 	m_vecOffsetPos = Vector(0, 0);
 	m_vecScale = Vector(0, 0);
@@ -13,6 +17,11 @@ CCollider::CCollider()
 
 CCollider::~CCollider()
 {
+}
+
+UINT CCollider::GetID()
+{
+    return m_uiID;
 }
 
 Vector CCollider::GetPos()
@@ -77,7 +86,17 @@ void CCollider::Release()
 {
 }
 
-void CCollider::OnCollision(CCollider* pOtherCollider)
+void CCollider::OnCollisionEnter(CCollider* pOtherCollider)
 {
-	GetOwner()->OnCollision(pOtherCollider);
+	GetOwner()->OnCollisionEnter(pOtherCollider);
+}
+
+void CCollider::OnCollisionStay(CCollider* pOtherCollider)
+{
+	GetOwner()->OnCollisionStay(pOtherCollider);
+}
+
+void CCollider::OnCollisionExit(CCollider* pOtherCollider)
+{
+	GetOwner()->OnCollisionExit(pOtherCollider);
 }

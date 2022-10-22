@@ -41,7 +41,7 @@ void CMissile::Release()
 {
 }
 
-void CMissile::OnCollision(CCollider* pOtherCollider)
+void CMissile::OnCollisionEnter(CCollider* pOtherCollider)
 {
 	Logger::Debug(L"미사일이 충돌체와 부딪혀 사라집니다.");
 	DELETEOBJECT(this);
