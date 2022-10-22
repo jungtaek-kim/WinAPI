@@ -37,6 +37,9 @@
     <Filter Include="Engine\Component">
       <UniqueIdentifier>{4e06265c-1d60-449d-b7a1-f96a6027dd6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Asset\Resource">
+      <UniqueIdentifier>{c5cfb52a-750e-43df-b17a-8d52a11c9f90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="CPathManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CResource.h">
+      <Filter>Engine\Asset\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -166,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="CPathManager.cpp">
       <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CResource.cpp">
+      <Filter>Engine\Asset\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
