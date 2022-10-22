@@ -143,6 +143,7 @@
     <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CCore.h" />
+    <ClInclude Include="CEllipseComponent.h" />
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CImageComponent.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CPathManager.h" />
     <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="CRectComponent.h" />
     <ClInclude Include="CRenderManager.h" />
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
@@ -159,6 +161,7 @@
     <ClInclude Include="CSceneStage01.h" />
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CImage.h" />
+    <ClInclude Include="CTextComponent.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
@@ -173,6 +176,7 @@
     <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CCore.cpp" />
+    <ClCompile Include="CEllipseComponent.cpp" />
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CImageComponent.cpp" />
@@ -181,6 +185,7 @@
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CPlayer.cpp" />
+    <ClCompile Include="CRectComponent.cpp" />
     <ClCompile Include="CRenderManager.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
@@ -189,6 +194,7 @@
     <ClCompile Include="CSceneStage01.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CImage.cpp" />
+    <ClCompile Include="CTextComponent.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="WinAPI.cpp" />
   </ItemGroup>

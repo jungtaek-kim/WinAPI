@@ -129,6 +129,15 @@
     <ClInclude Include="CImageComponent.h">
       <Filter>Engine\Component\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="CEllipseComponent.h">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextComponent.h">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CRectComponent.h">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -195,6 +204,15 @@
       <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CImageComponent.cpp">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CEllipseComponent.cpp">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextComponent.cpp">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CRectComponent.cpp">
       <Filter>Engine\Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
