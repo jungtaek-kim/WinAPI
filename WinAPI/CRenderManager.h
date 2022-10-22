@@ -1,6 +1,8 @@
 #pragma once
+#pragma comment(lib, "Msimg32.lib")
 
 class CCore;
+class CImage;
 
 enum class PenType { Solid, Dot, Dash, Null };
 enum class BrushType { Solid, Null };
@@ -35,11 +37,16 @@ private:
 	void Release();
 
 public:
-	void Pixel(float x, float y, COLORREF color);
-	void Line(float startX, float startY, float endX, float endY);
-	void Rect(float startX, float startY, float endX, float endY);	// 사각형 그리기
-	void Circle(float x, float y, float radius);					// 원 그리기
-	void Text(float x, float y, wstring str);						// 텍스트 그리기
+	void Pixel(float x, float y, COLORREF color);						// 픽셀 그리기
+	void Line(float startX, float startY, float endX, float endY);		// 선 그리기
+	void Rect(float startX, float startY, float endX, float endY);		// 사각형 그리기
+	void Circle(float x, float y, float radius);						// 원 그리기
+	void Ellipse(float startX, float startY, float endX, float endY);	// 타원 그리기
+	void Text(float x, float y, wstring str);							// 텍스트 그리기
+	void BitImage(CImage* pImg, float startX, float startY, float endX, float endY);		// 이미지 그리기
+	void StrectchImage(CImage* pImg, float startX, float startY, float endX, float endY);	// 크기변경이미지 그리기
+	void TransparentImage(CImage* pImg, float startX, float startY, float endX, float endY,	// 투명이미지 그리기
+		COLORREF transparent = RGB(255, 0, 255));
 
 	void SetPen(PenType type = PenType::Solid, COLORREF color = RGB(0, 0, 0), int width = 1);	// 펜 설정
 	void SetBrush(BrushType type = BrushType::Solid, COLORREF color = RGB(255, 255, 255));			// 브러시 설정

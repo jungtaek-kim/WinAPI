@@ -2,6 +2,7 @@
 #include "CRenderManager.h"
 
 #include "WinAPI.h"
+#include "CImage.h"
 
 CRenderManager::CRenderManager()
 {
@@ -128,7 +129,24 @@ void CRenderManager::Circle(float x, float y, float radius)
 	HPEN prevPen = static_cast<HPEN>(SelectObject(m_hMemDC, hCurPen));
 	HBRUSH prevBrush = static_cast<HBRUSH>(SelectObject(m_hMemDC, hCurBrush));
 
-	Ellipse(m_hMemDC, (int)(x - radius), (int)(y - radius), (int)(x + radius), (int)(y + radius));
+	::Ellipse(m_hMemDC, (int)(x - radius), (int)(y - radius), (int)(x + radius), (int)(y + radius));
+
+	SelectObject(m_hMemDC, prevPen);
+	SelectObject(m_hMemDC, prevBrush);
+}
+
+void CRenderManager::Ellipse(float startX, float startY, float endX, float endY)
+{
+	// WinGDI 사용법
+	// 1. 현재펜과 현재브러시를 선택
+	// 2. 그리기 작업 진행
+	// 3. 이전펜과 이전브러시로 복구
+	// Why? 다른 영역에서 사용하다 잠시 빌려쓴 경우를 대비
+
+	HPEN prevPen = static_cast<HPEN>(SelectObject(m_hMemDC, hCurPen));
+	HBRUSH prevBrush = static_cast<HBRUSH>(SelectObject(m_hMemDC, hCurBrush));
+
+	::Ellipse(m_hMemDC, (int)startX, (int)startY, (int)endX, (int)endY);
 
 	SelectObject(m_hMemDC, prevPen);
 	SelectObject(m_hMemDC, prevBrush);
@@ -149,6 +167,23 @@ void CRenderManager::Text(float x, float y, wstring str)
 
 	SelectObject(m_hMemDC, prevPen);
 	SelectObject(m_hMemDC, prevBrush);
+}
+
+void CRenderManager::BitImage(CImage* pImg, float startX, float startY, float endX, float endY)
+{
+	BitBlt(m_hMemDC, (int)startX, (int)startY, (int)endX, (int)endY, pImg->GetImgDC(), 0, 0, SRCCOPY);
+}
+
+void CRenderManager::StrectchImage(CImage* pImg, float startX, float startY, float endX, float endY)
+{
+	StretchBlt(m_hMemDC, (int)startX, (int)startY, (int)(endX - startX), (int)(endY - startY),
+		pImg->GetImgDC(), 0, 0, pImg->GetBmpWidth(), pImg->GetBmpHeight(), SRCCOPY);
+}
+
+void CRenderManager::TransparentImage(CImage* pImg, float startX, float startY, float endX, float endY, COLORREF transparent)
+{
+	TransparentBlt(m_hMemDC, (int)startX, (int)startY, (int)(endX - startX), (int)(endY - startY),
+		pImg->GetImgDC(), 0, 0, pImg->GetBmpWidth(), pImg->GetBmpHeight(), transparent);
 }
 
 void CRenderManager::SetPen(PenType type, COLORREF color, int width)

@@ -1,6 +1,8 @@
 #pragma once
 #include "CGameObject.h"
 
+class CImage;
+
 class CPlayer : public CGameObject
 {
 private:
@@ -9,6 +11,9 @@ private:
 public:
 	CPlayer();
 	virtual ~CPlayer();
+
+private:
+	CImage* m_pImg;
 
 private:
 	void Init() override;
