@@ -152,6 +152,7 @@
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CRenderManager.h" />
     <ClInclude Include="CResource.h" />
+    <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneStage01.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CRenderManager.cpp" />
     <ClCompile Include="CResource.cpp" />
+    <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneStage01.cpp" />

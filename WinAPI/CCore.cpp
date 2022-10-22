@@ -9,6 +9,7 @@
 #include "CEventManager.h"
 #include "CCollisionManager.h"
 #include "CPathManager.h"
+#include "CResourceManager.h"
 
 CCore::CCore()
 {
@@ -28,6 +29,7 @@ void CCore::Init()
 	EVENT->Init();
 	COLLISION->Init();
 	PATH->Init();
+	RESOURCE->Init();
 
 	SCENE->Init();
 }
@@ -69,4 +71,5 @@ void CCore::Release()
 	EVENT->Release();
 	COLLISION->Release();
 	PATH->Release();
+	RESOURCE->Release();
 }

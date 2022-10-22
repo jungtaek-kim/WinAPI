@@ -120,6 +120,9 @@
     <ClInclude Include="CImage.h">
       <Filter>Engine\Asset\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="CResourceManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -181,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="CImage.cpp">
       <Filter>Engine\Asset\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
