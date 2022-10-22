@@ -243,3 +243,8 @@ void CRenderManager::SetText(TextType type)
 		break;
 	}
 }
+
+HDC CRenderManager::GetMemDC()
+{
+	return m_hMemDC;
+}

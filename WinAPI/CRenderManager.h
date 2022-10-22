@@ -44,6 +44,9 @@ public:
 	void SetPen(PenType type = PenType::Solid, COLORREF color = RGB(0, 0, 0), int width = 1);	// 펜 설정
 	void SetBrush(BrushType type = BrushType::Solid, COLORREF color = RGB(255, 255, 255));			// 브러시 설정
 	void SetText(TextType type);
+
+	HDC GetMemDC();
 };
 
 #define	RENDER	CRenderManager::GetInstance()
+#define GETDC	CRenderManager::GetInstance()->GetMemDC()

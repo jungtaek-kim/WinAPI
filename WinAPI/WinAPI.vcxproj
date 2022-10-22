@@ -156,6 +156,7 @@
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneStage01.h" />
     <ClInclude Include="CSceneTitle.h" />
+    <ClInclude Include="CImage.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneStage01.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
+    <ClCompile Include="CImage.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="WinAPI.cpp" />
   </ItemGroup>
