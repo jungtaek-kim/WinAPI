@@ -21,6 +21,7 @@
 #include <map>
 #include <unordered_map>
 #include <list>
+#include <cassert>
 
 using namespace std;
 
