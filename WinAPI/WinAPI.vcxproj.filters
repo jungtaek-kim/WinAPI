@@ -40,6 +40,9 @@
     <Filter Include="Engine\Asset\Resource">
       <UniqueIdentifier>{c5cfb52a-750e-43df-b17a-8d52a11c9f90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Renderer">
+      <UniqueIdentifier>{a399a263-c6db-4e32-a426-0fcc474e8c2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -123,6 +126,9 @@
     <ClInclude Include="CResourceManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CImageComponent.h">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -187,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="CResourceManager.cpp">
       <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CImageComponent.cpp">
+      <Filter>Engine\Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
