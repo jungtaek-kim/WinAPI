@@ -6,6 +6,7 @@ class CCollisionManager;
 class CScene;
 class CComponent;
 class CCollider;
+enum class ColliderType;
 
 // 게임오브젝트 : 
 // 씬 내에 존재하는 물체, ex) 캐릭터, 미사일, 몬스터, 아이템, 등
@@ -61,7 +62,7 @@ private:
 
 protected:
 	CCollider* GetCollider();
-	void AddCollider(Vector scale, Vector offsetPos);
+	void AddCollider(ColliderType type, Vector scale, Vector offsetPos);
 	void RemoveCollider();
 
 	virtual void OnCollisionEnter(CCollider* pOtherCollider) {};	// 충돌체크를 확인하는 오브젝트는 재정의하여 사용

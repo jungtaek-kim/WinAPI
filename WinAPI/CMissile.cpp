@@ -4,6 +4,7 @@
 #include "CRenderManager.h"
 #include "CTimeManager.h"
 #include "CEventManager.h"
+#include "CCollider.h"
 
 CMissile::CMissile()
 {
@@ -18,7 +19,7 @@ CMissile::~CMissile()
 
 void CMissile::Init()
 {
-	AddCollider(Vector(10, 10), Vector(0, 0));
+	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
 }
 
 void CMissile::Update()

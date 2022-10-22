@@ -6,6 +6,7 @@
 #include "CTimeManager.h"
 #include "CRenderManager.h"
 #include "CEventManager.h"
+#include "CCollider.h"
 
 #include "CMissile.h"
 
@@ -23,7 +24,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Init()
 {
-	AddCollider(Vector(90, 90), Vector(0, 0));
+	AddCollider(ColliderType::Rect, Vector(90, 90), Vector(0, 0));
 }
 
 void CPlayer::Update()

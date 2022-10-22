@@ -16,7 +16,7 @@ CMonster::~CMonster()
 
 void CMonster::Init()
 {
-	AddCollider(Vector(90, 90), Vector(0, 0));
+	AddCollider(ColliderType::Rect, Vector(90, 90), Vector(0, 0));
 }
 
 void CMonster::Update()

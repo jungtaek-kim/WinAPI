@@ -11,6 +11,7 @@ CCollider::CCollider()
 	m_uiID = s_uiID++;
 	m_uiCollisionCount = 0;
 
+	m_type = ColliderType::Rect;
 	m_vecPos = Vector(0, 0);
 	m_vecOffsetPos = Vector(0, 0);
 	m_vecScale = Vector(0, 0);
@@ -18,6 +19,11 @@ CCollider::CCollider()
 
 CCollider::~CCollider()
 {
+}
+
+ColliderType CCollider::GetType()
+{
+	return m_type;
 }
 
 wstring CCollider::GetObjName()
@@ -33,6 +39,11 @@ UINT CCollider::GetID()
 Vector CCollider::GetPos()
 {
 	return m_vecPos;
+}
+
+void CCollider::SetType(ColliderType type)
+{
+	m_type = type;
 }
 
 void CCollider::SetPos(Vector pos)
@@ -81,11 +92,22 @@ void CCollider::Render()
 		RENDER->SetPen(PenType::Solid, RGB(0, 255, 0));
 	RENDER->SetBrush(BrushType::Null);
 
-	RENDER->Rect(
-		m_vecPos.x - m_vecScale.x * 0.5f,
-		m_vecPos.y - m_vecScale.y * 0.5f,
-		m_vecPos.x + m_vecScale.x * 0.5f,
-		m_vecPos.y + m_vecScale.y * 0.5f);
+	if (m_type == ColliderType::Rect)
+	{
+		RENDER->Rect(
+			m_vecPos.x - m_vecScale.x * 0.5f,
+			m_vecPos.y - m_vecScale.y * 0.5f,
+			m_vecPos.x + m_vecScale.x * 0.5f,
+			m_vecPos.y + m_vecScale.y * 0.5f);
+	}
+	else if (m_type == ColliderType::Circle)
+	{
+		RENDER->Circle(
+			m_vecPos.x,
+			m_vecPos.y,
+			m_vecScale.x
+		);
+	}
 
 	RENDER->SetPen();
 	RENDER->SetBrush();

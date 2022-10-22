@@ -95,12 +95,13 @@ CCollider* CGameObject::GetCollider()
 	return m_pCollider;
 }
 
-void CGameObject::AddCollider(Vector scale, Vector offsetPos)
+void CGameObject::AddCollider(ColliderType type, Vector scale, Vector offsetPos)
 {
 	if (nullptr != m_pCollider)
 		return;
 
 	m_pCollider = new CCollider();
+	m_pCollider->SetType(type);
 	m_pCollider->SetScale(scale);
 	m_pCollider->SetOffsetPos(offsetPos);
 	AddComponent(m_pCollider);
