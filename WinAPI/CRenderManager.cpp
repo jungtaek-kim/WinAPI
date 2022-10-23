@@ -103,6 +103,7 @@ void CRenderManager::Init()
 void CRenderManager::BeginDraw()
 {
 	m_pRenderTarget->BeginDraw();
+	FillRect(-1, -1, WINSIZEX + 1, WINSIZEY + 1, Color(255, 255, 255, 1.f));
 }
 
 void CRenderManager::EndDraw()
@@ -207,4 +208,201 @@ void CRenderManager::SetTextParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragr
 {
 	HRESULT hResult = m_pDefaultTextFormat->SetParagraphAlignment(paragraphAlignment);
 	assert(S_OK == hResult && "TextFormat SetParagraphAlignment Failed");
+}
+
+void CRenderManager::Text(wstring str, float startX, float startY, float endX, float endY)
+{
+	D2D1_RECT_F rect = { startX, startY, endX, endY };
+	m_pRenderTarget->DrawTextW(str.c_str(), (UINT32)str.size(), m_pDefaultTextFormat,
+		rect, m_pDefaultBrush);
+}
+
+void CRenderManager::Text(wstring str, float startX, float startY, float endX, float endY, Color color, float fontSize)
+{
+	D2D1_RECT_F rect = { startX, startY, endX, endY };
+
+	if (m_pCurTextFormat->GetFontSize() != fontSize)
+	{
+		HRESULT hResult;
+
+		WCHAR fontFamilyName[255];
+		m_pDefaultTextFormat->GetFontFamilyName(fontFamilyName, 255);
+		WCHAR localeName[255];
+		m_pDefaultTextFormat->GetLocaleName(localeName, 255);
+
+		m_pCurTextFormat->Release();
+		hResult = m_pWriteFactory->CreateTextFormat(
+			fontFamilyName,
+			NULL,
+			m_pDefaultTextFormat->GetFontWeight(),
+			m_pDefaultTextFormat->GetFontStyle(),
+			m_pDefaultTextFormat->GetFontStretch(),
+			fontSize,
+			localeName,
+			&m_pCurTextFormat);
+		assert(S_OK == hResult && "TextFormat Create Failed");
+
+		hResult = m_pCurTextFormat->SetTextAlignment(m_pDefaultTextFormat->GetTextAlignment());
+		assert(S_OK == hResult && "TextFormat SetAlignment Failed");
+
+		hResult = m_pCurTextFormat->SetParagraphAlignment(m_pDefaultTextFormat->GetParagraphAlignment());
+		assert(S_OK == hResult && "TextFormat SetParagraphAlignment Failed");
+	}
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->DrawTextW(str.c_str(), (UINT32)str.size(), m_pCurTextFormat,
+		rect, m_pCurBrush);
+}
+
+void CRenderManager::Line(Vector startPoint, Vector endPoint)
+{
+	D2D1_POINT_2F start = { startPoint.x, startPoint.y };
+	D2D1_POINT_2F end = { endPoint.x, endPoint.y };
+
+	m_pRenderTarget->DrawLine(start, end, m_pDefaultBrush, 1.f);
+}
+
+void CRenderManager::Line(Vector startPoint, Vector endPoint, Color color, float strokeWidth)
+{
+	D2D1_POINT_2F start = { startPoint.x, startPoint.y };
+	D2D1_POINT_2F end = { endPoint.x, endPoint.y };
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->DrawLine(start, end, m_pCurBrush, strokeWidth);
+}
+
+void CRenderManager::FrameRect(float startX, float startY, float endX, float endY)
+{
+	D2D1_RECT_F rect = { startX, startY, endX, endY };
+	m_pRenderTarget->DrawRectangle(rect, m_pDefaultBrush, 1.f);
+}
+
+void CRenderManager::FrameRect(float startX, float startY, float endX, float endY, Color color, float strokeWidth)
+{
+	D2D1_RECT_F rect = { startX, startY, endX, endY };
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->DrawRectangle(rect, m_pCurBrush, strokeWidth);
+}
+
+void CRenderManager::FillRect(float startX, float startY, float endX, float endY)
+{
+	D2D1_RECT_F rect = { startX, startY, endX, endY };
+	m_pRenderTarget->FillRectangle(rect, m_pDefaultBrush);
+}
+
+void CRenderManager::FillRect(float startX, float startY, float endX, float endY, Color color)
+{
+	D2D1_RECT_F rect = { startX, startY, endX, endY };
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->FillRectangle(rect, m_pCurBrush);
+}
+
+void CRenderManager::FrameEllipse(float startX, float startY, float endX, float endY)
+{
+	D2D1_ELLIPSE ellipse = { 
+		(startX + endX) * 0.5f,
+		(startY + endY) * 0.5f,
+		abs(startX - endX) * 0.5f,
+		abs(startY - endY) * 0.5f
+	};
+	m_pRenderTarget->DrawEllipse(ellipse, m_pDefaultBrush, 1.f);
+}
+
+void CRenderManager::FrameEllipse(float startX, float startY, float endX, float endY, Color color, float strokeWidth)
+{
+	D2D1_ELLIPSE ellipse = {
+		(startX + endX) * 0.5f,
+		(startY + endY) * 0.5f,
+		abs(startX - endX) * 0.5f,
+		abs(startY - endY) * 0.5f
+	};
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->DrawEllipse(ellipse, m_pCurBrush, strokeWidth);
+}
+
+void CRenderManager::FillEllipse(float startX, float startY, float endX, float endY)
+{
+	D2D1_ELLIPSE ellipse = {
+		(startX + endX) * 0.5f,
+		(startY + endY) * 0.5f,
+		abs(startX - endX) * 0.5f,
+		abs(startY - endY) * 0.5f
+	};
+	m_pRenderTarget->FillEllipse(ellipse, m_pDefaultBrush);
+}
+
+void CRenderManager::FillEllipse(float startX, float startY, float endX, float endY, Color color)
+{
+	D2D1_ELLIPSE ellipse = {
+		(startX + endX) * 0.5f,
+		(startY + endY) * 0.5f,
+		abs(startX - endX) * 0.5f,
+		abs(startY - endY) * 0.5f
+	};
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->FillEllipse(ellipse, m_pCurBrush);
+}
+
+void CRenderManager::FrameCircle(float pointX, float pointY, float radius)
+{
+	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
+	m_pRenderTarget->DrawEllipse(ellipse, m_pDefaultBrush, 1.f);
+}
+
+void CRenderManager::FrameCircle(float pointX, float pointY, float radius, Color color, float strokeWidth)
+{
+	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->DrawEllipse(ellipse, m_pCurBrush, strokeWidth);
+}
+
+void CRenderManager::FillCircle(float pointX, float pointY, float radius)
+{
+	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
+	m_pRenderTarget->FillEllipse(ellipse, m_pDefaultBrush);
+}
+
+void CRenderManager::FillCircle(float pointX, float pointY, float radius, Color color)
+{
+	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
+
+	m_pCurBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a));
+	m_pRenderTarget->FillEllipse(ellipse, m_pCurBrush);
 }

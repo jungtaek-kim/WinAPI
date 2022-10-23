@@ -53,6 +53,28 @@ public:
 		wstring localeName = L"ko");
 	void SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
 	void SetTextParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+
+public:
+	void Text(wstring str, float dstX, float dstY, float dstW, float dstH);
+	void Text(wstring str, float dstX, float dstY, float dstW, float dstH, Color color, float fontSize = 10.f);
+
+	void Line(Vector startPoint, Vector endPoint);
+	void Line(Vector startPoint, Vector endPoint, Color color, float strokeWidth = 1.f);
+
+	void FrameRect(float startX, float startY, float endX, float endY);
+	void FrameRect(float startX, float startY, float endX, float endY, Color color, float strokeWidth = 1.f);
+	void FillRect(float startX, float startY, float endX, float endY);
+	void FillRect(float startX, float startY, float endX, float endY, Color color);
+
+	void FrameEllipse(float startX, float startY, float endX, float endY);
+	void FrameEllipse(float startX, float startY, float endX, float endY, Color color, float strokeWidth = 1.f);
+	void FillEllipse(float startX, float startY, float endX, float endY);
+	void FillEllipse(float startX, float startY, float endX, float endY, Color color);
+
+	void FrameCircle(float pointX, float pointY, float radius);
+	void FrameCircle(float pointX, float pointY, float radius, Color color, float strokeWidth = 1.f);
+	void FillCircle(float pointX, float pointY, float radius);
+	void FillCircle(float pointX, float pointY, float radius, Color color);
 };
 
 #define	RENDER	CRenderManager::GetInstance()
