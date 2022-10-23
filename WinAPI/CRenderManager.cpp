@@ -11,8 +11,10 @@ CRenderManager::CRenderManager()
 	m_pImageFactory = nullptr;
 	m_pWriteFactory = nullptr;
 
-	m_pDefaultBrush		= nullptr;
+	m_pDefaultBrush			= nullptr;
 	m_pDefaultTextFormat	= nullptr;
+	m_pCurBrush				= nullptr;
+	m_pCurTextFormat		= nullptr;
 }
 
 CRenderManager::~CRenderManager()
@@ -74,6 +76,28 @@ void CRenderManager::Init()
 	// 브러쉬 생성
 	hResult = m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(0.f, 0.f, 0.f), &m_pDefaultBrush);
 	assert(S_OK == hResult && "SolidColorBrush Create Failed");
+
+	// 텍스트 포맷 생성
+	hResult = m_pWriteFactory->CreateTextFormat(
+		L"굴림",
+		NULL,
+		DWRITE_FONT_WEIGHT_NORMAL,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_NORMAL,
+		10.f,
+		L"ko",
+		&m_pCurTextFormat);
+	assert(S_OK == hResult && "TextFormat Create Failed");
+
+	hResult = m_pCurTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+	assert(S_OK == hResult && "TextFormat SetAlignment Failed");
+
+	hResult = m_pCurTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+	assert(S_OK == hResult && "TextFormat SetParagraphAlignment Failed");
+
+	// 브러쉬 생성
+	hResult = m_pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(0.f, 0.f, 0.f), &m_pCurBrush);
+	assert(S_OK == hResult && "SolidColorBrush Create Failed");
 }
 
 void CRenderManager::BeginDraw()
@@ -89,7 +113,16 @@ void CRenderManager::EndDraw()
 void CRenderManager::Release()
 {
 	// 마무리는 초기화의 역순으로
-
+	if (nullptr != m_pCurBrush)
+	{
+		m_pDefaultBrush->Release();
+		m_pDefaultBrush = nullptr;
+	}
+	if (nullptr != m_pCurTextFormat)
+	{
+		m_pDefaultTextFormat->Release();
+		m_pDefaultTextFormat = nullptr;
+	}
 	if (nullptr != m_pDefaultBrush)
 	{
 		m_pDefaultBrush->Release();
@@ -120,4 +153,58 @@ void CRenderManager::Release()
 		m_pFactory->Release();
 		m_pFactory = nullptr;
 	}
+}
+
+void CRenderManager::SetBrush(Color color)
+{
+	m_pDefaultBrush->SetColor(D2D1::ColorF(
+		(FLOAT)color.r / 255.f,
+		(FLOAT)color.g / 255.f,
+		(FLOAT)color.b / 255.f,
+		color.a)
+	);
+}
+
+void CRenderManager::SetTextFormat(wstring fontName, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, FLOAT fontSize, wstring localeName)
+{
+	HRESULT hResult;
+
+	DWRITE_TEXT_ALIGNMENT textAlignment = m_pDefaultTextFormat->GetTextAlignment();
+	DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment = m_pDefaultTextFormat->GetParagraphAlignment();
+
+	if (nullptr != m_pDefaultTextFormat)
+	{
+		m_pDefaultTextFormat->Release();
+		m_pDefaultTextFormat = nullptr;
+	}
+
+	hResult = m_pWriteFactory->CreateTextFormat(
+		fontName.c_str(),
+		NULL,
+		fontWeight,
+		fontStyle,
+		fontStretch,
+		fontSize,
+		localeName.c_str(),
+		&m_pDefaultTextFormat
+	);
+	assert(S_OK == hResult && "TextFormat Create Failed");
+
+	hResult = m_pDefaultTextFormat->SetTextAlignment(textAlignment);
+	assert(S_OK == hResult && "TextFormat SetAlignment Failed");
+
+	hResult = m_pDefaultTextFormat->SetParagraphAlignment(paragraphAlignment);
+	assert(S_OK == hResult && "TextFormat SetParagraphAlignment Failed");
+}
+
+void CRenderManager::SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment)
+{
+	HRESULT hResult = m_pDefaultTextFormat->SetTextAlignment(textAlignment);
+	assert(S_OK == hResult && "TextFormat SetAlignment Failed");
+}
+
+void CRenderManager::SetTextParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment)
+{
+	HRESULT hResult = m_pDefaultTextFormat->SetParagraphAlignment(paragraphAlignment);
+	assert(S_OK == hResult && "TextFormat SetParagraphAlignment Failed");
 }
