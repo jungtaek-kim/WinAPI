@@ -81,6 +81,14 @@ void CGameObject::AddComponent(CComponent* component)
 	m_listComponent.push_back(component);
 	component->Init();
 	component->SetOwner(this);
+
+	// 컴포넌트를 정렬
+	m_listComponent.sort(
+		[](CComponent* pLeft, CComponent* pRight)
+		{
+			return pLeft->GetZOrder() < pRight->GetZOrder();
+		}
+	);
 }
 
 void CGameObject::RemoveComponent(CComponent* component)
@@ -166,9 +174,6 @@ void CGameObject::GameObjectPhysicsUpdate()
 
 void CGameObject::GameObjectRender()
 {
-	// 상속한 자식 표현갱신
-	Render();
-
 	// 게임오브젝트 내에 모든 컴포넌트 표현갱신
 	for (CComponent* pComponent : m_listComponent)
 	{

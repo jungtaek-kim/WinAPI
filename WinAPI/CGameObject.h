@@ -84,6 +84,5 @@ private:
 	// 게임오브젝트를 상속받아 순수가상함수들을 구체화시켜 게임오브젝트를 완성시킴
 	virtual void Init() = 0;		// 초기화
 	virtual void Update() = 0;		// 게임오브젝트의 행동정의
-	virtual void Render() = 0;		// 게임오브젝트의 표현정의
 	virtual void Release() = 0;		// 마무리
 };

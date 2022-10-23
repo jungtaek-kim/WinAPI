@@ -15,6 +15,7 @@ CCollider::CCollider()
 	m_vecPos = Vector(0, 0);
 	m_vecOffsetPos = Vector(0, 0);
 	m_vecScale = Vector(0, 0);
+	m_iZOrder = 1000;
 }
 
 CCollider::~CCollider()

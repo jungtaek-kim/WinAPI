@@ -17,11 +17,18 @@ public:
 private:
 	CGameObject* m_pOwner;
 
+protected:
+	int m_iZOrder;		// 컴포넌트의 정렬순서값
+
 private:
 	void SetOwner(CGameObject* pOwner);
 
+protected:
+	void SetZOrder(int zOrder);
+
 public:
 	CGameObject* GetOwner();
+	int GetZOrder();
 
 private:
 	virtual void Init() = 0;

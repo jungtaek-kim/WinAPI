@@ -5,6 +5,7 @@
 #include "CTimeManager.h"
 #include "CEventManager.h"
 #include "CCollider.h"
+#include "CEllipseComponent.h"
 
 CMissile::CMissile()
 {
@@ -21,6 +22,10 @@ CMissile::~CMissile()
 
 void CMissile::Init()
 {
+	CEllipseComponent* pEllipseComponent = new CEllipseComponent;
+	pEllipseComponent->SetRadius(10);
+	AddComponent(pEllipseComponent);
+
 	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
 }
 
@@ -34,14 +39,6 @@ void CMissile::Update()
 		m_vecPos.y < 0 ||
 		m_vecPos.y > WINSIZEY)
 		DELETEOBJECT(this);
-}
-
-void CMissile::Render()
-{
-	RENDER->Circle(
-		m_vecPos.x,
-		m_vecPos.y,
-		m_vecScale.x);
 }
 
 void CMissile::Release()

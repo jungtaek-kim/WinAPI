@@ -65,10 +65,6 @@ void CPlayer::Update()
 	}
 }
 
-void CPlayer::Render()
-{
-}
-
 void CPlayer::Release()
 {
 }

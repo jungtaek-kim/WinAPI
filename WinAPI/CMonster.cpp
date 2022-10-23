@@ -3,6 +3,7 @@
 
 #include "CRenderManager.h"
 #include "CCollider.h"
+#include "CRectComponent.h"
 
 CMonster::CMonster()
 {
@@ -16,20 +17,15 @@ CMonster::~CMonster()
 
 void CMonster::Init()
 {
+	CRectComponent* pRectComponent = new CRectComponent;
+	pRectComponent->SetScale(Vector(100, 100));
+	AddComponent(pRectComponent);
+
 	AddCollider(ColliderType::Rect, Vector(90, 90), Vector(0, 0));
 }
 
 void CMonster::Update()
 {
-}
-
-void CMonster::Render()
-{
-	RENDER->Rect(
-		m_vecPos.x - m_vecScale.x * 0.5f,
-		m_vecPos.y - m_vecScale.y * 0.5f,
-		m_vecPos.x + m_vecScale.x * 0.5f,
-		m_vecPos.y + m_vecScale.y * 0.5f);
 }
 
 void CMonster::Release()
