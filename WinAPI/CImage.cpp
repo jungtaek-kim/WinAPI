@@ -5,52 +5,60 @@
 
 CImage::CImage()
 {
-	m_hdc = 0;
-	m_hBmp = 0;
-	m_bmpInfo = {};
+	m_pBitmap = nullptr;
 }
 
 CImage::~CImage()
 {
-	DeleteDC(m_hdc);
-	DeleteObject(m_hBmp);
+	if (nullptr != m_pBitmap)
+		m_pBitmap->Release();
+	m_pBitmap = nullptr;
 }
 
-HDC CImage::GetImgDC()
+ID2D1Bitmap* CImage::GetImage()
 {
-	return m_hdc;
+	return m_pBitmap;
 }
 
-BITMAP CImage::GetBmpInfo()
+int CImage::GetWidth()
 {
-	return m_bmpInfo;
+	return (int)m_pBitmap->GetSize().width;
 }
 
-int CImage::GetBmpWidth()
+int CImage::GetHeight()
 {
-	return (int)(m_bmpInfo.bmWidth);
-}
-
-int CImage::GetBmpHeight()
-{
-	return (int)(m_bmpInfo.bmHeight);
+	return (int)m_pBitmap->GetSize().height;
 }
 
 void CImage::Load(const wstring& filePath)
 {
-	/* TODO : D2D 구현
-	m_hBmp = (HBITMAP)LoadImage(
-		nullptr,								// hInstance. nullptr로 해도 됨.
-		filePath.c_str(),					// 파일 경로를 C style 문자열로 변환
-		IMAGE_BITMAP,							// 이미지 타입, 비트맵 이미지로 지정
-		0, 0,									// 이미지의 X, Y 크기, 0을 주면 이미지 크기로 설정
-		LR_CREATEDIBSECTION | LR_LOADFROMFILE	// 이미지 로딩 타입.
-	);
+	HRESULT hResult;
 
-	assert(m_hBmp);	// 이미지가 없다면 assert를 통한 종료
+	IWICBitmapDecoder*		p_decoder;		// 압축된 이미지를 해제할 객체
+	IWICBitmapFrameDecode*	p_frame;		// 특정 그림을 선택한 객체
+	IWICFormatConverter*	p_converter;	// 이미지 변환 객체
 
-	m_hdc = CreateCompatibleDC(GETDC);	// 비트맵이미지와 연결할 DC 생성
-	SelectObject(m_hdc, m_hBmp);		// 비트맵이미지와 DC 연결
-	GetObject(m_hBmp, sizeof(BITMAP), &m_bmpInfo);	// 비트맵이미지 정보 추출
-	*/
+	// WIC용 Factory 객체를 사용하여 이미지 압축 해제를 위한 객체를 생성
+	hResult = RENDER->GetImageFactory()->CreateDecoderFromFilename(filePath.c_str(), NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &p_decoder);
+	assert(S_OK == hResult && "Decoder Create Failed");
+
+	// 파일을 구성하는 이미지 중에서 첫번째 이미지를 선택
+	hResult = p_decoder->GetFrame(0, &p_frame);
+	assert(S_OK == hResult && "Decoder GetFrame Failed");
+	
+	// IWICBitmap형식의 비트맵을 ID2D1Bitmap. 형식으로 변환하기 위한 객체 생성
+	hResult = RENDER->GetImageFactory()->CreateFormatConverter(&p_converter);
+	assert(S_OK == hResult && "Format Convert Failed");
+
+	// 선택된 그림을 어떤 형식의 비트맵으로 변환할 것인지 설정
+	hResult = p_converter->Initialize(p_frame, GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
+	assert(S_OK == hResult && "Converter Initialize Failed");
+
+	// IWICBitmap 형식의 비트맵으로 ID2D1Bitmap 객체를 생성
+	hResult = RENDER->GetRenderTarget()->CreateBitmapFromWicBitmap(p_converter, NULL, &m_pBitmap);
+	assert(S_OK == hResult && "Bitmap Create Failed");
+
+	p_converter->Release();		// 이미지 변환 객체 제거
+	p_frame->Release();			// 그림파일에 있는 이미지를 선택하기 위해 사용한 객체 제거
+	p_decoder->Release();		// 압축을 해제하기 위해 생성한 객체 제거
 }

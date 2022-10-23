@@ -12,7 +12,7 @@ private:
 	virtual ~CResourceManager();
 
 private:
-	unordered_map<wstring, CImage*> m_umapTexture;
+	unordered_map<wstring, CImage*> m_umapImage;
 
 public:
 	CImage* FindImg(const wstring& key);

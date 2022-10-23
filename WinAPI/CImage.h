@@ -1,21 +1,26 @@
 #pragma once
 #include "CResource.h"
+
+class CRenderManager;
+class CResourceManager;
+struct ID2D1Bitmap;
+
 class CImage : public CResource
 {
+	friend CRenderManager;
+	friend CResourceManager;
 private:
-	HDC		m_hdc;		// 비트맵이미지를 그리기 위한 DC
-	HBITMAP	m_hBmp;		// 비트맵이미지의 핸들값
-	BITMAP	m_bmpInfo;	// 비트맵이미지의 정보
+	ID2D1Bitmap* m_pBitmap;
 
 public:
 	CImage();
 	virtual ~CImage();
 
-	HDC GetImgDC();
-	BITMAP GetBmpInfo();
-	int GetBmpWidth();
-	int GetBmpHeight();
+	int GetWidth();
+	int GetHeight();
 
+private:
+	ID2D1Bitmap* GetImage();
 	void Load(const wstring& filePath);
 };
 

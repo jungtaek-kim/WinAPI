@@ -406,3 +406,20 @@ void CRenderManager::FillCircle(float pointX, float pointY, float radius, Color 
 		color.a));
 	m_pRenderTarget->FillEllipse(ellipse, m_pCurBrush);
 }
+
+void CRenderManager::Image(CImage* pImg, float startX, float startY, float endX, float endY, float alpha)
+{
+	D2D1_RECT_F imgRect = { startX, startY, endX, endY };
+	m_pRenderTarget->DrawBitmap(pImg->GetImage(), imgRect);
+}
+
+IWICImagingFactory* CRenderManager::GetImageFactory()
+{
+	return m_pImageFactory;
+}
+
+ID2D1HwndRenderTarget* CRenderManager::GetRenderTarget()
+{
+	return m_pRenderTarget;
+}
+

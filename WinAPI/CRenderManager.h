@@ -1,6 +1,7 @@
 #pragma once
 
 class CCore;
+class CImage;
 
 struct Color
 {
@@ -75,6 +76,12 @@ public:
 	void FrameCircle(float pointX, float pointY, float radius, Color color, float strokeWidth = 1.f);
 	void FillCircle(float pointX, float pointY, float radius);
 	void FillCircle(float pointX, float pointY, float radius, Color color);
+
+	void Image(CImage* pImg, float startX, float startY, float endX, float endY, float alpha = 1.f);
+
+public:
+	IWICImagingFactory*		GetImageFactory();
+	ID2D1HwndRenderTarget*	GetRenderTarget();
 };
 
 #define	RENDER	CRenderManager::GetInstance()
