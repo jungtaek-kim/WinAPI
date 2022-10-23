@@ -38,10 +38,12 @@ void CMissile::Update()
 
 void CMissile::Render()
 {
+	/* D2D ±¸Çö
 	RENDER->Circle(
 		m_vecPos.x,
 		m_vecPos.y,
 		m_vecScale.x);
+	*/
 }
 
 void CMissile::Release()

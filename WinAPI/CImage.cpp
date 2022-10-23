@@ -38,6 +38,7 @@ int CImage::GetBmpHeight()
 
 void CImage::Load(const wstring& filePath)
 {
+	/* TODO : D2D 구현
 	m_hBmp = (HBITMAP)LoadImage(
 		nullptr,								// hInstance. nullptr로 해도 됨.
 		filePath.c_str(),					// 파일 경로를 C style 문자열로 변환
@@ -51,4 +52,5 @@ void CImage::Load(const wstring& filePath)
 	m_hdc = CreateCompatibleDC(GETDC);	// 비트맵이미지와 연결할 DC 생성
 	SelectObject(m_hdc, m_hBmp);		// 비트맵이미지와 DC 연결
 	GetObject(m_hBmp, sizeof(BITMAP), &m_bmpInfo);	// 비트맵이미지 정보 추출
+	*/
 }

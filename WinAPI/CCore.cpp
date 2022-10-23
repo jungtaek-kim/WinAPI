@@ -56,7 +56,9 @@ void CCore::Render()
 
 	//// 우상단에 현재 게임FPS 출력 (60프레임 이상을 목표로 최적화 해야함)
 	wstring frame = to_wstring(FPS);
+	/* TODO : D2D 구현
 	RENDER->Text(WINSIZEX - 50, 10, frame);
+	*/
 
 	RENDER->EndDraw();
 }

@@ -86,6 +86,7 @@ void CCollider::PhysicsUpdate()
 
 void CCollider::Render()
 {
+	/* TODO : D2D ±¸Çö
 	if (m_uiCollisionCount > 0)
 		RENDER->SetPen(PenType::Solid, RGB(255, 0, 0));
 	else
@@ -111,6 +112,7 @@ void CCollider::Render()
 
 	RENDER->SetPen();
 	RENDER->SetBrush();
+	*/
 }
 
 void CCollider::Release()

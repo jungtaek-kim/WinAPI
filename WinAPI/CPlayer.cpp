@@ -61,6 +61,7 @@ void CPlayer::Update()
 
 void CPlayer::Render()
 {
+	/* D2D ±¸Çö
 	RENDER->TransparentImage(
 		m_pImg,
 		m_vecPos.x - m_vecScale.x * 0.5f,
@@ -68,6 +69,7 @@ void CPlayer::Render()
 		m_vecPos.x + m_vecScale.x * 0.5f,
 		m_vecPos.y + m_vecScale.y * 0.5f
 	);
+	*/
 }
 
 void CPlayer::Release()
