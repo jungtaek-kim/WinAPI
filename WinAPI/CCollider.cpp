@@ -86,33 +86,34 @@ void CCollider::PhysicsUpdate()
 
 void CCollider::Render()
 {
-	/* TODO : D2D ±¸Çö
+	Color color = Color(0, 0, 0, 0);
 	if (m_uiCollisionCount > 0)
-		RENDER->SetPen(PenType::Solid, RGB(255, 0, 0));
+	{
+		color = Color(255, 0, 0, 1.f);
+	}
 	else
-		RENDER->SetPen(PenType::Solid, RGB(0, 255, 0));
-	RENDER->SetBrush(BrushType::Null);
+	{
+		color = Color(0, 255, 0, 1.f);
+	}
 
 	if (m_type == ColliderType::Rect)
 	{
-		RENDER->Rect(
+		RENDER->FrameRect(
 			m_vecPos.x - m_vecScale.x * 0.5f,
 			m_vecPos.y - m_vecScale.y * 0.5f,
 			m_vecPos.x + m_vecScale.x * 0.5f,
-			m_vecPos.y + m_vecScale.y * 0.5f);
+			m_vecPos.y + m_vecScale.y * 0.5f,
+			color);
 	}
 	else if (m_type == ColliderType::Circle)
 	{
-		RENDER->Circle(
+		RENDER->FrameCircle(
 			m_vecPos.x,
 			m_vecPos.y,
-			m_vecScale.x
+			m_vecScale.x,
+			color
 		);
 	}
-
-	RENDER->SetPen();
-	RENDER->SetBrush();
-	*/
 }
 
 void CCollider::Release()

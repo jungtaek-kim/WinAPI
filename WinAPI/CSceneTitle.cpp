@@ -32,10 +32,13 @@ void CSceneTitle::Update()
 
 void CSceneTitle::Render()
 {
-	/* D2D ±¸Çö
-	RENDER->SetText(TextType::Center);
-	RENDER->Text(WINSIZEX * 0.5f, WINSIZEY * 0.5f, L"press space to start");
-	*/
+	RENDER->Text(L"press space to start",
+		WINSIZEX * 0.5f - 100,
+		WINSIZEY * 0.5f - 10,
+		WINSIZEX * 0.5f + 100,
+		WINSIZEY * 0.5f + 10,
+		Color(0, 0, 0, 1.f),
+		20.f);
 }
 
 void CSceneTitle::Exit()

@@ -25,13 +25,11 @@ void CMonster::Update()
 
 void CMonster::Render()
 {
-	/* D2D ±¸Çö
-	RENDER->Rect(
+	RENDER->FrameRect(
 		m_vecPos.x - m_vecScale.x * 0.5f,
 		m_vecPos.y - m_vecScale.y * 0.5f,
 		m_vecPos.x + m_vecScale.x * 0.5f,
 		m_vecPos.y + m_vecScale.y * 0.5f);
-	*/
 }
 
 void CMonster::Release()

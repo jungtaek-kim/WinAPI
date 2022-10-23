@@ -8,6 +8,7 @@
 #include "CEventManager.h"
 #include "CResourceManager.h"
 #include "CCollider.h"
+#include "CImage.h"
 
 #include "CMissile.h"
 
@@ -27,7 +28,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Init()
 {
-	m_pImg = RESOURCE->LoadImg(L"Player", L"Image\\Player.bmp");
+	m_pImg = RESOURCE->LoadImg(L"Player", L"Image\\Player.png");
 	AddCollider(ColliderType::Rect, Vector(90, 90), Vector(0, 0));
 }
 
@@ -61,15 +62,12 @@ void CPlayer::Update()
 
 void CPlayer::Render()
 {
-	/* D2D ±¸Çö
-	RENDER->TransparentImage(
+	RENDER->Image(
 		m_pImg,
-		m_vecPos.x - m_vecScale.x * 0.5f,
-		m_vecPos.y - m_vecScale.y * 0.5f,
-		m_vecPos.x + m_vecScale.x * 0.5f,
-		m_vecPos.y + m_vecScale.y * 0.5f
-	);
-	*/
+		m_vecPos.x - m_pImg->GetWidth() * 0.5f,
+		m_vecPos.y - m_pImg->GetHeight() * 0.5f,
+		m_vecPos.x + m_pImg->GetWidth() * 0.5f,
+		m_vecPos.y + m_pImg->GetHeight() * 0.5f);
 }
 
 void CPlayer::Release()
