@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "CInputManager.h"
 
+#include "CCameraManager.h"
 #include "WinAPI.h"
 
 CInputManager::CInputManager()
@@ -8,7 +9,7 @@ CInputManager::CInputManager()
 	// 키 상태를 모두 누르지 않은 상태로 초기화
 	m_arrPrevKey[0] = { false };
 	m_arrCurKey[0] = { false };
-	m_ptMousePos = { 0, 0 };
+	m_vecMousePos = { 0, 0 };
 }
 
 CInputManager::~CInputManager()
@@ -47,10 +48,12 @@ void CInputManager::Update()
 		}
 	}
 
+	POINT point;
 	// GetCursorPos() 윈도우에서 모니터 좌상단 기준 마우스의 좌표를 반환
-	GetCursorPos(&m_ptMousePos);
+	GetCursorPos(&point);
 	// 모니터 좌상단 기준 마우스 좌표를 게임 윈도우 기준 마우스 위치로 계산
-	ScreenToClient(hWnd, &m_ptMousePos);
+	ScreenToClient(hWnd, &point);
+	m_vecMousePos = Vector((float)point.x, (float)point.y);
 }
 
 void CInputManager::Release()
@@ -75,7 +78,12 @@ bool CInputManager::GetButtonDown(const int key)
 	return (true == m_arrCurKey[key] && false == m_arrPrevKey[key]);
 }
 
-POINT CInputManager::GetMousePos()
+Vector CInputManager::GetMouseScreenPos()
 {
-	return m_ptMousePos;
+	return m_vecMousePos;
+}
+
+Vector CInputManager::GetMouseWorldPos()
+{
+	return CAMERA->ScreenToWorldPoint(m_vecMousePos);
 }
