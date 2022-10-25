@@ -10,6 +10,7 @@
 #include "CCollisionManager.h"
 #include "CPathManager.h"
 #include "CResourceManager.h"
+#include "CCameraManager.h"
 
 CCore::CCore()
 {
@@ -30,6 +31,7 @@ void CCore::Init()
 	COLLISION->Init();
 	PATH->Init();
 	RESOURCE->Init();
+	CAMERA->Init();
 
 	SCENE->Init();
 }
@@ -42,6 +44,7 @@ void CCore::Update()
 	TIME->Update();
 	INPUT->Update();
 	SCENE->Update();
+	CAMERA->Update();
 
 	// 게임 오브젝트들이 업데이트 된 후 충돌처리 진행
 	COLLISION->Update();
@@ -72,4 +75,5 @@ void CCore::Release()
 	COLLISION->Release();
 	PATH->Release();
 	RESOURCE->Release();
+	CAMERA->Release();
 }
