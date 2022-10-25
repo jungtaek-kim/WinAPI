@@ -32,13 +32,13 @@ void CEventManager::Release()
 void CEventManager::EventAddObject(CGameObject* pObj)
 {
 	// 다음 프레임에 추가될 게임오브젝트를 자료구조에 보관
-	m_listAddObject.push_back(pObj);
+	m_queueAddObject.push(pObj);
 }
 
 void CEventManager::EventDeleteObject(CGameObject* pObj)
 {
 	// 삭제 예정인 게임오브젝트를 자료구조에 보관
-	m_listDeleteObject.push_back(pObj);
+	m_queueDeleteObject.push(pObj);
 }
 
 void CEventManager::EventChangeScene(GroupScene scene)
@@ -51,22 +51,24 @@ void CEventManager::ProgressAddObject()
 {
 	// 프레임의 초기에 추가될 게임오브젝트를 추가
 
-	for (CGameObject* pGameObject : m_listAddObject)
+	while (!m_queueAddObject.empty())
 	{
+		CGameObject* pGameObject = m_queueAddObject.front();
+		m_queueAddObject.pop();
 		SCENE->GetCurScene()->AddGameObject(pGameObject);
 	}
-	m_listAddObject.clear();
 }
 
 void CEventManager::ProgressDeleteObject()
 {
 	// 삭제 예정인 게임오브젝트에 삭제예정 표시를 진행
 
-	for (CGameObject* pGameObject : m_listDeleteObject)
+	while (!m_queueDeleteObject.empty())
 	{
+		CGameObject* pGameObject = m_queueDeleteObject.front();
+		m_queueDeleteObject.pop();
 		pGameObject->SetReserveDelete();
 	}
-	m_listDeleteObject.clear();
 }
 
 void CEventManager::ProgressChangeScene()

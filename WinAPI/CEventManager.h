@@ -12,8 +12,8 @@ private:
 	CEventManager();
 	virtual ~CEventManager();
 
-	list<CGameObject*> m_listAddObject;			// AddObject 이벤트 보관
-	list<CGameObject*> m_listDeleteObject;		// DeleteObject 이벤트 보관
+	queue<CGameObject*> m_queueAddObject;		// AddObject 이벤트 보관
+	queue<CGameObject*> m_queueDeleteObject;	// DeleteObject 이벤트 보관
 	list<GroupScene> m_listChangeScene;			// ChangeScene 이벤트 보관
 
 	void Init();
