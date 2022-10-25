@@ -126,6 +126,9 @@
     <ClInclude Include="CAnimator.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
+    <ClInclude Include="CAnimation.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -192,6 +195,9 @@
       <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CAnimator.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimation.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
   </ItemGroup>
