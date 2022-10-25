@@ -52,6 +52,18 @@ Vector CCameraManager::ScreenToWorldPoint(Vector screenPoint)
 	return screenPoint + (m_vecLookAt - Vector(WINSIZEX * 0.5f, WINSIZEY * 0.5f));
 }
 
+void CCameraManager::Scroll(Vector dir, float velocity)
+{
+	// 스크롤의 방향 크기가 없는 경우 진행하지 않음
+	if (dir.Magnitude() == 0)
+		return;
+
+	// 스크롤의 목표 위치는 현재위치에서 스크롤 방향으로 떨어진 위치
+	m_vecTargetPos = m_vecLookAt;
+	m_vecTargetPos += dir.Normalized() * velocity * DT;
+	m_fTimeToTarget = 0;	// 스크롤은 시간차를 두지 않은 즉각 이동
+}
+
 void CCameraManager::Init()
 {
 }

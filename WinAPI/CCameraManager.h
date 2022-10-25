@@ -30,6 +30,8 @@ public:
 	Vector WorldToScreenPoint(Vector worldPoint);	// 게임위치->화면위치
 	Vector ScreenToWorldPoint(Vector screenPoint);	// 화면위치->게임위치
 
+	void Scroll(Vector dir, float velocity);		// 카메라 스크롤
+
 private:
 	void Init();
 	void Update();

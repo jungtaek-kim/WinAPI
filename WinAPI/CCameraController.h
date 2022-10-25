@@ -8,6 +8,7 @@ public:
 
 private:
 	float m_fMouseTime = 1;
+	float m_fScrollSpeed = 200;
 
 private:
 	void Init() override;

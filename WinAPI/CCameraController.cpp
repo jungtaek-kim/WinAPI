@@ -22,6 +22,24 @@ void CCameraController::Update()
 	{
 		CAMERA->SetTargetPos(MOUSEWORLDPOS, m_fMouseTime);
 	}
+
+	Vector dir;
+	if (BUTTONSTAY('A'))
+	{
+		dir.x = -1;
+	}
+	else if (BUTTONSTAY('D'))
+		dir.x = 1;
+	else dir.x = 0;
+
+	if (BUTTONSTAY('W'))
+		dir.y = -1;
+	else if (BUTTONSTAY('S'))
+		dir.y = 1;
+	else
+		dir.y = 0;
+
+	CAMERA->Scroll(dir, m_fScrollSpeed);
 }
 
 void CCameraController::Render()
