@@ -4,6 +4,7 @@
 #include "CScene.h"
 #include "CSceneTitle.h"
 #include "CSceneStage01.h"
+#include "CSceneScore.h"
 
 CSceneManager::CSceneManager()
 {
@@ -22,6 +23,8 @@ void CSceneManager::Init()
 	m_mapScene.insert(make_pair(GroupScene::Title, pSceneTitle));
 	CScene* pSceneStage01 = new CSceneStage01();
 	m_mapScene.insert(make_pair(GroupScene::Stage01, pSceneStage01));
+	CScene* pSceneScore = new CSceneScore();
+	m_mapScene.insert(make_pair(GroupScene::Score, pSceneScore));
 
 	// 게임씬 자료구조를 순회하며 씬을 초기화
 	for (pair<GroupScene, CScene*> scene : m_mapScene)

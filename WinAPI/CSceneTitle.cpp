@@ -33,7 +33,8 @@ void CSceneTitle::Update()
 void CSceneTitle::Render()
 {
 	RENDER->SetText(TextType::Center);
-	RENDER->Text(WINSIZEX * 0.5f, WINSIZEY * 0.5f, L"press space to start");
+	RENDER->Text(WINSIZEX * 0.5f, WINSIZEY * 0.5f - 10, L"닷지 1.0");
+	RENDER->Text(WINSIZEX * 0.5f, WINSIZEY * 0.5f + 10, L"시작하려면 스페이스바 키를 누르세요");
 }
 
 void CSceneTitle::Exit()

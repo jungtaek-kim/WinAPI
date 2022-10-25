@@ -4,7 +4,7 @@
 class CPlayer : public CGameObject
 {
 private:
-	float m_fSpeed = 200.0f;
+	float m_fSpeed = 300.0f;
 
 public:
 	CPlayer();
@@ -15,8 +15,6 @@ private:
 	void Update() override;
 	void Render() override;
 	void Release() override;
-
-	void CreateMissile();
 
 	void OnCollisionEnter(CCollider* pOtherCollider) override;
 	void OnCollisionStay(CCollider* pOtherCollider) override;

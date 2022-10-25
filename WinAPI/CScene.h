@@ -46,4 +46,5 @@ protected:
 	// 2. 삭제예정인 게임오브젝트를 참조하고 있는 게임오브젝트들에게 유예시간을 줘야함
 	// -> Update 진행중 삭제예정인 오브젝트를 한프레임만 보관하고 다음프레임이 시작될 때 삭제함
 	// void DeleteGameObject(CGameObject* pGameObj);
+	void DeleteAllObject();
 };

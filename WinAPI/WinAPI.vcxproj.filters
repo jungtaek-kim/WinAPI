@@ -108,6 +108,15 @@
     <ClInclude Include="CCollider.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
+    <ClInclude Include="CMissileMaker.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneScore.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -160,6 +169,15 @@
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissileMaker.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneScore.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

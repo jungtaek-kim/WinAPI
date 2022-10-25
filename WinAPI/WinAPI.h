@@ -27,6 +27,7 @@ enum class GroupScene
 {
 	Title,
 	Stage01,
+	Score,
 
 	Size,
 };
