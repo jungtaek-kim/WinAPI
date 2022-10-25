@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CComponent.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="WinAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CComponent.cpp" />
