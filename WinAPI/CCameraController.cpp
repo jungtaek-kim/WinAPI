@@ -20,7 +20,7 @@ void CCameraController::Update()
 {
 	if (BUTTONDOWN(VK_LBUTTON))
 	{
-		CAMERA->SetTargetPos(MOUSEWORLDPOS);
+		CAMERA->SetTargetPos(MOUSEWORLDPOS, m_fMouseTime);
 	}
 }
 

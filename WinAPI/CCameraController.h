@@ -7,6 +7,9 @@ public:
 	virtual ~CCameraController();
 
 private:
+	float m_fMouseTime = 1;
+
+private:
 	void Init() override;
 	void Update() override;
 	void Render() override;
