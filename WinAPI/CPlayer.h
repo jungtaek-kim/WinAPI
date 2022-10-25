@@ -2,18 +2,24 @@
 #include "CGameObject.h"
 
 class CImage;
+class CAnimator;
 
 class CPlayer : public CGameObject
 {
-private:
-	float m_fSpeed = 200.0f;
-
 public:
 	CPlayer();
 	virtual ~CPlayer();
 
 private:
-	CImage* m_pImg;
+	CAnimator* m_pAnimator;
+	CImage* m_pIdleImage;
+	CImage* m_pMoveImage;
+
+	Vector m_vecMoveDir;
+	Vector m_vecLookDir;
+	bool m_bIsMove;
+
+	float m_fSpeed = 200.0f;
 
 private:
 	void Init() override;
@@ -21,6 +27,7 @@ private:
 	void Render() override;
 	void Release() override;
 
+	void AnimatorUpdate();
 	void CreateMissile();
 
 	void OnCollisionEnter(CCollider* pOtherCollider) override;

@@ -53,6 +53,7 @@ public:
 private:
 	list<CComponent*> m_listComponent;	// 컴포넌트들을 보관할 자료구조
 
+protected:
 	void AddComponent(CComponent* component);		// 컴포넌트 추가
 	void RemoveComponent(CComponent* component);	// 컴포넌트 삭제
 
