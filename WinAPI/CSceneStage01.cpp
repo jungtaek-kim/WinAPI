@@ -6,12 +6,14 @@
 #include "CTimeManager.h"
 #include "CRenderManager.h"
 #include "CEventManager.h"
+#include "CCameraManager.h"
 
 #include "CPlayer.h"
 #include "CMonster.h"
 
 CSceneStage01::CSceneStage01()
 {
+	pPlayer = nullptr;
 }
 
 CSceneStage01::~CSceneStage01()
@@ -20,7 +22,7 @@ CSceneStage01::~CSceneStage01()
 
 void CSceneStage01::Init()
 {
-	CPlayer* pPlayer = new CPlayer();
+	pPlayer = new CPlayer();
 	pPlayer->SetPos(200, WINSIZEY * 0.5f);
 	AddGameObject(pPlayer);
 
@@ -31,6 +33,7 @@ void CSceneStage01::Init()
 
 void CSceneStage01::Enter()
 {
+	CAMERA->SetTargetObj(pPlayer);
 }
 
 void CSceneStage01::Update()

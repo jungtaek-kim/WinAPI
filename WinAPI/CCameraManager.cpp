@@ -39,6 +39,16 @@ void CCameraManager::SetTargetObj(CGameObject* pTargetObj)
 	m_pTargetObj = pTargetObj;
 }
 
+Vector CCameraManager::WorldToScreenPoint(Vector worldPoint)
+{
+	return worldPoint - (m_vecLookAt - Vector(WINSIZEX * 0.5f, WINSIZEY * 0.5f));
+}
+
+Vector CCameraManager::ScreenToWorldPoint(Vector screenPoint)
+{
+	return screenPoint + (m_vecLookAt - Vector(WINSIZEX * 0.5f, WINSIZEY * 0.5f));
+}
+
 void CCameraManager::Init()
 {
 }

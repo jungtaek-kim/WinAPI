@@ -25,6 +25,9 @@ public:
 	void SetTargetPos(Vector targetPos);		// 카메라의 목표 위치 지정
 	void SetTargetObj(CGameObject* pTargetObj);	// 카메라의 목표 오브젝트 지정
 
+	Vector WorldToScreenPoint(Vector worldPoint);	// 게임위치->화면위치
+	Vector ScreenToWorldPoint(Vector screenPoint);	// 화면위치->게임위치
+
 private:
 	void Init();
 	void Update();

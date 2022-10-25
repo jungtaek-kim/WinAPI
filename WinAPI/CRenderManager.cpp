@@ -1,20 +1,22 @@
 #include "framework.h"
 #include "CRenderManager.h"
 
+#include "CCameraManager.h"
+
 #include "WinAPI.h"
 #include "CImage.h"
 
 CRenderManager::CRenderManager()
 {
-	m_pFactory		= nullptr;
-	m_pRenderTarget	= nullptr;
+	m_pFactory = nullptr;
+	m_pRenderTarget = nullptr;
 	m_pImageFactory = nullptr;
 	m_pWriteFactory = nullptr;
 
-	m_pDefaultBrush			= nullptr;
-	m_pDefaultTextFormat	= nullptr;
-	m_pCurBrush				= nullptr;
-	m_pCurTextFormat		= nullptr;
+	m_pDefaultBrush = nullptr;
+	m_pDefaultTextFormat = nullptr;
+	m_pCurBrush = nullptr;
+	m_pCurTextFormat = nullptr;
 }
 
 CRenderManager::~CRenderManager()
@@ -103,7 +105,8 @@ void CRenderManager::Init()
 void CRenderManager::BeginDraw()
 {
 	m_pRenderTarget->BeginDraw();
-	FillRect(-1, -1, WINSIZEX + 1, WINSIZEY + 1, Color(255, 255, 255, 1.f));
+	Vector screenPos = CAMERA->ScreenToWorldPoint(Vector(0, 0));
+	FillRect(screenPos.x, screenPos.y, screenPos.x + WINSIZEX, screenPos.y + WINSIZEY, Color(255, 255, 255, 1.f));
 }
 
 void CRenderManager::EndDraw()
@@ -212,6 +215,13 @@ void CRenderManager::SetTextParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragr
 
 void CRenderManager::Text(wstring str, float startX, float startY, float endX, float endY)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_RECT_F rect = { startX, startY, endX, endY };
 	m_pRenderTarget->DrawTextW(str.c_str(), (UINT32)str.size(), m_pDefaultTextFormat,
 		rect, m_pDefaultBrush);
@@ -219,6 +229,13 @@ void CRenderManager::Text(wstring str, float startX, float startY, float endX, f
 
 void CRenderManager::Text(wstring str, float startX, float startY, float endX, float endY, Color color, float fontSize)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_RECT_F rect = { startX, startY, endX, endY };
 
 	if (m_pCurTextFormat->GetFontSize() != fontSize)
@@ -260,6 +277,9 @@ void CRenderManager::Text(wstring str, float startX, float startY, float endX, f
 
 void CRenderManager::Line(Vector startPoint, Vector endPoint)
 {
+	startPoint = CAMERA->WorldToScreenPoint(startPoint);
+	endPoint = CAMERA->WorldToScreenPoint(endPoint);
+
 	D2D1_POINT_2F start = { startPoint.x, startPoint.y };
 	D2D1_POINT_2F end = { endPoint.x, endPoint.y };
 
@@ -268,6 +288,9 @@ void CRenderManager::Line(Vector startPoint, Vector endPoint)
 
 void CRenderManager::Line(Vector startPoint, Vector endPoint, Color color, float strokeWidth)
 {
+	startPoint = CAMERA->WorldToScreenPoint(startPoint);
+	endPoint = CAMERA->WorldToScreenPoint(endPoint);
+
 	D2D1_POINT_2F start = { startPoint.x, startPoint.y };
 	D2D1_POINT_2F end = { endPoint.x, endPoint.y };
 
@@ -281,12 +304,26 @@ void CRenderManager::Line(Vector startPoint, Vector endPoint, Color color, float
 
 void CRenderManager::FrameRect(float startX, float startY, float endX, float endY)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_RECT_F rect = { startX, startY, endX, endY };
 	m_pRenderTarget->DrawRectangle(rect, m_pDefaultBrush, 1.f);
 }
 
 void CRenderManager::FrameRect(float startX, float startY, float endX, float endY, Color color, float strokeWidth)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_RECT_F rect = { startX, startY, endX, endY };
 
 	m_pCurBrush->SetColor(D2D1::ColorF(
@@ -299,12 +336,26 @@ void CRenderManager::FrameRect(float startX, float startY, float endX, float end
 
 void CRenderManager::FillRect(float startX, float startY, float endX, float endY)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_RECT_F rect = { startX, startY, endX, endY };
 	m_pRenderTarget->FillRectangle(rect, m_pDefaultBrush);
 }
 
 void CRenderManager::FillRect(float startX, float startY, float endX, float endY, Color color)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_RECT_F rect = { startX, startY, endX, endY };
 
 	m_pCurBrush->SetColor(D2D1::ColorF(
@@ -317,7 +368,14 @@ void CRenderManager::FillRect(float startX, float startY, float endX, float endY
 
 void CRenderManager::FrameEllipse(float startX, float startY, float endX, float endY)
 {
-	D2D1_ELLIPSE ellipse = { 
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
+	D2D1_ELLIPSE ellipse = {
 		(startX + endX) * 0.5f,
 		(startY + endY) * 0.5f,
 		abs(startX - endX) * 0.5f,
@@ -328,6 +386,13 @@ void CRenderManager::FrameEllipse(float startX, float startY, float endX, float 
 
 void CRenderManager::FrameEllipse(float startX, float startY, float endX, float endY, Color color, float strokeWidth)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_ELLIPSE ellipse = {
 		(startX + endX) * 0.5f,
 		(startY + endY) * 0.5f,
@@ -345,6 +410,13 @@ void CRenderManager::FrameEllipse(float startX, float startY, float endX, float 
 
 void CRenderManager::FillEllipse(float startX, float startY, float endX, float endY)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_ELLIPSE ellipse = {
 		(startX + endX) * 0.5f,
 		(startY + endY) * 0.5f,
@@ -356,6 +428,13 @@ void CRenderManager::FillEllipse(float startX, float startY, float endX, float e
 
 void CRenderManager::FillEllipse(float startX, float startY, float endX, float endY, Color color)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_ELLIPSE ellipse = {
 		(startX + endX) * 0.5f,
 		(startY + endY) * 0.5f,
@@ -373,12 +452,20 @@ void CRenderManager::FillEllipse(float startX, float startY, float endX, float e
 
 void CRenderManager::FrameCircle(float pointX, float pointY, float radius)
 {
+	Vector point = CAMERA->WorldToScreenPoint(Vector(pointX, pointY));
+	pointX = point.x;
+	pointY = point.y;
+
 	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
 	m_pRenderTarget->DrawEllipse(ellipse, m_pDefaultBrush, 1.f);
 }
 
 void CRenderManager::FrameCircle(float pointX, float pointY, float radius, Color color, float strokeWidth)
 {
+	Vector point = CAMERA->WorldToScreenPoint(Vector(pointX, pointY));
+	pointX = point.x;
+	pointY = point.y;
+
 	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
 
 	m_pCurBrush->SetColor(D2D1::ColorF(
@@ -391,12 +478,20 @@ void CRenderManager::FrameCircle(float pointX, float pointY, float radius, Color
 
 void CRenderManager::FillCircle(float pointX, float pointY, float radius)
 {
+	Vector point = CAMERA->WorldToScreenPoint(Vector(pointX, pointY));
+	pointX = point.x;
+	pointY = point.y;
+
 	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
 	m_pRenderTarget->FillEllipse(ellipse, m_pDefaultBrush);
 }
 
 void CRenderManager::FillCircle(float pointX, float pointY, float radius, Color color)
 {
+	Vector point = CAMERA->WorldToScreenPoint(Vector(pointX, pointY));
+	pointX = point.x;
+	pointY = point.y;
+
 	D2D1_ELLIPSE ellipse = { pointX, pointY, radius, radius };
 
 	m_pCurBrush->SetColor(D2D1::ColorF(
@@ -409,12 +504,26 @@ void CRenderManager::FillCircle(float pointX, float pointY, float radius, Color 
 
 void CRenderManager::Image(CImage* pImg, float startX, float startY, float endX, float endY, float alpha)
 {
+	Vector start = CAMERA->WorldToScreenPoint(Vector(startX, startY));
+	startX = start.x;
+	startY = start.y;
+	Vector end = CAMERA->WorldToScreenPoint(Vector(endX, endY));
+	endX = end.x;
+	endY = end.y;
+
 	D2D1_RECT_F imgRect = { startX, startY, endX, endY };
 	m_pRenderTarget->DrawBitmap(pImg->GetImage(), imgRect);
 }
 
 void CRenderManager::FrameImage(CImage* pImg, float dstX, float dstY, float dstW, float dstH, float srcX, float srcY, float srcW, float srcH, float alpha)
 {
+	Vector dstStart = CAMERA->WorldToScreenPoint(Vector(dstX, dstY));
+	dstX = dstStart.x;
+	dstY = dstStart.y;
+	Vector dstEnd = CAMERA->WorldToScreenPoint(Vector(dstW, dstH));
+	dstW = dstEnd.x;
+	dstH = dstEnd.y;
+
 	D2D1_RECT_F imgRect = { dstX, dstY, dstW, dstH };
 	D2D1_RECT_F srcRect = { srcX, srcY, srcW, srcH };
 
