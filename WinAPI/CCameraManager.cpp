@@ -2,6 +2,7 @@
 #include "CCameraManager.h"
 
 #include "CTimeManager.h"
+#include "CRenderManager.h"
 #include "CGameObject.h"
 
 CCameraManager::CCameraManager()
@@ -10,6 +11,10 @@ CCameraManager::CCameraManager()
 	m_vecTargetPos	= Vector(0, 0);
 	m_pTargetObj	= nullptr;
 	m_fTimeToTarget = 0;
+
+	m_fTargetBright = 0.f;
+	m_fCurBright = 0.f;
+	m_fTimeToBright = 0.f;
 }
 
 CCameraManager::~CCameraManager()
@@ -64,6 +69,18 @@ void CCameraManager::Scroll(Vector dir, float velocity)
 	m_fTimeToTarget = 0;	// 스크롤은 시간차를 두지 않은 즉각 이동
 }
 
+void CCameraManager::FadeIn(float duration)
+{
+	m_fTargetBright = 1.f;
+	m_fTimeToBright = duration;
+}
+
+void CCameraManager::FadeOut(float duration)
+{
+	m_fTargetBright = 0.f;
+	m_fTimeToBright = duration;
+}
+
 void CCameraManager::Init()
 {
 }
@@ -89,6 +106,14 @@ void CCameraManager::Update()
 	MoveToTarget();
 }
 
+void CCameraManager::Render()
+{
+	RenderEffect();
+
+	Vector screenPos = ScreenToWorldPoint(Vector(0, 0));
+	RENDER->FillRect(screenPos.x, screenPos.y, screenPos.x + WINSIZEX, screenPos.y + WINSIZEY, Color(0, 0, 0, 1 - m_fCurBright));
+}
+
 void CCameraManager::Release()
 {
 }
@@ -110,5 +135,20 @@ void CCameraManager::MoveToTarget()
 		// 속력 = (도착지 - 출발지) / 소요시간
 		// 시간 = 프레임단위시간
 		m_vecLookAt += (m_vecTargetPos - m_vecLookAt) / m_fTimeToTarget * DT;
+	}
+}
+
+void CCameraManager::RenderEffect()
+{
+	m_fTimeToBright -= DT;
+
+	if (m_fTimeToBright <= 0)
+	{
+		// 카메라 효과가 남은 시간이 없을 경우 목표 밝기로 고정
+		m_fCurBright = m_fTargetBright;
+	}
+	else
+	{
+		m_fCurBright += (m_fTargetBright - m_fCurBright) / m_fTimeToBright * DT;
 	}
 }

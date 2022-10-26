@@ -37,12 +37,14 @@ void CSceneStage01::Init()
 
 void CSceneStage01::Enter()
 {
+	CAMERA->FadeIn(1.f);
 }
 
 void CSceneStage01::Update()
 {
 	if (BUTTONDOWN(VK_ESCAPE))
 	{
+		CAMERA->FadeOut(1.f);
 		CHANGESCENE(GroupScene::Title);
 	}
 }

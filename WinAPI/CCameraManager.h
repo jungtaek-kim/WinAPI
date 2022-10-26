@@ -18,6 +18,10 @@ private:
 
 	float			m_fTimeToTarget;	// 카메라가 목적지까지 가는데 남은시간
 
+	float			m_fTargetBright;	// 카메라의 목표 밝기
+	float			m_fCurBright;		// 카메라의 현재 밝기
+	float			m_fTimeToBright;	// 카메라의 밝기 변화 남은시간
+
 public:
 	Vector			GetLookAt();
 	Vector			GetTargetPos();
@@ -32,13 +36,18 @@ public:
 
 	void Scroll(Vector dir, float velocity);		// 카메라 스크롤
 
+	void FadeIn(float duration);		// 씬 진입 효과
+	void FadeOut(float duration);		// 씬 탈출 효과
+
 private:
 	void Init();
 	void Update();
+	void Render();
 	void Release();
 
 private:
 	void MoveToTarget();
+	void RenderEffect();
 };
 
 #define CAMERA	CCameraManager::GetInstance()
