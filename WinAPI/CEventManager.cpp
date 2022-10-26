@@ -4,8 +4,11 @@
 #include "CScene.h"
 #include "CGameObject.h"
 
+#include "CTimeManager.h"
+
 CEventManager::CEventManager()
 {
+	m_pChangeScene = nullptr;
 }
 
 CEventManager::~CEventManager()
@@ -41,10 +44,22 @@ void CEventManager::EventDeleteObject(CGameObject* pObj)
 	m_queueDeleteObject.push(pObj);
 }
 
-void CEventManager::EventChangeScene(GroupScene scene)
+void CEventManager::EventChangeScene(GroupScene scene, float delay)
 {
 	// 씬 전환 이벤트를 자료구조에 보관
-	m_listChangeScene.push_back(scene);
+	if (nullptr == m_pChangeScene)
+	{
+		m_pChangeScene = new pair<GroupScene, float>(scene, delay);
+	}
+	else if (m_pChangeScene->second > delay)
+	{
+		delete m_pChangeScene;
+		m_pChangeScene = new pair<GroupScene, float>(scene, delay);
+	}
+	else
+	{
+		// 딜레이가 더욱 큰 씬전환 이벤트는 무시
+	}
 }
 
 void CEventManager::ProgressAddObject()
@@ -75,10 +90,16 @@ void CEventManager::ProgressChangeScene()
 {
 	// 저장된 씬 전환 이벤트 중 가장 마지막의 이벤트만 진행
 
-	if (m_listChangeScene.empty())
+	if (nullptr == m_pChangeScene)
 		return;
 
-	GroupScene scene = m_listChangeScene.back();
-	m_listChangeScene.clear();
-	SCENE->ChangeScene(scene);
+	// 지연실행 이벤트가 잔여시간이 모두 소진되었을 경우 이벤트 진행
+	m_pChangeScene->second -= DT;
+	if (m_pChangeScene->second <= 0)
+	{
+		GroupScene scene = m_pChangeScene->first;
+		delete m_pChangeScene;
+		m_pChangeScene = nullptr;
+		SCENE->ChangeScene(scene);
+	}
 }

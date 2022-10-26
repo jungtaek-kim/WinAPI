@@ -21,15 +21,15 @@ void CSceneTitle::Init()
 
 void CSceneTitle::Enter()
 {
-	CAMERA->FadeIn(1.f);
+	CAMERA->FadeIn(0.25f);
 }
 
 void CSceneTitle::Update()
 {
 	if (BUTTONDOWN(VK_SPACE))
 	{
-		CAMERA->FadeOut(1.f);
-		CHANGESCENE(GroupScene::Stage01);
+		CAMERA->FadeOut(0.25f);
+		DELAYCHANGESCENE(GroupScene::Stage01, 0.25f);
 	}
 }
 
