@@ -42,5 +42,6 @@ enum class Layer
 	Missile,
 	Monster,
 
+	Ui,
 	Size,
 };

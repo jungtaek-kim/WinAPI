@@ -70,14 +70,14 @@ protected:
 	virtual void OnCollisionStay(CCollider* pOtherCollider) {};	// 충돌체크를 확인하는 오브젝트는 재정의하여 사용
 	virtual void OnCollisionExit(CCollider* pOtherCollider) {};	// 충돌체크를 확인하는 오브젝트는 재정의하여 사용
 
-private:
+protected:
 	// 게임오브젝트 부모 전용 함수들 :
 	// 게임오브젝트에 있는 모든 컴포넌트들을 갱신
-	void GameObjectInit();
-	void GameObjectUpdate();
-	void GameObjectPhysicsUpdate();
-	void GameObjectRender();
-	void GameObjectRelease();
+	virtual void GameObjectInit();
+	virtual void GameObjectUpdate();
+	virtual void GameObjectPhysicsUpdate();
+	virtual void GameObjectRender();
+	virtual void GameObjectRelease();
 
 	// 순수가상함수:
 	// 함수를 추상화하여 구체화하지 않을 경우 인스턴스 생성을 막음

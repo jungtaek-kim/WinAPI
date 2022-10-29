@@ -40,6 +40,9 @@
     <Filter Include="Engine\Asset\Resource">
       <UniqueIdentifier>{c5cfb52a-750e-43df-b17a-8d52a11c9f90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Asset\UI">
+      <UniqueIdentifier>{c696e83c-93e9-4b47-9317-6e5ab9181467}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -135,6 +138,9 @@
     <ClInclude Include="CCameraController.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="CUI.h">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -211,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="CCameraController.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI.cpp">
+      <Filter>Engine\Asset\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
