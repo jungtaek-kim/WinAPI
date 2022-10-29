@@ -1,5 +1,9 @@
 #pragma once
 
+//========================================
+//##				백터					##
+//========================================
+
 struct Vector
 {
 	float x;
@@ -118,4 +122,30 @@ struct Vector
 			return Vector(x / length, y / length);
 		}
 	}
+};
+
+//========================================
+//##				색상					##
+//========================================
+
+struct Color
+{
+	Color()
+	{
+		r = 0;
+		g = 0;
+		b = 0;
+		a = 1;
+	}
+
+	Color(BYTE r, BYTE g, BYTE b, FLOAT a)
+	{
+		this->r = r;
+		this->g = g;
+		this->b = b;
+		this->a = a;
+	}
+
+	BYTE r, g, b;
+	FLOAT a;
 };

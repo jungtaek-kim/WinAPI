@@ -141,6 +141,9 @@
     <ClInclude Include="CUI.h">
       <Filter>Engine\Asset\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CButton.h">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -219,6 +222,9 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CUI.cpp">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CButton.cpp">
       <Filter>Engine\Asset\UI</Filter>
     </ClCompile>
   </ItemGroup>

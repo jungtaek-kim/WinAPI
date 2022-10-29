@@ -3,20 +3,6 @@
 class CCore;
 class CImage;
 
-struct Color
-{
-	Color(BYTE r, BYTE g, BYTE b, FLOAT a)
-	{
-		this->r = r;
-		this->g = g;
-		this->b = b;
-		this->a = a;
-	}
-
-	BYTE r, g, b;
-	FLOAT a;
-};
-
 class CRenderManager : public SingleTon<CRenderManager>
 {
 	friend SingleTon<CRenderManager>;

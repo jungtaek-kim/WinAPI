@@ -18,11 +18,6 @@ void CCameraController::Init()
 
 void CCameraController::Update()
 {
-	if (BUTTONDOWN(VK_LBUTTON))
-	{
-		CAMERA->SetTargetPos(MOUSEWORLDPOS, m_fMouseTime);
-	}
-
 	Vector dir;
 	if (BUTTONSTAY('A'))
 	{
