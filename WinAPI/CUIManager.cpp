@@ -9,6 +9,7 @@
 
 CUIManager::CUIManager()
 {
+	m_pFocusedUI = nullptr;
 }
 
 CUIManager::~CUIManager()
@@ -109,6 +110,39 @@ void CUIManager::MouseEvent(CUI* pUI, CUI* pTopChildUI)
 	{
 		MouseEvent(pChildUI, pTopChildUI);
 	}
+
+	for (CUI* pChildUI : pUI->m_listChildUI)
+	{
+		MouseEvent(pChildUI, pTopChildUI);
+	}
+}
+
+CUI* CUIManager::GetFocusedUI()
+{
+	return m_pFocusedUI;
+}
+
+void CUIManager::SetFocusedUI(CUI* pUI)
+{
+	// 이미 포커싱된 UI일 경우 진행하지 않음
+	if (m_pFocusedUI == pUI)
+		return;
+
+	// 포커싱을 nullptr로 지정할 경우 포커싱 UI 를 nullptr로 설정
+	if (nullptr == pUI)
+	{
+		m_pFocusedUI = nullptr;
+		return;
+	}
+
+	m_pFocusedUI = pUI;
+
+	// 포커싱된 UI를 최상단에 배치하도록 자료구조의 가장 뒤에 배치
+	CScene* pCurScene = SCENE->GetCurScene();
+	list<CGameObject*>& listUI = pCurScene->m_listObj[(int)Layer::Ui];
+
+	listUI.remove(pUI);
+	listUI.push_back(pUI);
 }
 
 void CUIManager::Init()
@@ -119,6 +153,9 @@ void CUIManager::Update()
 {
 	CUI* pTopUI = GetTopUI();
 	CUI* pTopChildUI = GetTopChildUI(pTopUI);
+
+	if (BUTTONDOWN(VK_LBUTTON))
+		SetFocusedUI(pTopUI);
 
 	CScene* pCurScene = SCENE->GetCurScene();
 	const list<CGameObject*>& listUI = pCurScene->m_listObj[(int)Layer::Ui];

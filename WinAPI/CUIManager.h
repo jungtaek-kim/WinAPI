@@ -12,10 +12,17 @@ private:
 	virtual ~CUIManager();
 
 private:
+	CUI* m_pFocusedUI;
+
+private:
 	CUI* GetTopUI();
 	CUI* GetTopChildUI(CUI* pUI);
 
 	void MouseEvent(CUI* pUI, CUI* pTopChildUI);
+
+public:
+	CUI* GetFocusedUI();
+	void SetFocusedUI(CUI* pUI);
 
 private:
 	void Init();

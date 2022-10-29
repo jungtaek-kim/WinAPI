@@ -42,17 +42,25 @@ void CSceneStage01::Init()
 	pButton1->SetScale(100, 100);
 	AddGameObject(pButton1);
 
-	CPanel* pPanel = new CPanel;
-	pPanel->SetName(L"패널");
-	pPanel->SetPos(500, 100);
-	pPanel->SetScale(400, 400);
-	AddGameObject(pPanel);
+	CPanel* pPanel1 = new CPanel;
+	pPanel1->SetName(L"패널1");
+	pPanel1->SetPos(500, 100);
+	pPanel1->SetScale(400, 400);
+	pPanel1->SetDraggable(false);
+	pPanel1->SetScreenFixed(false);
+	AddGameObject(pPanel1);
 
 	CButton* pButton2 = new CButton;
 	pButton2->SetName(L"패널 안 버튼");
 	pButton2->SetPos(100, 100);
 	pButton2->SetScale(100, 100);
-	pPanel->AddChildUI(pButton2);
+	pPanel1->AddChildUI(pButton2);
+
+	CPanel* pPanel2 = new CPanel;
+	pPanel2->SetName(L"패널2");
+	pPanel2->SetPos(600, 200);
+	pPanel2->SetScale(400, 400);
+	AddGameObject(pPanel2);
 }
 
 void CSceneStage01::Enter()
