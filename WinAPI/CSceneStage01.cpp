@@ -12,6 +12,7 @@
 #include "CMonster.h"
 #include "CCameraController.h"
 #include "CButton.h"
+#include "CPanel.h"
 
 CSceneStage01::CSceneStage01()
 {
@@ -35,10 +36,23 @@ void CSceneStage01::Init()
 	CCameraController* pCamController = new CCameraController;
 	AddGameObject(pCamController);
 
-	CButton* pButton = new CButton;
-	pButton->SetPos(100, 100);
-	pButton->SetScale(100, 100);
-	AddGameObject(pButton);
+	CButton* pButton1 = new CButton;
+	pButton1->SetName(L"버튼");
+	pButton1->SetPos(100, 100);
+	pButton1->SetScale(100, 100);
+	AddGameObject(pButton1);
+
+	CPanel* pPanel = new CPanel;
+	pPanel->SetName(L"패널");
+	pPanel->SetPos(500, 100);
+	pPanel->SetScale(400, 400);
+	AddGameObject(pPanel);
+
+	CButton* pButton2 = new CButton;
+	pButton2->SetName(L"패널 안 버튼");
+	pButton2->SetPos(100, 100);
+	pButton2->SetScale(100, 100);
+	pPanel->AddChildUI(pButton2);
 }
 
 void CSceneStage01::Enter()
