@@ -10,6 +10,7 @@
 CUIManager::CUIManager()
 {
 	m_pFocusedUI = nullptr;
+	m_pMouseOnUI = false;
 }
 
 CUIManager::~CUIManager()
@@ -145,6 +146,11 @@ void CUIManager::SetFocusedUI(CUI* pUI)
 	listUI.push_back(pUI);
 }
 
+bool CUIManager::GetMouseOnUI()
+{
+	return m_pMouseOnUI;
+}
+
 void CUIManager::Init()
 {
 }
@@ -153,6 +159,8 @@ void CUIManager::Update()
 {
 	CUI* pTopUI = GetTopUI();
 	CUI* pTopChildUI = GetTopChildUI(pTopUI);
+
+	m_pMouseOnUI = nullptr != pTopUI;
 
 	if (BUTTONDOWN(VK_LBUTTON))
 		SetFocusedUI(pTopUI);

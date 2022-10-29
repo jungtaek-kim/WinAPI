@@ -2,6 +2,7 @@
 #include "CInputManager.h"
 
 #include "CCameraManager.h"
+#include "CUIManager.h"
 #include "WinAPI.h"
 
 CInputManager::CInputManager()
@@ -86,4 +87,75 @@ Vector CInputManager::GetMouseScreenPos()
 Vector CInputManager::GetMouseWorldPos()
 {
 	return CAMERA->ScreenToWorldPoint(m_vecMousePos);
+}
+
+bool CInputManager::GetMouseOnUI()
+{
+	return UI->GetMouseOnUI();
+}
+
+bool CInputManager::GetLMouse(bool ignoreUI)
+{
+	if (GetButton(VK_LBUTTON))
+	{
+		if (ignoreUI) return true;
+		else return !GetMouseOnUI();
+	}
+	else
+		return false;
+}
+
+bool CInputManager::GetLMouseUp(bool ignoreUI)
+{
+	if (GetButtonUp(VK_LBUTTON))
+	{
+		if (ignoreUI) return true;
+		else return !GetMouseOnUI();
+	}
+	else
+		return false;
+}
+
+bool CInputManager::GetLMouseDown(bool ignoreUI)
+{
+	if (GetButtonDown(VK_LBUTTON))
+	{
+		if (ignoreUI) return true;
+		else return !GetMouseOnUI();
+	}
+	else
+		return false;
+}
+
+bool CInputManager::GetRMouse(bool ignoreUI)
+{
+	if (GetButton(VK_RBUTTON))
+	{
+		if (ignoreUI) return true;
+		else return !GetMouseOnUI();
+	}
+	else
+		return false;
+}
+
+bool CInputManager::GetRMouseUp(bool ignoreUI)
+{
+	if (GetButtonUp(VK_RBUTTON))
+	{
+		if (ignoreUI) return true;
+		else return !GetMouseOnUI();
+	}
+	else
+		return false;
+}
+
+bool CInputManager::GetRMouseDown(bool ignoreUI)
+{
+	if (GetButtonDown(VK_RBUTTON))
+	{
+		if (ignoreUI) return true;
+		else return !GetMouseOnUI();
+	}
+	else
+		return false;
 }

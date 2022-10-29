@@ -13,6 +13,7 @@ private:
 
 private:
 	CUI* m_pFocusedUI;
+	bool m_pMouseOnUI;
 
 private:
 	CUI* GetTopUI();
@@ -23,6 +24,8 @@ private:
 public:
 	CUI* GetFocusedUI();
 	void SetFocusedUI(CUI* pUI);
+
+	bool GetMouseOnUI();
 
 private:
 	void Init();
