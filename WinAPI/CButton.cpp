@@ -5,11 +5,20 @@
 
 CButton::CButton()
 {
-	m_colorRect = Color(255, 255, 255, 1);
+	m_pCallback = nullptr;
+	m_pParam1 = 0;
+	m_pParam2 = 0;
 }
 
 CButton::~CButton()
 {
+}
+
+void CButton::SetClickedCallback(CallbackFunc pCallback, DWORD_PTR pParam1, DWORD_PTR pParam2)
+{
+	m_pCallback = pCallback;
+	m_pParam1 = pParam1;
+	m_pParam2 = pParam2;
 }
 
 void CButton::Init()
@@ -27,7 +36,7 @@ void CButton::Render()
 		m_vecRenderPos.y,
 		m_vecRenderPos.x + m_vecScale.x,
 		m_vecRenderPos.y + m_vecScale.y,
-		m_colorRect
+		Color(255, 255, 255, 1)
 	);
 
 	RENDER->FrameRect(
@@ -50,13 +59,11 @@ void CButton::OnMouseEnter()
 
 void CButton::OnMouseOver()
 {
-	m_colorRect = Color(0, 255, 0, 1);
 }
 
 void CButton::OnMouseExit()
 {
 	Logger::Debug(m_strName + L" button exit");
-	m_colorRect = Color(255, 255, 255, 1);
 }
 
 void CButton::OnMouseUp()
@@ -66,6 +73,8 @@ void CButton::OnMouseUp()
 
 void CButton::OnMouseDown()
 {
+	if (nullptr != m_pCallback)
+		m_pCallback(m_pParam1, m_pParam2);
 	Logger::Debug(m_strName + L" button down");
 }
 

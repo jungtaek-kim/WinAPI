@@ -36,10 +36,18 @@ void CSceneStage01::Init()
 	CCameraController* pCamController = new CCameraController;
 	AddGameObject(pCamController);
 
+	auto button1Clicked = [](DWORD_PTR button, DWORD_PTR param) {
+		CButton* pButton = (CButton*)(button);
+		int paramInt = (int)(param);
+
+		Logger::Debug(pButton->GetName() + L" 이 " + to_wstring(paramInt) + L"를 호출함");
+	};
+
 	CButton* pButton1 = new CButton;
 	pButton1->SetName(L"버튼");
 	pButton1->SetPos(100, 100);
 	pButton1->SetScale(100, 100);
+	pButton1->SetClickedCallback(button1Clicked, (DWORD_PTR)pButton1, (DWORD_PTR)1);
 	AddGameObject(pButton1);
 
 	CPanel* pPanel1 = new CPanel;

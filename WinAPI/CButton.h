@@ -1,5 +1,13 @@
 #pragma once
 #include "CUI.h"
+
+// 함수포인터 : 함수를 가리키는 포인터 변수로 함수의 시작주소를 저장하는 변수
+// 반환형 (*함수포인터 이름)(매개변수들...)
+// ex) void (*FuncPointer)(int);
+// 가리키고 있는 함수를 호출하기 위해서는 함수포인터 이름을 통해서 진행
+// ex) FuncPointer(10);
+typedef void(*CallbackFunc)(DWORD_PTR, DWORD_PTR);
+
 class CButton : public CUI
 {
 public:
@@ -7,7 +15,12 @@ public:
 	virtual ~CButton();
 
 private:
-	Color m_colorRect;
+	CallbackFunc	m_pCallback;
+	DWORD_PTR		m_pParam1;
+	DWORD_PTR		m_pParam2;
+
+public:
+	void SetClickedCallback(CallbackFunc pCallback, DWORD_PTR pParam1, DWORD_PTR pParam2);
 
 private:
 	void Init() override;
