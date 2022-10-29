@@ -2,6 +2,7 @@
 #include "CUI.h"
 
 #include "CCameraManager.h"
+#include "CInputManager.h"
 
 CUI::CUI()
 {
@@ -11,6 +12,11 @@ CUI::CUI()
 	m_vecAbsolutePos = Vector(0, 0);
 	m_vecRenderPos = Vector(0, 0);
 	m_bScreenFixed = true;
+
+	m_bPrevMouseOn	= false;
+	m_bCurMouseOn	= false;
+	m_bPrevDown		= false;
+	m_bCurDown		= false;
 }
 
 CUI::~CUI()
@@ -37,6 +43,22 @@ bool CUI::GetScreenFixed()
 void CUI::SetScreenFixed(bool fixed)
 {
 	m_bScreenFixed = fixed;
+}
+
+void CUI::MouseOnCheck()
+{
+	Vector mousePos = MOUSESCREENPOS;
+	Vector uiPos = CAMERA->WorldToScreenPoint(m_vecRenderPos);
+
+	if (uiPos.x <= mousePos.x && mousePos.x <= uiPos.x + m_vecScale.x
+		&& uiPos.y <= mousePos.y && mousePos.y <= uiPos.y + m_vecScale.y)
+	{
+		m_bCurMouseOn = true;
+	}
+	else
+	{
+		m_bCurMouseOn = false;
+	}
 }
 
 void CUI::GameObjectInit()
@@ -69,6 +91,8 @@ void CUI::GameObjectUpdate()
 	{
 		pUI->GameObjectUpdate();
 	}
+
+	MouseOnCheck();
 }
 
 void CUI::GameObjectRender()

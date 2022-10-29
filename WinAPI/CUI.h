@@ -1,7 +1,11 @@
 #pragma once
 #include "CGameObject.h"
+
+class CUIManager;
+
 class CUI : public CGameObject
 {
+	friend CUIManager;
 public:
 	CUI();
 	virtual ~CUI();
@@ -15,12 +19,20 @@ protected:
 	Vector		m_vecRenderPos;		// 게임에서의 그려질 위치
 	bool		m_bScreenFixed;		// 화면 고정 여부
 
+	bool		m_bPrevMouseOn;		// UI가 이전 프레임에 마우스가 올려진 여부
+	bool		m_bCurMouseOn;		// UI가 현재 프레임에 마우스가 올려진 여부
+	bool		m_bPrevDown;		// UI가 이전 프레임에 눌렸는지 여부
+	bool		m_bCurDown;			// UI가 현재 프레임에 눌렸는지 여부
+
 public:
 	CUI* GetParentUI();
 	void AddChildUI(CUI* pChildUI);
 
 	bool GetScreenFixed();
 	void SetScreenFixed(bool fixed);
+
+protected:
+	void MouseOnCheck();
 
 private:
 	// UI 부모 전용 함수들 :
