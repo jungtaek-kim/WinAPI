@@ -12,7 +12,10 @@ private:
 	virtual ~CUIManager();
 
 private:
-	void MouseEvent(CUI* pUI);
+	CUI* GetTopUI();
+	CUI* GetTopChildUI(CUI* pUI);
+
+	void MouseEvent(CUI* pUI, CUI* pTopChildUI);
 
 private:
 	void Init();
