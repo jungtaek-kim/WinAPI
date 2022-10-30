@@ -20,6 +20,10 @@ public:
 	CScene();
 	virtual ~CScene();
 
+protected:
+	UINT m_iTileSizeX;
+	UINT m_iTileSizeY;
+
 private:
 	// 씬 부모 전용 함수들 :
 	// 씬에 있는 모든 게임오브젝트들을 갱신
@@ -40,6 +44,9 @@ private:
 	virtual void Render() = 0;		// 게임표현 갱신
 	virtual void Exit() = 0;		// 탈출
 	virtual void Release() = 0;		// 마무리
+
+public:
+	void CreateTiles(UINT sizeX, UINT sizeY);
 
 protected:
 	list<CGameObject*>& GetLayerObject(Layer layer);

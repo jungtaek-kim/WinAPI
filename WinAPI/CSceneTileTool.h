@@ -7,13 +7,11 @@ public:
 	virtual ~CSceneTileTool();
 
 private:
-	UINT m_iTileSizeX;
-	UINT m_iTileSizeY;
+	HWND m_hWndTileTool;
 
 	float m_fScrollSpeed;
 
 private:
-	void CreateTiles(UINT sizeX, UINT sizeY);
 	void SetTileIndex(UINT index);
 
 	void CameraMove();

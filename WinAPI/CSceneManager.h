@@ -26,6 +26,7 @@ private:
 	void Render();
 	void Release();
 
+public:
 	CScene* GetCurScene();					// 현재 게임씬 반환
 	void ChangeScene(GroupScene scene);		// 게임씬 변경
 };

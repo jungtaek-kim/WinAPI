@@ -3,9 +3,12 @@
 
 #include "CCameraManager.h"
 #include "CGameObject.h"
+#include "CTile.h"
 
 CScene::CScene()
 {
+	m_iTileSizeX = 0;
+	m_iTileSizeY = 0;
 }
 
 CScene::~CScene()
@@ -117,6 +120,24 @@ void CScene::SceneRelease()
 
 	// 상속한 자식 마무리
 	Release();
+}
+
+void CScene::CreateTiles(UINT sizeX, UINT sizeY)
+{
+	DeleteLayerObject(Layer::Tile);
+
+	m_iTileSizeX = sizeX;
+	m_iTileSizeY = sizeY;
+	for (UINT y = 0; y < sizeY; y++)
+	{
+		for (UINT x = 0; x < sizeX; x++)
+		{
+			CTile* pTile = new CTile();
+			pTile->SetTilePos(x, y);
+			pTile->SetLineRender(true);
+			AddGameObject(pTile);
+		}
+	}
 }
 
 list<CGameObject*>& CScene::GetLayerObject(Layer layer)

@@ -1,14 +1,19 @@
 #include "framework.h"
 #include "CSceneTileTool.h"
 
+#include "WinAPI.h"
 #include "CInputManager.h"
 #include "CEventManager.h"
 #include "CCameraManager.h"
+#include "CSceneManager.h"
 
 #include "CTile.h"
 
+LRESULT CALLBACK    WinTileToolProc(HWND, UINT, WPARAM, LPARAM);
+
 CSceneTileTool::CSceneTileTool()
 {
+	m_hWndTileTool = 0;
 	m_iTileSizeX = 0;
 	m_iTileSizeY = 0;
 	m_fScrollSpeed = 300;
@@ -16,24 +21,6 @@ CSceneTileTool::CSceneTileTool()
 
 CSceneTileTool::~CSceneTileTool()
 {
-}
-
-void CSceneTileTool::CreateTiles(UINT sizeX, UINT sizeY)
-{
-	DeleteLayerObject(Layer::Tile);
-
-	m_iTileSizeX = sizeX;
-	m_iTileSizeY = sizeY;
-	for (UINT y = 0; y < sizeY; y++)
-	{
-		for (UINT x = 0; x < sizeX; x++)
-		{
-			CTile* pTile = new CTile();
-			pTile->SetTilePos(x, y);
-			pTile->SetLineRender(true);
-			AddGameObject(pTile);
-		}
-	}
 }
 
 void CSceneTileTool::SetTileIndex(UINT index)
@@ -91,6 +78,16 @@ void CSceneTileTool::Init()
 
 void CSceneTileTool::Enter()
 {
+	// DialogBox : 모달방식 (창이 포커싱이 잃지 않도록 제한함)
+	// CreateDialog : 모달리스 방식 (창이 포커싱 제한을 하지 않음)
+	m_hWndTileTool = CreateDialog(hInst, MAKEINTRESOURCE(IDD_TILETOOLBOX), hWnd, WinTileToolProc);
+	ShowWindow(m_hWndTileTool, SW_SHOW);
+
+	RECT rect;
+	GetWindowRect(m_hWndTileTool, &rect);
+	MoveWindow(m_hWndTileTool, WINSTARTX + WINSIZEX, WINSTARTY,
+		rect.right - rect.left, rect.bottom - rect.top, true);
+
 	CreateTiles(10, 10);
 }
 
@@ -115,9 +112,34 @@ void CSceneTileTool::Render()
 
 void CSceneTileTool::Exit()
 {
+	EndDialog(m_hWndTileTool, IDOK);
+
 	DeleteAll();
 }
 
 void CSceneTileTool::Release()
 {
+}
+
+LRESULT CALLBACK    WinTileToolProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	UNREFERENCED_PARAMETER(lParam);
+	switch (message)
+	{
+	case WM_INITDIALOG:
+		return (INT_PTR)TRUE;
+		break;
+
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDC_TILEBUTTON)
+		{
+			int x = GetDlgItemInt(hDlg, IDC_EDITTILEXSIZE, nullptr, false);
+			int y = GetDlgItemInt(hDlg, IDC_EDITTILEYSIZE, nullptr, false);
+
+			CScene* pCurScene = SCENE->GetCurScene();
+			pCurScene->CreateTiles(x, y);
+		}
+		break;
+	}
+	return (INT_PTR)FALSE;
 }
