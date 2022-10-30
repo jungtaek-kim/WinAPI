@@ -26,6 +26,10 @@ void CSceneTitle::Enter()
 
 void CSceneTitle::Update()
 {
+	if (BUTTONDOWN(VK_F1))
+	{
+		CHANGESCENE(GroupScene::TileTool);
+	}
 	if (BUTTONDOWN(VK_SPACE))
 	{
 		CAMERA->FadeOut(0.25f);

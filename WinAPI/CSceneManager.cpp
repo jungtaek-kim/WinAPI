@@ -3,6 +3,7 @@
 
 #include "CScene.h"
 #include "CSceneTitle.h"
+#include "CSceneTileTool.h"
 #include "CSceneStage01.h"
 
 CSceneManager::CSceneManager()
@@ -20,6 +21,8 @@ void CSceneManager::Init()
 	// 게임씬들을 자료구조에 추가
 	CScene* pSceneTitle = new CSceneTitle();
 	m_mapScene.insert(make_pair(GroupScene::Title, pSceneTitle));
+	CSceneTileTool* pSceneTileTool = new CSceneTileTool;
+	m_mapScene.insert(make_pair(GroupScene::TileTool, pSceneTileTool));
 	CScene* pSceneStage01 = new CSceneStage01();
 	m_mapScene.insert(make_pair(GroupScene::Stage01, pSceneStage01));
 

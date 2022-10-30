@@ -150,6 +150,9 @@
     <ClInclude Include="CPanel.h">
       <Filter>Engine\Asset\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneTileTool.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -238,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="CPanel.cpp">
       <Filter>Engine\Asset\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTileTool.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
