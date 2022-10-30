@@ -13,6 +13,8 @@ CTile::CTile()
 	m_uiTilePosY = 0;
 	m_uiTileIndex = 0;
 
+	m_bLineRender = false;
+
 	m_strName = L"Tile";
 	m_vecPos = Vector(0, 0);
 	m_vecScale = Vector(TILESIZE, TILESIZE);
@@ -50,6 +52,16 @@ void CTile::Render()
 		(float)((tileIndexX + 1) * TILESIZE),
 		(float)((tileIndexY + 1) * TILESIZE)
 	);
+
+	if (m_bLineRender)
+	{
+		RENDER->FrameRect(
+			m_vecPos.x,
+			m_vecPos.y,
+			m_vecPos.x + m_vecScale.x,
+			m_vecPos.y + m_vecScale.y
+		);
+	}
 }
 
 void CTile::Release()
@@ -81,6 +93,11 @@ void CTile::SetTileIndex(UINT index)
 	m_uiTileIndex = index;
 }
 
+void CTile::SetLineRender(bool line)
+{
+	m_bLineRender = line;
+}
+
 int CTile::GetTilePosX()
 {
     return m_uiTilePosX;
@@ -94,4 +111,9 @@ int CTile::GetTilePosY()
 int CTile::GetTileIndex()
 {
     return m_uiTileIndex;
+}
+
+bool CTile::GetLineRender()
+{
+	return m_bLineRender;
 }

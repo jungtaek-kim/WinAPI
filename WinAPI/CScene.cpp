@@ -119,9 +119,31 @@ void CScene::SceneRelease()
 	Release();
 }
 
+list<CGameObject*>& CScene::GetLayerObject(Layer layer)
+{
+	return m_listObj[(int)layer];
+}
+
 void CScene::AddGameObject(CGameObject* pGameObj)
 {
 	// 새로운 게임오브젝트 추가 및 초기화
 	m_listObj[(int)pGameObj->GetLayer()].push_back(pGameObj);
 	pGameObj->GameObjectInit();
+}
+
+void CScene::DeleteLayerObject(Layer layer)
+{
+	for (CGameObject* pObj : m_listObj[(int)layer])
+	{
+		delete pObj;
+	}
+	m_listObj[(int)layer].clear();
+}
+
+void CScene::DeleteAll()
+{
+	for (int i = 0; i < (UINT)Layer::Size; i++)
+	{
+		DeleteLayerObject((Layer)i);
+	}
 }
