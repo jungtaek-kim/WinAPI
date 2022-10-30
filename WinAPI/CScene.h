@@ -45,6 +45,8 @@ private:
 	virtual void Exit() = 0;		// 탈출
 	virtual void Release() = 0;		// 마무리
 
+	void TileRender();
+
 public:
 	void CreateTiles(UINT sizeX, UINT sizeY);
 

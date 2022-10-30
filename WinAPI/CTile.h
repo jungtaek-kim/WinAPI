@@ -2,9 +2,11 @@
 #include "CGameObject.h"
 
 class CImage;
+class CScene;
 
 class CTile : public CGameObject
 {
+	friend CScene;
 public:
 	CTile();
 	virtual ~CTile();
