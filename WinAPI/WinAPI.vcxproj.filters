@@ -43,6 +43,9 @@
     <Filter Include="Engine\Asset\UI">
       <UniqueIdentifier>{c696e83c-93e9-4b47-9317-6e5ab9181467}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Asset\Tile">
+      <UniqueIdentifier>{7d2c888e-7d12-4755-bc37-0d63eb9ab8c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="CSceneTileTool.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>Engine\Asset\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -244,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="CSceneTileTool.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>Engine\Asset\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

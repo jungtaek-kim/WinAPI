@@ -4,6 +4,8 @@
 #include "CInputManager.h"
 #include "CEventManager.h"
 
+#include "CTile.h"
+
 CSceneTileTool::CSceneTileTool()
 {
 }
@@ -14,6 +16,10 @@ CSceneTileTool::~CSceneTileTool()
 
 void CSceneTileTool::Init()
 {
+	CTile* pTile1 = new CTile;
+	pTile1->SetTileIndex(1);
+	pTile1->SetTilePos(1, 1);
+	AddGameObject(pTile1);
 }
 
 void CSceneTileTool::Enter()
