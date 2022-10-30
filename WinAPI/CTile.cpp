@@ -117,3 +117,14 @@ bool CTile::GetLineRender()
 {
 	return m_bLineRender;
 }
+
+void CTile::Save(FILE* pFile)
+{
+	fwrite(&m_uiTileIndex, sizeof(int), 1, pFile);
+}
+
+void CTile::Load(FILE* pFile)
+{
+	fread(&m_uiTileIndex, sizeof(int), 1, pFile);
+}
+

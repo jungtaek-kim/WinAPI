@@ -16,6 +16,11 @@ private:
 
 	void CameraMove();
 
+public:
+	void SaveTile(const wstring& strPath);
+	void SaveTileData();
+	void LoadTileData();
+
 private:
 	void Init() override;
 	void Enter() override;

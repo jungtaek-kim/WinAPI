@@ -40,6 +40,9 @@ public:
 	int GetTileIndex();
 	bool GetLineRender();
 
+	virtual void Save(FILE* pFile);
+	virtual void Load(FILE* pFile);
+
 private:
 	void Init() override;
 	void Update() override;

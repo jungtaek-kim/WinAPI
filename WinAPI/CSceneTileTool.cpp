@@ -6,6 +6,7 @@
 #include "CEventManager.h"
 #include "CCameraManager.h"
 #include "CSceneManager.h"
+#include "CPathManager.h"
 
 #include "CTile.h"
 
@@ -66,6 +67,76 @@ void CSceneTileTool::CameraMove()
 		dir.y = 0;
 
 	CAMERA->Scroll(dir, m_fScrollSpeed);
+}
+
+void CSceneTileTool::SaveTile(const wstring& strPath)
+{
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strPath.c_str(), L"wb");		// w : write, b : binary
+	assert(pFile);
+
+	UINT xCount = m_iTileSizeX;
+	UINT yCount = m_iTileSizeY;
+
+	fwrite(&xCount, sizeof(UINT), 1, pFile);
+	fwrite(&yCount, sizeof(UINT), 1, pFile);
+
+	for (CGameObject* pGameObject : m_listObj[(int)Layer::Tile])
+	{
+		CTile* pTile = dynamic_cast<CTile*>(pGameObject);
+		pTile->Save(pFile);
+	}
+
+	fclose(pFile);
+}
+
+void CSceneTileTool::SaveTileData()
+{
+	OPENFILENAME ofn = {};
+
+	ofn.lStructSize = sizeof(OPENFILENAME);  // 구조체 사이즈.
+	ofn.hwndOwner = hWnd;					// 부모 윈도우 지정.
+	wchar_t szName[256] = {};
+	ofn.lpstrFile = szName; // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.nMaxFile = sizeof(szName); // lpstrFile에 지정된 버퍼의 문자 수.
+	ofn.lpstrFilter = L"ALL\0*.*\0tile\0*.tile"; // 필터 설정
+	ofn.nFilterIndex = 0; // 기본 필터 세팅. 0는 all로 초기 세팅됨. 처음꺼.
+	ofn.lpstrFileTitle = nullptr; // 타이틀 바
+	ofn.nMaxFileTitle = 0; // 타이틀 바 문자열 크기. nullptr이면 0.
+	wstring strTileFolder = GETPATH;
+	strTileFolder += L"tile";
+	ofn.lpstrInitialDir = strTileFolder.c_str(); // 초기경로. 우리는 타일 저장할거기 때문에, content->tile 경로로 해두자.
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; // 스타일
+
+	if (GetSaveFileName(&ofn))
+	{
+		SaveTile(szName);
+	}
+}
+
+void CSceneTileTool::LoadTileData()
+{
+	OPENFILENAME ofn = {};
+
+	ofn.lStructSize = sizeof(OPENFILENAME);  // 구조체 사이즈.
+	ofn.hwndOwner = hWnd; // 부모 윈도우 지정.
+	wchar_t szName[256] = {};
+	ofn.lpstrFile = szName; // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.nMaxFile = sizeof(szName); // lpstrFile에 지정된 버퍼의 문자 수.
+	ofn.lpstrFilter = L"ALL\0*.*\0tile\0*.tile"; // 필터 설정
+	ofn.nFilterIndex = 0; // 기본 필터 세팅. 0는 all로 초기 세팅됨. 처음꺼.
+	ofn.lpstrFileTitle = nullptr; // 타이틀 바
+	ofn.nMaxFileTitle = 0; // 타이틀 바 문자열 크기. nullptr이면 0.
+	wstring strTileFolder = GETPATH;
+	strTileFolder += L"tile";
+	ofn.lpstrInitialDir = strTileFolder.c_str(); // 초기경로. 우리는 타일 저장할거기 때문에, content->tile 경로로 해두자.
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; // 스타일
+
+	if (GetOpenFileName(&ofn))
+	{
+		LoadTile(szName);
+	}
 }
 
 void CSceneTileTool::Init()
@@ -139,6 +210,23 @@ LRESULT CALLBACK    WinTileToolProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 			CScene* pCurScene = SCENE->GetCurScene();
 			pCurScene->CreateTiles(x, y);
 		}
+		else if (LOWORD(wParam) == IDC_BUTTONTILESAVE)
+		{
+			CScene* pCurScene = SCENE->GetCurScene();
+			CSceneTileTool* pTileToolScene = dynamic_cast<CSceneTileTool*>(pCurScene);
+			assert(nullptr != pTileToolScene && L"TileTool Scene cast Failed");
+
+			pTileToolScene->SaveTileData();
+		}
+		else if (LOWORD(wParam) == IDC_BUTTONTILELOAD)
+		{
+			CScene* pCurScene = SCENE->GetCurScene();
+			CSceneTileTool* pTileToolScene = dynamic_cast<CSceneTileTool*>(pCurScene);
+			assert(nullptr != pTileToolScene && L"TileTool Scene cast Failed");
+
+			pTileToolScene->LoadTileData();
+		}
+		return (INT_PTR)TRUE;
 		break;
 	}
 	return (INT_PTR)FALSE;

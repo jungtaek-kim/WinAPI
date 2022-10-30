@@ -13,7 +13,7 @@ class CScene
 	friend CEventManager;
 	friend CCollisionManager;
 	friend CUIManager;
-private:
+protected:
 	list<CGameObject*> m_listObj[(int)Layer::Size];
 
 public:
@@ -49,6 +49,7 @@ private:
 
 public:
 	void CreateTiles(UINT sizeX, UINT sizeY);
+	void LoadTile(const wstring& strPath);
 
 protected:
 	list<CGameObject*>& GetLayerObject(Layer layer);

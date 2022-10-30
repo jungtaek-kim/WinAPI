@@ -165,6 +165,30 @@ void CScene::CreateTiles(UINT sizeX, UINT sizeY)
 	}
 }
 
+void CScene::LoadTile(const wstring& strPath)
+{
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strPath.c_str(), L"rb");      // w : write, b : binary
+	assert(pFile);
+
+	UINT xCount = 0;
+	UINT yCount = 0;
+
+	fread(&xCount, sizeof(UINT), 1, pFile);
+	fread(&yCount, sizeof(UINT), 1, pFile);
+
+	CreateTiles(xCount, yCount);
+
+	for (CGameObject* pGameObject : m_listObj[(int)Layer::Tile])
+	{
+		CTile* pTile = dynamic_cast<CTile*>(pGameObject);
+		pTile->Load(pFile);
+	}
+
+	fclose(pFile);
+}
+
 list<CGameObject*>& CScene::GetLayerObject(Layer layer)
 {
 	return m_listObj[(int)layer];
