@@ -7,6 +7,7 @@
 #include "CRenderManager.h"
 #include "CEventManager.h"
 #include "CCameraManager.h"
+#include "CPathManager.h"
 
 #include "CPlayer.h"
 #include "CMonster.h"
@@ -36,39 +37,7 @@ void CSceneStage01::Init()
 	CCameraController* pCamController = new CCameraController;
 	AddGameObject(pCamController);
 
-	auto click = [](DWORD_PTR button, DWORD_PTR param) {
-		CButton* pButton = (CButton*)(button);
-		int paramInt = (int)(param);
-
-		Logger::Debug(pButton->GetName() + L" 이 " + to_wstring(paramInt) + L"를 호출함");
-	};
-
-	CButton* pButton1 = new CButton;
-	pButton1->SetName(L"버튼");
-	pButton1->SetPos(100, 100);
-	pButton1->SetScale(100, 100);
-	pButton1->SetClickedCallback(click, (DWORD_PTR)pButton1, (DWORD_PTR)1);
-	AddGameObject(pButton1);
-
-	CPanel* pPanel1 = new CPanel;
-	pPanel1->SetName(L"패널1");
-	pPanel1->SetPos(500, 100);
-	pPanel1->SetScale(400, 400);
-	pPanel1->SetDraggable(false);
-	pPanel1->SetScreenFixed(false);
-	AddGameObject(pPanel1);
-
-	CButton* pButton2 = new CButton;
-	pButton2->SetName(L"패널 안 버튼");
-	pButton2->SetPos(100, 100);
-	pButton2->SetScale(100, 100);
-	pPanel1->AddChildUI(pButton2);
-
-	CPanel* pPanel2 = new CPanel;
-	pPanel2->SetName(L"패널2");
-	pPanel2->SetPos(600, 200);
-	pPanel2->SetScale(400, 400);
-	AddGameObject(pPanel2);
+	LoadTile(GETPATH + L"Tile\\Stage01.tile");
 }
 
 void CSceneStage01::Enter()
