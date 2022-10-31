@@ -159,6 +159,12 @@
     <ClInclude Include="CTile.h">
       <Filter>Engine\Asset\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="CTileButton.h">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTilePanel.h">
+      <Filter>Engine\Asset\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -253,6 +259,12 @@
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>Engine\Asset\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileButton.cpp">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTilePanel.cpp">
+      <Filter>Engine\Asset\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

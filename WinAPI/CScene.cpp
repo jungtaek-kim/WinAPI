@@ -147,7 +147,7 @@ void CScene::TileRender()
 	}
 }
 
-void CScene::CreateTiles(UINT sizeX, UINT sizeY)
+void CScene::CreateTiles(UINT sizeX, UINT sizeY, bool line)
 {
 	DeleteLayerObject(Layer::Tile);
 
@@ -159,7 +159,7 @@ void CScene::CreateTiles(UINT sizeX, UINT sizeY)
 		{
 			CTile* pTile = new CTile();
 			pTile->SetTilePos(x, y);
-			pTile->SetLineRender(true);
+			pTile->SetLineRender(line);
 			AddGameObject(pTile);
 		}
 	}

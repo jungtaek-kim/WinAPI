@@ -166,6 +166,8 @@
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CTile.h" />
+    <ClInclude Include="CTileButton.h" />
+    <ClInclude Include="CTilePanel.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="CUIManager.h" />
@@ -205,6 +207,8 @@
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CImage.cpp" />
     <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CTileButton.cpp" />
+    <ClCompile Include="CTilePanel.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CUIManager.cpp" />

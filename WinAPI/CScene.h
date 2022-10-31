@@ -48,7 +48,7 @@ private:
 	void TileRender();
 
 public:
-	void CreateTiles(UINT sizeX, UINT sizeY);
+	void CreateTiles(UINT sizeX, UINT sizeY, bool line = false);
 	void LoadTile(const wstring& strPath);
 
 protected:

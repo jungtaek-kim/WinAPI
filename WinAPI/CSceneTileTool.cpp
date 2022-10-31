@@ -7,8 +7,13 @@
 #include "CCameraManager.h"
 #include "CSceneManager.h"
 #include "CPathManager.h"
+#include "CResourceManager.h"
 
+#include "CImage.h"
 #include "CTile.h"
+#include "CPanel.h"
+#include "CTileButton.h"
+#include "CTilePanel.h"
 
 LRESULT CALLBACK    WinTileToolProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -18,6 +23,11 @@ CSceneTileTool::CSceneTileTool()
 	m_iTileSizeX = 0;
 	m_iTileSizeY = 0;
 	m_fScrollSpeed = 300;
+
+	m_uiTilePanelPage = 0;
+	m_uiTileCountX = 0;
+	m_uiTileCountY = 0;
+	m_uiSelectedTileIndex = 0;
 }
 
 CSceneTileTool::~CSceneTileTool()
@@ -43,7 +53,7 @@ void CSceneTileTool::SetTileIndex(UINT index)
 			pTile->GetTilePosY() != (int)tilePosY)
 			continue;
 
-		pTile->SetTileIndex(pTile->GetTileIndex() + index);
+		pTile->SetTileIndex(index);
 		return;
 	}
 }
@@ -139,12 +149,13 @@ void CSceneTileTool::LoadTileData()
 	}
 }
 
+void CSceneTileTool::ClickTileButton(UINT index)
+{
+	m_uiSelectedTileIndex = index;
+}
+
 void CSceneTileTool::Init()
 {
-	CTile* pTile1 = new CTile;
-	pTile1->SetTileIndex(1);
-	pTile1->SetTilePos(1, 1);
-	AddGameObject(pTile1);
 }
 
 void CSceneTileTool::Enter()
@@ -159,7 +170,12 @@ void CSceneTileTool::Enter()
 	MoveWindow(m_hWndTileTool, WINSTARTX + WINSIZEX, WINSTARTY,
 		rect.right - rect.left, rect.bottom - rect.top, true);
 
-	CreateTiles(10, 10);
+	CreateTiles(10, 10, true);
+
+	CTilePanel* pTilePanel = new CTilePanel;
+	pTilePanel->SetScale(Vector(400.f, 600.f));
+	pTilePanel->SetPos(Vector(WINSIZEX - 450.f, 50.f));
+	AddGameObject(pTilePanel);
 }
 
 void CSceneTileTool::Update()
@@ -169,9 +185,9 @@ void CSceneTileTool::Update()
 		CHANGESCENE(GroupScene::Title);
 	}
 
-	if (LMOUSEDOWN(false))
+	if (LMOUSESTAY(false))
 	{
-		SetTileIndex(1);
+		SetTileIndex(m_uiSelectedTileIndex);
 	}
 
 	CameraMove();

@@ -54,7 +54,6 @@ void CButton::Release()
 
 void CButton::OnMouseEnter()
 {
-	Logger::Debug(m_strName + L" button enter");
 }
 
 void CButton::OnMouseOver()
@@ -63,22 +62,18 @@ void CButton::OnMouseOver()
 
 void CButton::OnMouseExit()
 {
-	Logger::Debug(m_strName + L" button exit");
 }
 
 void CButton::OnMouseUp()
 {
-	Logger::Debug(m_strName + L" button up");
 }
 
 void CButton::OnMouseDown()
 {
 	if (nullptr != m_pCallback)
 		m_pCallback(m_pParam1, m_pParam2);
-	Logger::Debug(m_strName + L" button down");
 }
 
 void CButton::OnMouseClicked()
 {
-	Logger::Debug(m_strName + L" button click");
 }

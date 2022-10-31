@@ -11,6 +11,12 @@ private:
 
 	float m_fScrollSpeed;
 
+	UINT m_uiTilePanelPage;
+	UINT m_uiTileCountX;
+	UINT m_uiTileCountY;
+
+	UINT m_uiSelectedTileIndex;
+
 private:
 	void SetTileIndex(UINT index);
 
@@ -20,6 +26,8 @@ public:
 	void SaveTile(const wstring& strPath);
 	void SaveTileData();
 	void LoadTileData();
+
+	void ClickTileButton(UINT index);
 
 private:
 	void Init() override;

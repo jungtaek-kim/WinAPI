@@ -58,7 +58,6 @@ void CPanel::Release()
 
 void CPanel::OnMouseEnter()
 {
-	Logger::Debug(m_strName + L" panel enter");
 }
 
 void CPanel::OnMouseOver()
@@ -88,23 +87,19 @@ void CPanel::OnMouseOver()
 void CPanel::OnMouseExit()
 {
 	m_bIsDragging = false;
-	Logger::Debug(m_strName + L" panel exit");
 }
 
 void CPanel::OnMouseUp()
 {
 	m_bIsDragging = false;
-	Logger::Debug(m_strName + L" panel up");
 }
 
 void CPanel::OnMouseDown()
 {
 	m_vecDragStartPos = MOUSESCREENPOS;
 	m_bIsDragging = m_bDraggable;
-	Logger::Debug(m_strName + L" panel down");
 }
 
 void CPanel::OnMouseClicked()
 {
-	Logger::Debug(m_strName + L" panel click");
 }

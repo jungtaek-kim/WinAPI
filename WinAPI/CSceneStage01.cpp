@@ -36,7 +36,7 @@ void CSceneStage01::Init()
 	CCameraController* pCamController = new CCameraController;
 	AddGameObject(pCamController);
 
-	auto button1Clicked = [](DWORD_PTR button, DWORD_PTR param) {
+	auto click = [](DWORD_PTR button, DWORD_PTR param) {
 		CButton* pButton = (CButton*)(button);
 		int paramInt = (int)(param);
 
@@ -47,7 +47,7 @@ void CSceneStage01::Init()
 	pButton1->SetName(L"¹öÆ°");
 	pButton1->SetPos(100, 100);
 	pButton1->SetScale(100, 100);
-	pButton1->SetClickedCallback(button1Clicked, (DWORD_PTR)pButton1, (DWORD_PTR)1);
+	pButton1->SetClickedCallback(click, (DWORD_PTR)pButton1, (DWORD_PTR)1);
 	AddGameObject(pButton1);
 
 	CPanel* pPanel1 = new CPanel;
