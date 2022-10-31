@@ -3,6 +3,7 @@
 
 #include "CRenderManager.h"
 #include "CResourceManager.h"
+#include "CComponent.h"
 #include "CImage.h"
 
 CTile::CTile()
@@ -48,7 +49,20 @@ void CTile::Render()
 			m_vecPos.x + m_vecScale.x,
 			m_vecPos.y + m_vecScale.y
 		);
+
+		if (m_type == TypeTile::Ground)
+		{
+			RENDER->FrameEllipse(
+				m_vecPos.x,
+				m_vecPos.y,
+				m_vecPos.x + m_vecScale.x,
+				m_vecPos.y + m_vecScale.y,
+				Color(255, 0, 0, 1), 5
+			);
+		}
 	}
+
+	ComponentRender();
 
 	// 0번 타일은 빈타일러 정의
 	if (0 == m_uiTileIndex)

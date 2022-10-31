@@ -63,6 +63,7 @@ void CTilePanel::CreatePageButton()
 	pPrevButton->SetScale(50.f, 30);
 	pPrevButton->SetPos(Vector(10.f,
 		(float)(m_vecScale.y - m_uiMenuHeight)));
+	pPrevButton->SetText(L"<-");
 	pPrevButton->SetClickedCallback(prevClick, (DWORD_PTR)this, (DWORD_PTR)0);
 	AddChildUI(pPrevButton);
 
@@ -75,8 +76,35 @@ void CTilePanel::CreatePageButton()
 	pNextButton->SetScale(50.f, 30);
 	pNextButton->SetPos(Vector((float)(m_vecScale.x - 60.f),
 		(float)(m_vecScale.y - m_uiMenuHeight)));
+	pPrevButton->SetText(L"->");
 	pNextButton->SetClickedCallback(nextClick, (DWORD_PTR)this, (DWORD_PTR)0);
 	AddChildUI(pNextButton);
+}
+
+void CTilePanel::CreateTileTypeButton()
+{
+	auto click = [](DWORD_PTR tileTool, DWORD_PTR tileType)
+	{
+		CSceneTileTool* pTileTool = (CSceneTileTool*)tileTool;
+		pTileTool->ClickTileType((TypeTile)tileType);
+	};
+
+	CScene* pScene = SCENE->GetCurScene();
+	CSceneTileTool* pTileToolScene = (CSceneTileTool*)pScene;
+
+	CButton* pNoneTypeButton = new CButton;
+	pNoneTypeButton->SetScale(100.f, 50.f);
+	pNoneTypeButton->SetPos(Vector(10.f, m_vecScale.y - 100.f));
+	pNoneTypeButton->SetText(L"None");
+	pNoneTypeButton->SetClickedCallback(click, (DWORD_PTR)pTileToolScene, (DWORD_PTR)TypeTile::None);
+	AddChildUI(pNoneTypeButton);
+
+	CButton* pGroundTypeButton = new CButton;
+	pGroundTypeButton->SetScale(100.f, 50.f);
+	pGroundTypeButton->SetPos(Vector(150.f, m_vecScale.y - 100.f));
+	pGroundTypeButton->SetText(L"Ground");
+	pGroundTypeButton->SetClickedCallback(click, (DWORD_PTR)pTileToolScene, (DWORD_PTR)TypeTile::Ground);
+	AddChildUI(pGroundTypeButton);
 }
 
 void CTilePanel::SetPage(UINT page)
@@ -117,6 +145,7 @@ void CTilePanel::Init()
 {
 	CreateTilePalette();
 	CreatePageButton();
+	CreateTileTypeButton();
 	SetPage(0);
 }
 

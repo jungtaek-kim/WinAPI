@@ -25,6 +25,7 @@ private:
 private:
 	void CreateTilePalette();
 	void CreatePageButton();
+	void CreateTileTypeButton();
 	void SetPage(UINT page);
 	void SetPrevPage();
 	void SetNextPage();

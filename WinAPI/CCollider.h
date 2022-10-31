@@ -10,7 +10,6 @@ class CCollider : public CComponent
 {
 	friend CCollisionManager;
 	friend CGameObject;
-
 public:
 	CCollider();
 	virtual ~CCollider();

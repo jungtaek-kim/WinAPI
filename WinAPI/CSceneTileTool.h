@@ -16,9 +16,10 @@ private:
 	UINT m_uiTileCountY;
 
 	UINT m_uiSelectedTileIndex;
+	TypeTile m_typeSelectedTileType;
 
 private:
-	void SetTileIndex(UINT index);
+	void SetTile(UINT index, TypeTile type);
 
 	void CameraMove();
 
@@ -30,6 +31,7 @@ public:
 	void LoadTileData();
 
 	void ClickTileButton(UINT index);
+	void ClickTileType(TypeTile type);
 
 private:
 	void Init() override;

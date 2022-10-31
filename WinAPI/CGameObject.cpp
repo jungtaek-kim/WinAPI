@@ -90,6 +90,14 @@ void CGameObject::RemoveComponent(CComponent* component)
 	delete component;
 }
 
+void CGameObject::ComponentRender()
+{
+	for (CComponent* pComponent : m_listComponent)
+	{
+		pComponent->Render();
+	}
+}
+
 CCollider* CGameObject::GetCollider()
 {
 	return m_pCollider;
