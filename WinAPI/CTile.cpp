@@ -7,6 +7,8 @@
 
 CTile::CTile()
 {
+	m_type = TypeTile::None;
+
 	m_pImage = nullptr;
 
 	m_uiTilePosX = 0;
@@ -38,6 +40,20 @@ void CTile::Update()
 
 void CTile::Render()
 {
+	if (m_bLineRender)
+	{
+		RENDER->FrameRect(
+			m_vecPos.x,
+			m_vecPos.y,
+			m_vecPos.x + m_vecScale.x,
+			m_vecPos.y + m_vecScale.y
+		);
+	}
+
+	// 0번 타일은 빈타일러 정의
+	if (0 == m_uiTileIndex)
+		return;
+
 	int tileIndexX = (m_uiTileIndex % m_uiImageXCount);
 	int tileIndexY = (m_uiTileIndex / m_uiImageXCount);
 
@@ -52,20 +68,15 @@ void CTile::Render()
 		(float)((tileIndexX + 1) * TILESIZE),
 		(float)((tileIndexY + 1) * TILESIZE)
 	);
-
-	if (m_bLineRender)
-	{
-		RENDER->FrameRect(
-			m_vecPos.x,
-			m_vecPos.y,
-			m_vecPos.x + m_vecScale.x,
-			m_vecPos.y + m_vecScale.y
-		);
-	}
 }
 
 void CTile::Release()
 {
+}
+
+void CTile::SetType(TypeTile type)
+{
+	m_type = type;
 }
 
 void CTile::SetTilePosX(UINT x)
@@ -98,6 +109,11 @@ void CTile::SetLineRender(bool line)
 	m_bLineRender = line;
 }
 
+TypeTile CTile::GetType()
+{
+	return m_type;
+}
+
 int CTile::GetTilePosX()
 {
     return m_uiTilePosX;
@@ -120,11 +136,20 @@ bool CTile::GetLineRender()
 
 void CTile::Save(FILE* pFile)
 {
+	fwrite(&m_uiTilePosX, sizeof(int), 1, pFile);
+	fwrite(&m_uiTilePosY, sizeof(int), 1, pFile);
 	fwrite(&m_uiTileIndex, sizeof(int), 1, pFile);
+	int type = (int)m_type;
+	fwrite(&type, sizeof(int), 1, pFile);
 }
 
 void CTile::Load(FILE* pFile)
 {
+	fread(&m_uiTilePosX, sizeof(int), 1, pFile);
+	fread(&m_uiTilePosY, sizeof(int), 1, pFile);
 	fread(&m_uiTileIndex, sizeof(int), 1, pFile);
+	int type;
+	fread(&type, sizeof(int), 1, pFile);
+	m_type = (TypeTile)type;
 }
 

@@ -15,6 +15,8 @@ public:
 	const static int TILESIZE = 32;
 
 private:
+	TypeTile m_type;
+
 	CImage* m_pImage;
 	UINT m_uiImageXCount;
 	UINT m_uiImageYCount;
@@ -26,6 +28,7 @@ private:
 	bool m_bLineRender;
 
 public:
+	void SetType(TypeTile type);
 	void SetPos(Vector pos) = delete;
 	void SetPos(float x, float y) = delete;
 
@@ -35,6 +38,7 @@ public:
 	void SetTileIndex(UINT index);
 	void SetLineRender(bool line);
 
+	TypeTile GetType();
 	int GetTilePosX();
 	int GetTilePosY();
 	int GetTileIndex();

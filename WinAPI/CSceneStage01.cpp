@@ -36,13 +36,12 @@ void CSceneStage01::Init()
 
 	CCameraController* pCamController = new CCameraController;
 	AddGameObject(pCamController);
-
-	LoadTile(GETPATH + L"Tile\\Stage01.tile");
 }
 
 void CSceneStage01::Enter()
 {
 	CAMERA->FadeIn(0.25f);
+	LoadTile(GETPATH + L"Tile\\Stage01.tile");
 }
 
 void CSceneStage01::Update()

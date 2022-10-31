@@ -23,8 +23,10 @@ private:
 	void CameraMove();
 
 public:
+	void CreateTiles(UINT sizeX, UINT sizeY, bool line = false);
 	void SaveTile(const wstring& strPath);
 	void SaveTileData();
+	void LoadTile(const wstring& strPath);
 	void LoadTileData();
 
 	void ClickTileButton(UINT index);

@@ -4,6 +4,7 @@
 #include "CCameraManager.h"
 #include "CGameObject.h"
 #include "CTile.h"
+#include "CCollider.h"
 
 CScene::CScene()
 {
@@ -147,26 +148,10 @@ void CScene::TileRender()
 	}
 }
 
-void CScene::CreateTiles(UINT sizeX, UINT sizeY, bool line)
+void CScene::LoadTile(const wstring& strPath)
 {
 	DeleteLayerObject(Layer::Tile);
 
-	m_iTileSizeX = sizeX;
-	m_iTileSizeY = sizeY;
-	for (UINT y = 0; y < sizeY; y++)
-	{
-		for (UINT x = 0; x < sizeX; x++)
-		{
-			CTile* pTile = new CTile();
-			pTile->SetTilePos(x, y);
-			pTile->SetLineRender(line);
-			AddGameObject(pTile);
-		}
-	}
-}
-
-void CScene::LoadTile(const wstring& strPath)
-{
 	FILE* pFile = nullptr;
 
 	_wfopen_s(&pFile, strPath.c_str(), L"rb");      // w : write, b : binary
@@ -174,16 +159,38 @@ void CScene::LoadTile(const wstring& strPath)
 
 	UINT xCount = 0;
 	UINT yCount = 0;
+	UINT tileCount = 0;
 
 	fread(&xCount, sizeof(UINT), 1, pFile);
 	fread(&yCount, sizeof(UINT), 1, pFile);
+	fread(&tileCount, sizeof(UINT), 1, pFile);
 
-	CreateTiles(xCount, yCount);
-
-	for (CGameObject* pGameObject : m_listObj[(int)Layer::Tile])
+	CTile loadTile;
+	for (UINT i = 0; i < tileCount; i++)
 	{
-		CTile* pTile = dynamic_cast<CTile*>(pGameObject);
-		pTile->Load(pFile);
+		loadTile.Load(pFile);
+
+		// TODO : 타일 타입에 따른 생성
+		if (TypeTile::None == loadTile.GetType())
+		{
+			CTile* newTile = new CTile;
+			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
+			newTile->SetTileIndex(loadTile.GetTileIndex());
+
+			AddGameObject(newTile);
+		}
+		else if (TypeTile::Ground == loadTile.GetType())
+		{
+			// CGroundTile* newTile = new CGroundTile;
+			CTile* newGroundTile = new CTile;
+			newGroundTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
+			newGroundTile->SetTileIndex(loadTile.GetTileIndex());
+			newGroundTile->AddCollider(ColliderType::Rect,
+				Vector(CTile::TILESIZE, CTile::TILESIZE),
+				Vector(CTile::TILESIZE / 2, CTile::TILESIZE / 2));
+
+			AddGameObject(newGroundTile);
+		}
 	}
 
 	fclose(pFile);

@@ -49,3 +49,17 @@ enum class Layer
 	Ui,
 	Size,
 };
+
+//========================================
+//##				≈∏¿œ					##
+//========================================
+
+enum class TypeTile
+{
+	None,
+	Ground,
+	Platform,
+	Wall,
+
+	Size,
+};

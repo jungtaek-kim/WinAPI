@@ -69,6 +69,18 @@ void CTileButton::Init()
 
 void CTileButton::Render()
 {
+	RENDER->FrameRect(
+		m_vecRenderPos.x,
+		m_vecRenderPos.y,
+		m_vecRenderPos.x + m_vecScale.x,
+		m_vecRenderPos.y + m_vecScale.y,
+		Color(0, 0, 0, 1)
+	);
+
+	// 0번 타일은 빈타일로 정의
+	if (0 == m_uiTileIndex)
+		return;
+
 	if (nullptr != m_pImage)
 	{
 		RENDER->FrameImage(
@@ -93,14 +105,6 @@ void CTileButton::Render()
 			Color(255, 255, 255, 1)
 		);
 	}
-
-	RENDER->FrameRect(
-		m_vecRenderPos.x,
-		m_vecRenderPos.y,
-		m_vecRenderPos.x + m_vecScale.x,
-		m_vecRenderPos.y + m_vecScale.y,
-		Color(0, 0, 0, 1)
-	);
 }
 
 void CTileButton::Update()
