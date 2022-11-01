@@ -4,7 +4,7 @@
 #include "CCameraManager.h"
 #include "CGameObject.h"
 #include "CTile.h"
-#include "CCollider.h"
+#include "CGroundTile.h"
 
 CScene::CScene()
 {
@@ -181,15 +181,11 @@ void CScene::LoadTile(const wstring& strPath)
 		}
 		else if (TypeTile::Ground == loadTile.GetType())
 		{
-			// CGroundTile* newTile = new CGroundTile;
-			CTile* newGroundTile = new CTile;
-			newGroundTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
-			newGroundTile->SetTileIndex(loadTile.GetTileIndex());
-			newGroundTile->AddCollider(ColliderType::Rect,
-				Vector(CTile::TILESIZE, CTile::TILESIZE),
-				Vector(CTile::TILESIZE / 2, CTile::TILESIZE / 2));
+			CGroundTile* newTile = new CGroundTile;
+			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
+			newTile->SetTileIndex(loadTile.GetTileIndex());
 
-			AddGameObject(newGroundTile);
+			AddGameObject(newTile);
 		}
 	}
 

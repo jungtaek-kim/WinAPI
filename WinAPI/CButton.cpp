@@ -8,6 +8,10 @@ CButton::CButton()
 	m_pCallback = nullptr;
 	m_pParam1 = 0;
 	m_pParam2 = 0;
+
+	m_strText = L"";
+	m_iSizeText = 12;
+	m_colorText = Color(0, 0, 0, 1);
 }
 
 CButton::~CButton()
@@ -19,6 +23,13 @@ void CButton::SetClickedCallback(CallbackFunc pCallback, DWORD_PTR pParam1, DWOR
 	m_pCallback = pCallback;
 	m_pParam1 = pParam1;
 	m_pParam2 = pParam2;
+}
+
+void CButton::SetText(const wstring& text, float fontSize, Color color)
+{
+	m_strText = text;
+	m_iSizeText = fontSize;
+	m_colorText = color;
 }
 
 void CButton::Init()
@@ -45,6 +56,16 @@ void CButton::Render()
 		m_vecRenderPos.x + m_vecScale.x,
 		m_vecRenderPos.y + m_vecScale.y,
 		Color(0, 0, 0, 1)
+	);
+
+	RENDER->Text(
+		m_strText,
+		m_vecRenderPos.x,
+		m_vecRenderPos.y,
+		m_vecRenderPos.x + m_vecScale.x,
+		m_vecRenderPos.y + m_vecScale.y,
+		m_colorText,
+		m_iSizeText
 	);
 }
 

@@ -50,12 +50,13 @@ private:
 public:
 	bool GetReserveDelete();		// 게임오브젝트가 삭제예정인지 확인
 
-private:
+protected:
 	list<CComponent*> m_listComponent;	// 컴포넌트들을 보관할 자료구조
 
-protected:
 	void AddComponent(CComponent* component);		// 컴포넌트 추가
 	void RemoveComponent(CComponent* component);	// 컴포넌트 삭제
+
+	void ComponentRender();
 
 	// 충돌 컴포넌트
 private:

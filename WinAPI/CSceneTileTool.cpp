@@ -28,13 +28,14 @@ CSceneTileTool::CSceneTileTool()
 	m_uiTileCountX = 0;
 	m_uiTileCountY = 0;
 	m_uiSelectedTileIndex = 0;
+	m_typeSelectedTileType = TypeTile::None;
 }
 
 CSceneTileTool::~CSceneTileTool()
 {
 }
 
-void CSceneTileTool::SetTileIndex(UINT index)
+void CSceneTileTool::SetTile(UINT index, TypeTile type)
 {
 	Vector vecMousePos = MOUSEWORLDPOS;
 	float tilePosX = vecMousePos.x / CTile::TILESIZE;
@@ -54,6 +55,7 @@ void CSceneTileTool::SetTileIndex(UINT index)
 			continue;
 
 		pTile->SetTileIndex(index);
+		pTile->SetType(type);
 		return;
 	}
 }
@@ -223,6 +225,11 @@ void CSceneTileTool::ClickTileButton(UINT index)
 	m_uiSelectedTileIndex = index;
 }
 
+void CSceneTileTool::ClickTileType(TypeTile type)
+{
+	m_typeSelectedTileType = type;
+}
+
 void CSceneTileTool::Init()
 {
 }
@@ -256,7 +263,11 @@ void CSceneTileTool::Update()
 
 	if (LMOUSESTAY(false))
 	{
-		SetTileIndex(m_uiSelectedTileIndex);
+		SetTile(m_uiSelectedTileIndex, m_typeSelectedTileType);
+	}
+	if (RMOUSESTAY(false))
+	{
+		SetTile(0, TypeTile::None);
 	}
 
 	CameraMove();

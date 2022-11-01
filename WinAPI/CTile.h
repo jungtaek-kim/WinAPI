@@ -14,7 +14,7 @@ public:
 public:
 	const static int TILESIZE = 32;
 
-private:
+protected:
 	TypeTile m_type;
 
 	CImage* m_pImage;
@@ -47,7 +47,7 @@ public:
 	virtual void Save(FILE* pFile);
 	virtual void Load(FILE* pFile);
 
-private:
+protected:
 	void Init() override;
 	void Update() override;
 	void Render() override;

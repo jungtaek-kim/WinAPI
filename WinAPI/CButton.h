@@ -19,8 +19,14 @@ private:
 	DWORD_PTR		m_pParam1;
 	DWORD_PTR		m_pParam2;
 
+	wstring			m_strText;
+	float			m_iSizeText;
+	Color			m_colorText;
+
 public:
 	void SetClickedCallback(CallbackFunc pCallback, DWORD_PTR pParam1, DWORD_PTR pParam2);
+
+	void SetText(const wstring& text, float fontSize = 12, Color color = Color(0, 0, 0, 1));
 
 private:
 	void Init() override;
