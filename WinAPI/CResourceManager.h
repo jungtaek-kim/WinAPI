@@ -17,6 +17,7 @@ private:
 public:
 	CImage* FindImg(const wstring& key);
 	CImage* LoadImg(const wstring& key, const wstring& fileName);
+	CImage* LoadImgWithPath(const wstring& key, const wstring& filePath);
 
 private:
 	void Init();

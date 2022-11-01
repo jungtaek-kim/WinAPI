@@ -1,5 +1,8 @@
 #pragma once
 #include "CScene.h"
+
+class CImageObject;
+
 class CSceneTileTool : public CScene
 {
 public:
@@ -8,7 +11,7 @@ public:
 
 private:
 	HWND m_hWndTileTool;
-
+	CImageObject* m_pImageObj;
 	float m_fScrollSpeed;
 
 	UINT m_uiTilePanelPage;
@@ -29,6 +32,10 @@ public:
 	void SaveTileData();
 	void LoadTile(const wstring& strPath);
 	void LoadTileData();
+	void SaveMap(const wstring& strPath);
+	void SaveMapData();
+	void LoadMap(const wstring& strPath);
+	void LoadMapData();
 
 	void ClickTileButton(UINT index);
 	void ClickTileType(TypeTile type);
