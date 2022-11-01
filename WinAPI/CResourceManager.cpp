@@ -37,6 +37,22 @@ CImage* CResourceManager::LoadImg(const wstring& key, const wstring& fileName)
 	return pImage;
 }
 
+CImage* CResourceManager::LoadImgWithPath(const wstring& key, const wstring& path)
+{
+	CImage* pImage = FindImg(key);
+	if (nullptr != pImage)
+		return pImage;
+
+	wstring filePath = path;
+	pImage = new CImage;
+	pImage->Load(filePath);
+	pImage->SetKey(key);
+	pImage->SetPath(filePath);
+	m_umapImage.insert(make_pair(key, pImage));
+
+	return pImage;
+}
+
 void CResourceManager::Init()
 {
 }

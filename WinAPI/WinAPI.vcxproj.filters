@@ -46,6 +46,12 @@
     <Filter Include="Engine\Asset\Tile">
       <UniqueIdentifier>{7d2c888e-7d12-4755-bc37-0d63eb9ab8c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Common">
+      <UniqueIdentifier>{9e45e506-939f-4c97-8f87-6146ebb42d5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Stage01">
+      <UniqueIdentifier>{f2ad0501-d505-4b88-af0d-880a4673ef5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -93,12 +99,6 @@
     <ClInclude Include="Struct.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="CMissile.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Util</Filter>
     </ClInclude>
@@ -110,9 +110,6 @@
     </ClInclude>
     <ClInclude Include="CCollisionManager.h">
       <Filter>Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CCollider.h">
       <Filter>Engine\Component</Filter>
@@ -138,9 +135,6 @@
     <ClInclude Include="CCameraManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CCameraController.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="CUI.h">
       <Filter>Engine\Asset\UI</Filter>
     </ClInclude>
@@ -164,6 +158,24 @@
     </ClInclude>
     <ClInclude Include="CTilePanel.h">
       <Filter>Engine\Asset\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CGroundTile.h">
+      <Filter>Engine\Asset\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CImageObject.h">
+      <Filter>GameObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraController.h">
+      <Filter>GameObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CMissile.h">
+      <Filter>GameObject\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>GameObject\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>GameObject\Stage01</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,12 +209,6 @@
     <ClCompile Include="CGameObject.cpp">
       <Filter>Engine\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="CMissile.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="CEventManager.cpp">
       <Filter>Engine\Manager</Filter>
     </ClCompile>
@@ -211,9 +217,6 @@
     </ClCompile>
     <ClCompile Include="CCollisionManager.cpp">
       <Filter>Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>Engine\Component</Filter>
@@ -239,9 +242,6 @@
     <ClCompile Include="CCameraManager.cpp">
       <Filter>Engine\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="CCameraController.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>Engine\Asset\UI</Filter>
     </ClCompile>
@@ -265,6 +265,24 @@
     </ClCompile>
     <ClCompile Include="CTilePanel.cpp">
       <Filter>Engine\Asset\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CGroundTile.cpp">
+      <Filter>Engine\Asset\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CImageObject.cpp">
+      <Filter>GameObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraController.cpp">
+      <Filter>GameObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissile.cpp">
+      <Filter>GameObject\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>GameObject\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>GameObject\Stage01</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

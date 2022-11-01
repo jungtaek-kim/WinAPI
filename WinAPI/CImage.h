@@ -19,7 +19,7 @@ public:
 	int GetWidth();
 	int GetHeight();
 
-private:
+public:
 	ID2D1Bitmap* GetImage();
 	void Load(const wstring& filePath);
 };

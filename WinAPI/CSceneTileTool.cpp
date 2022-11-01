@@ -8,18 +8,21 @@
 #include "CSceneManager.h"
 #include "CPathManager.h"
 #include "CResourceManager.h"
+#include "CRenderManager.h"
 
 #include "CImage.h"
 #include "CTile.h"
 #include "CPanel.h"
 #include "CTileButton.h"
 #include "CTilePanel.h"
+#include "CImageObject.h"
 
 LRESULT CALLBACK    WinTileToolProc(HWND, UINT, WPARAM, LPARAM);
 
 CSceneTileTool::CSceneTileTool()
 {
 	m_hWndTileTool = 0;
+	m_pImageObj = nullptr;
 	m_iTileSizeX = 0;
 	m_iTileSizeY = 0;
 	m_fScrollSpeed = 300;
@@ -220,6 +223,65 @@ void CSceneTileTool::LoadTileData()
 	}
 }
 
+void CSceneTileTool::SaveMap(const wstring& strPath)
+{
+	// TODO : 맵 저장 구현
+}
+
+void CSceneTileTool::SaveMapData()
+{
+	OPENFILENAME ofn = {};
+
+	ofn.lStructSize = sizeof(OPENFILENAME);  // 구조체 사이즈.
+	ofn.hwndOwner = hWnd;					// 부모 윈도우 지정.
+	wchar_t szName[256] = {};
+	ofn.lpstrFile = szName; // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.nMaxFile = sizeof(szName); // lpstrFile에 지정된 버퍼의 문자 수.
+	ofn.lpstrFilter = L"ALL\0*.*\0png\0*.png"; // 필터 설정
+	ofn.nFilterIndex = 0; // 기본 필터 세팅. 0는 all로 초기 세팅됨. 처음꺼.
+	ofn.lpstrFileTitle = nullptr; // 타이틀 바
+	ofn.nMaxFileTitle = 0; // 타이틀 바 문자열 크기. nullptr이면 0.
+	wstring strTileFolder = GETPATH;
+	strTileFolder += L"Image";
+	ofn.lpstrInitialDir = strTileFolder.c_str(); // 초기경로. 우리는 타일 저장할거기 때문에, content->tile 경로로 해두자.
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; // 스타일
+
+	if (GetSaveFileName(&ofn))
+	{
+		SaveMap(szName);
+	}
+}
+
+void CSceneTileTool::LoadMap(const wstring& strPath)
+{
+	CImage* pImage = RESOURCE->LoadImgWithPath(strPath, strPath);
+	m_pImageObj->SetImage(pImage);
+}
+
+void CSceneTileTool::LoadMapData()
+{
+	OPENFILENAME ofn = {};
+
+	ofn.lStructSize = sizeof(OPENFILENAME);  // 구조체 사이즈.
+	ofn.hwndOwner = hWnd; // 부모 윈도우 지정.
+	wchar_t szName[256] = {};
+	ofn.lpstrFile = szName; // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.nMaxFile = sizeof(szName); // lpstrFile에 지정된 버퍼의 문자 수.
+	ofn.lpstrFilter = L"ALL\0*.*\0png\0*.png"; // 필터 설정
+	ofn.nFilterIndex = 0; // 기본 필터 세팅. 0는 all로 초기 세팅됨. 처음꺼.
+	ofn.lpstrFileTitle = nullptr; // 타이틀 바
+	ofn.nMaxFileTitle = 0; // 타이틀 바 문자열 크기. nullptr이면 0.
+	wstring strTileFolder = GETPATH;
+	strTileFolder += L"Image";
+	ofn.lpstrInitialDir = strTileFolder.c_str(); // 초기경로. 우리는 타일 저장할거기 때문에, content->tile 경로로 해두자.
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; // 스타일
+
+	if (GetOpenFileName(&ofn))
+	{
+		LoadMap(szName);
+	}
+}
+
 void CSceneTileTool::ClickTileButton(UINT index)
 {
 	m_uiSelectedTileIndex = index;
@@ -247,6 +309,9 @@ void CSceneTileTool::Enter()
 		rect.right - rect.left, rect.bottom - rect.top, true);
 
 	CreateTiles(10, 10, true);
+
+	m_pImageObj = new CImageObject;
+	AddGameObject(m_pImageObj);
 
 	CTilePanel* pTilePanel = new CTilePanel;
 	pTilePanel->SetScale(Vector(400.f, 600.f));
@@ -322,6 +387,22 @@ LRESULT CALLBACK    WinTileToolProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 			assert(nullptr != pTileToolScene && L"TileTool Scene cast Failed");
 
 			pTileToolScene->LoadTileData();
+		}
+		else if (LOWORD(wParam) == IDC_BUTTONMAPSAVE)
+		{
+			CScene* pCurScene = SCENE->GetCurScene();
+			CSceneTileTool* pTileToolScene = dynamic_cast<CSceneTileTool*>(pCurScene);
+			assert(nullptr != pTileToolScene && L"TileTool Scene cast Failed");
+
+			pTileToolScene->SaveMapData();
+		}
+		else if (LOWORD(wParam) == IDC_BUTTONMAPLOAD)
+		{
+			CScene* pCurScene = SCENE->GetCurScene();
+			CSceneTileTool* pTileToolScene = dynamic_cast<CSceneTileTool*>(pCurScene);
+			assert(nullptr != pTileToolScene && L"TileTool Scene cast Failed");
+
+			pTileToolScene->LoadMapData();
 		}
 		return (INT_PTR)TRUE;
 		break;
