@@ -180,6 +180,9 @@
     <ClInclude Include="CSound.h">
       <Filter>Engine\Asset\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="CSoundManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -289,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="CSound.cpp">
       <Filter>Engine\Asset\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
