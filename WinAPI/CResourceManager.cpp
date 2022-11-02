@@ -3,6 +3,7 @@
 
 #include "CPathManager.h"
 #include "CImage.h"
+#include "CSound.h"
 
 CResourceManager::CResourceManager()
 {
@@ -51,6 +52,31 @@ CImage* CResourceManager::LoadImgWithPath(const wstring& key, const wstring& pat
 	m_umapImage.insert(make_pair(key, pImage));
 
 	return pImage;
+}
+
+CSound* CResourceManager::FindSound(const wstring& key)
+{
+	auto iter = m_umapSound.find(key);
+	if (iter == m_umapSound.end())
+		return nullptr;
+	else
+		return m_umapSound[key];
+}
+
+CSound* CResourceManager::LoadSound(const wstring& key, const wstring& fileName)
+{
+	CSound* pSound = FindSound(key);
+	if (nullptr != pSound)
+		return pSound;
+
+	wstring filePath = GETPATH + fileName;
+	pSound = new CSound;
+	pSound->Load(filePath);
+	pSound->SetKey(key);
+	pSound->SetPath(filePath);
+	m_umapSound.insert(make_pair(key, pSound));
+
+	return pSound;
 }
 
 void CResourceManager::Init()

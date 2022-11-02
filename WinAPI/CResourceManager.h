@@ -2,6 +2,7 @@
 
 class CCore;
 class CImage;
+class CSound;
 
 class CResourceManager : public SingleTon<CResourceManager>
 {
@@ -13,11 +14,15 @@ private:
 
 private:
 	unordered_map<wstring, CImage*> m_umapImage;
+	unordered_map<wstring, CSound*> m_umapSound;
 
 public:
 	CImage* FindImg(const wstring& key);
 	CImage* LoadImg(const wstring& key, const wstring& fileName);
 	CImage* LoadImgWithPath(const wstring& key, const wstring& filePath);
+
+	CSound* FindSound(const wstring& key);
+	CSound* LoadSound(const wstring& key, const wstring& fileName);
 
 private:
 	void Init();
