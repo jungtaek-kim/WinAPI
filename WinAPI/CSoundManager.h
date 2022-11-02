@@ -14,8 +14,6 @@ private:
 private:
 	FMOD::System* m_pSystem;	// 사운드 시스템
 
-	list<CSound*> m_listLoopSound;
-
 public:
 	System* GetSystem();
 

@@ -32,19 +32,14 @@ void CSoundManager::Play(CSound* pSound, float volume, bool loop)
 	}
 
 	if (loop)
-	{
 		result = pSound->m_pSound->setMode(FMOD_LOOP_NORMAL);
-		assert(FMOD_OK == result && L"Set Loop failed");
-		result = m_pSystem->playSound(pSound->m_pSound, nullptr, false, &(pSound->m_pChannel));
-		assert(FMOD_OK == result && L"Play sound failed");
-	}
 	else
-	{
 		result = pSound->m_pSound->setMode(FMOD_LOOP_OFF);
-		assert(FMOD_OK == result && L"Set Loop failed");
-		result = m_pSystem->playSound(pSound->m_pSound, nullptr, false, &(pSound->m_pChannel));
-		assert(FMOD_OK == result && L"Play sound failed");
-	}
+
+	assert(FMOD_OK == result && L"Set Loop failed");
+
+	result = m_pSystem->playSound(pSound->m_pSound, nullptr, false, &(pSound->m_pChannel));
+	assert(FMOD_OK == result && L"Play sound failed");
 
 	result = pSound->m_pChannel->setVolume(volume);
 	assert(FMOD_OK == result && L"Set volume failed");

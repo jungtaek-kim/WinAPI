@@ -85,9 +85,15 @@ void CResourceManager::Init()
 
 void CResourceManager::Release()
 {
-	for (pair<wstring, CImage*> texture : m_umapImage)
+	for (pair<wstring, CImage*> image : m_umapImage)
 	{
-		delete texture.second;
+		delete image.second;
 	}
 	m_umapImage.clear();
+
+	for (pair<wstring, CSound*> sound : m_umapSound)
+	{
+		delete sound.second;
+	}
+	m_umapSound.clear();
 }
