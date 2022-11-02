@@ -37,6 +37,12 @@ using namespace std;
 
 using namespace D2D1;
 
+// FMOD
+#include "FMOD/inc/fmod.hpp"
+#pragma comment(lib,"FMOD/lib/fmod_vc.lib")
+
+using namespace FMOD;
+
 // Util
 #include "SingleTon.h"
 #include "Struct.h"
