@@ -153,12 +153,6 @@
     <ClInclude Include="CTile.h">
       <Filter>Engine\Asset\Tile</Filter>
     </ClInclude>
-    <ClInclude Include="CTileButton.h">
-      <Filter>Engine\Asset\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="CTilePanel.h">
-      <Filter>Engine\Asset\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="CGroundTile.h">
       <Filter>Engine\Asset\Tile</Filter>
     </ClInclude>
@@ -176,6 +170,15 @@
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="CTilePanel.h">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileButton.h">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CSound.h">
+      <Filter>Engine\Asset\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,12 +263,6 @@
     <ClCompile Include="CTile.cpp">
       <Filter>Engine\Asset\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="CTileButton.cpp">
-      <Filter>Engine\Asset\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="CTilePanel.cpp">
-      <Filter>Engine\Asset\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="CGroundTile.cpp">
       <Filter>Engine\Asset\Tile</Filter>
     </ClCompile>
@@ -283,6 +280,15 @@
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileButton.cpp">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTilePanel.cpp">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CSound.cpp">
+      <Filter>Engine\Asset\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
