@@ -47,3 +47,40 @@ using namespace FMOD;
 #include "SingleTon.h"
 #include "Struct.h"
 #include "Logger.h"
+
+// Engine 1.0
+#include "WinAPI.h"
+
+#include "CCore.h"
+#include "CTimeManager.h"
+#include "CRenderManager.h"
+#include "CInputManager.h"
+#include "CSceneManager.h"
+#include "CEventManager.h"
+#include "CCollisionManager.h"
+#include "CPathManager.h"
+#include "CResourceManager.h"
+#include "CCameraManager.h"
+#include "CUIManager.h"
+#include "CSoundManager.h"
+
+// Asset
+#include "CGameObject.h"
+#include "CScene.h"
+
+// Resource
+#include "CResource.h"
+#include "CImage.h"
+#include "CSound.h"
+#include "CAnimation.h"
+#include "CTile.h"
+
+// UI
+#include "CUI.h"
+#include "CButton.h"
+#include "CPanel.h"
+
+// Component
+#include "CComponent.h"
+#include "CAnimator.h"
+#include "CCollider.h"
